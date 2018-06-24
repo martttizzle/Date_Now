@@ -1,7 +1,8 @@
-{
+require('dotenv').config(); // this is important!
+module.exports = {
   "development": {
-    "username": "DB_HOST",
-    "password": "DB_PASSWORD",
+    "username": process.env.DB_USER,
+    "password": process.env.DB_PASSWORD,
     "database": "datenow_db",
     "host": "127.0.0.1",
     "dialect": "mysql"

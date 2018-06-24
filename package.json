@@ -1,0 +1,28 @@
+{
+  "name": "date_now",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martttizzle/Date_Now.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martttizzle/Date_Now/issues"
+  },
+  "homepage": "https://github.com/martttizzle/Date_Now#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.38.0"
+  },
+  "devDependencies": {}
+}

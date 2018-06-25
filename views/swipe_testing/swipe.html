@@ -161,7 +161,7 @@
 
                 <!-- Card 1 SET 2 -->
 
-                <div class="card mx-auto hidden" data-set="2" data-card="1" style="width: 25rem;">
+                <div class="card mx-auto hidden"  data-card="1" data-set="2" style="width: 25rem;">
 
                     <!-- Image -->
 
@@ -220,6 +220,67 @@
                         </div>
                     </div>
                 </div>
+
+                   <!-- Card 2 SET 2 -->
+
+                   <div class="card mx-auto hidden"  data-card="2" data-set="2" style="width: 25rem;">
+
+                        <!-- Image -->
+    
+                        <img class="card-img-top" src="http://www.loppet.org/loppet-adventure-clubs/files/2012/10/Random-006-Medium.jpg" alt="Card image cap">
+                        <div class="card-body">
+    
+                            <!-- Name -->
+    
+                            <h5 class="card-title">Theodore Wirth Park</h5>
+    
+                            <!-- Counter Data if applicable  -->
+    
+                            <h6 class="card-subtitle mb-2 text-muted">28 Recent Dates(!)</h6>
+    
+                            <!-- Short Description  -->
+    
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
+                                voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
+                                aliquid quia, vitae libero ullam!</p>
+    
+                            <!-- STAR RATING  -->
+    
+                            <p class="card-text">Rating:
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                            </p>
+    
+                            <!-- BACK || SELECT || FORWARD BUTTONS  -->
+    
+                            <div class="d-flex justify-content-between">
+    
+                                <button class="btn switch btn-danger" data-name="-">
+                                    <span class="fa fa-arrow-left"></span>
+                                </button>
+    
+                                <div>
+    
+                                    <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+    
+                                    <button class="btn-lg select btn-success" data-activity-type="park" data-name="Theodore Wirth Park" data-zipcode="55411" data-api-type="google"
+                                        data-api-id="888888testing">
+                                        <span class="fa fa-heart"></span>
+                                        <span class="fa fa-heart"></span>
+                                        <span class="fa fa-heart"></span>
+                                    </button>
+    
+                                </div>
+    
+                                <button class="btn switch btn-primary" data-name="+">
+                                    <span class="fa fa-arrow-right"></span>
+                                </button>
+    
+                            </div>
+                        </div>
+                    </div>
 
             </div>
         </div>
@@ -309,15 +370,32 @@
                 //Store Attributes
                 var newSelection = {
                     name: $(this).data("name"),
-                    type: $(this).data("type"),
+                    type: $(this).data("activity-type"),
                     zipcode: $(this).data("zipcode"),
                     apiType: $(this).data("api-type"),
                     apiId: $(this).data("api-id")
                 }
 
                 userSelections.push(newSelection);
+                
+                var nextSet = parseInt(cardSet+1);
+                var $nextCardSet = $('div[data-card=' + 1 + '][data-set=' + nextSet + ']');
 
-                //if there are no more card sets, 
+                console.log($nextCardSet);
+                //if there are no more card sets, Push data to server?
+                if ($nextCardSet.length) {
+                    console.log("NEXT SET EXISTS");
+                    //Hide current set
+                    $('div[data-set='+cardSet+']').hide();
+                    $nextCardSet.show();
+                    cardSet++;
+                    cardTracker=1
+                } else {
+                    console.log("SUBMIT FORM????");
+                }
+
+                //if there are more card sets, hide all cards from current set, and increase card set and show 1st in next set.  
+
                 console.log(userSelections);
 
             });

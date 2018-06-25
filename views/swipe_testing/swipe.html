@@ -44,7 +44,7 @@
 
                 <!-- Card 1 -->
 
-                <div class="card mx-auto hidden" data-card="1" style="width: 25rem;">
+                <div class="card mx-auto hidden" data-set="1" data-card="1" style="width: 25rem;">
 
                     <!-- Image -->
 
@@ -77,7 +77,7 @@
 
                         <div class="d-flex justify-content-between">
 
-                            <button class="btn back btn-danger">
+                            <button class="btn switch btn-danger" data-name="-">
                                 <span class="fa fa-arrow-left"></span>
                             </button>
 
@@ -85,7 +85,8 @@
 
                                 <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
 
-                                <button class="btn-lg select btn-success" data-name="Young Joni" data-zipcode="55412" data-api-type="google" data-api-id="333333testing">
+                                <button class="btn-lg select btn-success" data-activity-type="restuarant" data-name="Young Joni" data-zipcode="55412" data-api-type="google"
+                                    data-api-id="333333testing">
                                     <span class="fa fa-heart"></span>
                                     <span class="fa fa-heart"></span>
                                     <span class="fa fa-heart"></span>
@@ -93,21 +94,20 @@
 
                             </div>
 
-                            <button class="btn forward btn-primary">
+                            <button class="btn switch btn-primary" data-name="+">
                                 <span class="fa fa-arrow-right"></span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-
                 <!-- Card 2 -->
 
-                <div class="card mx-auto hidden" data-card="2" style="width: 25rem;">
+                <div class="card mx-auto hidden" data-set="1" data-card="2" style="width: 25rem;">
 
                     <!-- Image -->
 
-                    <img class="card-img-top" src="http://heavytable.com/wp-content/uploads/2016/12/young-joni-oven.jpg" alt="Card image cap">
+                    <img class="card-img-top" src="http://www.lakesnwoods.com/images/2007_0610a0201.JPG" alt="Card image cap">
                     <div class="card-body">
 
                         <!-- Name -->
@@ -116,7 +116,65 @@
 
                         <!-- Counter Data if applicable  -->
 
-                        <h6 class="card-subtitle mb-2 text-muted">2 Recent Dates(!)</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">3 Recent Dates(!)</h6>
+
+                        <!-- Short Description  -->
+
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
+                            voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
+                            aliquid quia, vitae libero ullam!</p>
+
+                        <!-- STAR RATING  -->
+
+                        <p class="card-text">Rating:
+                            <span class="fa fa-star checked"></span>
+                        </p>
+
+                        <!-- BACK || SELECT || FORWARD BUTTONS  -->
+
+                        <div class="d-flex justify-content-between">
+
+                            <button class="btn switch btn-danger" data-name="-">
+                                <span class="fa fa-arrow-left"></span>
+                            </button>
+
+                            <div>
+
+                                <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+
+                                <button class="btn-lg select btn-success" data-activity-type="restaurant" data-name="Pizza Hut" data-zipcode="33222" data-api-type="google"
+                                    data-api-id="444444testing">
+                                    <span class="fa fa-heart"></span>
+                                    <span class="fa fa-heart"></span>
+                                    <span class="fa fa-heart"></span>
+                                </button>
+
+                            </div>
+
+                            <button class="btn switch btn-primary" data-name="+">
+                                <span class="fa fa-arrow-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Card 1 SET 2 -->
+
+                <div class="card mx-auto hidden" data-set="2" data-card="1" style="width: 25rem;">
+
+                    <!-- Image -->
+
+                    <img class="card-img-top" src="http://alphanewsmn.com/wp-content/uploads/2016/07/Lake-Calhoun_ThomasBeach.jpg" alt="Card image cap">
+                    <div class="card-body">
+
+                        <!-- Name -->
+
+                        <h5 class="card-title">Lake Calhoun</h5>
+
+                        <!-- Counter Data if applicable  -->
+
+                        <h6 class="card-subtitle mb-2 text-muted">253 Recent Dates(!)</h6>
 
                         <!-- Short Description  -->
 
@@ -129,13 +187,16 @@
                         <p class="card-text">Rating:
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
                         </p>
 
                         <!-- BACK || SELECT || FORWARD BUTTONS  -->
 
                         <div class="d-flex justify-content-between">
 
-                            <button class="btn back btn-danger">
+                            <button class="btn switch btn-danger" data-name="-">
                                 <span class="fa fa-arrow-left"></span>
                             </button>
 
@@ -143,7 +204,8 @@
 
                                 <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
 
-                                <button class="btn-lg select btn-success" data-name="Pizza Hut" data-zipcode="33442" data-api-type="google" data-api-id="44444testing">
+                                <button class="btn-lg select btn-success" data-activity-type="park" data-name="Lake Calhoun" data-zipcode="54833" data-api-type="google"
+                                    data-api-id="555555testing">
                                     <span class="fa fa-heart"></span>
                                     <span class="fa fa-heart"></span>
                                     <span class="fa fa-heart"></span>
@@ -151,13 +213,13 @@
 
                             </div>
 
-                            <button class="btn forward btn-primary">
+                            <button class="btn switch btn-primary" data-name="+">
                                 <span class="fa fa-arrow-right"></span>
                             </button>
+
                         </div>
                     </div>
                 </div>
-
 
             </div>
         </div>
@@ -178,16 +240,88 @@
         // Make sure we wait to attach our handlers until the DOM is fully loaded.
         $(function () {
 
-            //Show the first card
-            $('div[data-card="1"]').removeClass("hidden");
+            //Array to store user selection objects
+            var userSelections = [];
 
 
-            //Keeps track of card count
+            //Show the first card on page load
+            $('div[data-card="1"][data-set="1"').removeClass("hidden");
+
+            //Keep track of current card
             var cardTracker = 1;
 
-            if ($('div[data-card="5"]').length) {
-                console.log("EXISTS");
+            //Keep track of current set- this variable is used to keep track of a stack of cards- we only want to show one set at a time (i.e. restaurants) and when a restuarant is selected, we want to the restaurant cards, and show the next set of cards (activities, for example);
+
+            var cardSet = 1;
+
+            //Main Forward/Reverse Card Function
+
+
+            function adder(operator) {
+
+                switch (operator) {
+                    case "+":
+                        return cardTracker + 1;
+                        break;
+
+                    case "-":
+
+                        return cardTracker - 1;
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+
             }
+
+            $(".switch").on('click', function () {
+                var operator = $(this).data("name");
+
+                var potentialCard = adder(operator);
+
+                var $currentCard = $('div[data-card=' + cardTracker + '][data-set=' + cardSet + ']');
+
+                var $nextCard = $('div[data-card=' + potentialCard + '][data-set=' + cardSet + ']');
+
+                if ($nextCard.length) {
+                    console.log("EXISTS");
+
+                    //Card EXISTS, So Hide Current Card, Show next or previous Card
+                    $currentCard.hide();
+                    $nextCard.show();
+
+                    cardTracker = potentialCard;
+                } else {
+
+                    //Card Does not exist so do nothing...  In the future, this could go back to the last card to create a loop
+                    console.log("DOESN'T EXIST");
+                }
+
+            });
+
+
+            //Item is Selected Event Handler
+            $(".select").on('click', function () {
+
+                //Store Attributes
+                var newSelection = {
+                    name: $(this).data("name"),
+                    type: $(this).data("type"),
+                    zipcode: $(this).data("zipcode"),
+                    apiType: $(this).data("api-type"),
+                    apiId: $(this).data("api-id")
+                }
+
+                userSelections.push(newSelection);
+
+                //if there are no more card sets, 
+                console.log(userSelections);
+
+            });
+
 
 
 

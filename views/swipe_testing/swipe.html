@@ -1,0 +1,161 @@
+<!-- NOTE: THIS FILE IS ONLY INTENDED FOR TESTING / CONVERSION TO HANDLEBARS PURPOSES -->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+
+    <title>Jaunt</title>
+</head>
+
+<body>
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark bg-dark">
+        <span class=" mx-auto text-white mb-0 h1">Jaunt.</span>
+    </nav>
+
+    <br>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+
+                <!-- Card 1 -->
+
+                <div class="card" data-card="1" style="width: 25rem;">
+
+                    <!-- Image -->
+
+                    <img class="card-img-top" src="http://heavytable.com/wp-content/uploads/2016/12/young-joni-oven.jpg" alt="Card image cap">
+                    <div class="card-body">
+
+                        <!-- Name -->
+
+                        <h5 class="card-title">Young Joni Restaurant</h5>
+
+                        <!-- Counter Data if applicable  -->
+
+                        <h6 class="card-subtitle mb-2 text-muted">75 Recent Dates(!)</h6>
+
+                        <!-- Short Description  -->
+
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
+                            voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
+                            aliquid quia, vitae libero ullam!</p>
+
+                        <!-- Short Description  -->
+
+
+                        <button class="btn back btn-danger">Back</button>
+
+                        <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+
+                        <button class="btn select btn-success" data-name="Young Joni" data-zipcode="55412" data-api-type="google" data-api-id="333333testing">Select</button>
+
+                        <button class="btn forward btn-primary">Forward</button>
+
+                    </div>
+                </div>
+
+                <div class="card " data-card="2" style="width: 18rem;">
+                    <img class="card-img-top" src="http://www.lakesnwoods.com/images/2007_0610a0201.JPG" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Pizza Hut</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
+                            voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
+                            aliquid quia, vitae libero ullam!</p>
+
+                        <p class="card-text">Review</p>
+                        <p class="card-text">Review</p>
+
+                        <button class="btn back btn-danger">Back</button>
+
+                        <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+
+                        <button class="btn select btn-success" data-name="Pizza Hut" data-zipcode="55232" data-api-type="google" data-api-id="44444testing">Select</button>
+
+                        <button class="btn forward btn-primary">Forward</button>
+
+                    </div>
+                </div>
+
+                <div class="card" id="card1" style="width: 18rem;">
+                    <img class="card-img-top" src="http://heavytable.com/wp-content/uploads/2016/12/young-joni-oven.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Young Joni Restaurant</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
+                            voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
+                            aliquid quia, vitae libero ullam!</p>
+                        <button class="btn back btn-danger">Back</button>
+
+                        <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+
+                        <button class="btn select btn-success" data-name="Young Joni" data-zipcode="55412" data-api-type="google" data-api-id="333333testing">Select</button>
+
+                        <button class="btn forward btn-primary">Forward</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom JS -->
+    <script>
+        // Make sure we wait to attach our handlers until the DOM is fully loaded.
+        $(function () {
+
+            $("#search-form").on("submit", function (event) {
+                // Make sure to preventDefault on a submit event.
+                event.preventDefault();
+
+                var newDateSearch = {
+                    userLocation: $("#user-location-input").val().trim(),
+                    dateMethods: $("#date-options-input").val().trim(),
+                    maxRange: $("#max-range-input").val().trim()
+                };
+
+                console.log(newDateSearch);
+
+
+                // Send the POST request.
+                $.ajax("/api/???", {
+                    type: "POST",
+                    data: newDateSearch
+                }).then(
+                    function () {
+                        console.log("created new search");
+
+                        //Redirect to new page somehow
+                    }
+                );
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

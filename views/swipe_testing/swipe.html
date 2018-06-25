@@ -12,7 +12,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
 
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>Jaunt</title>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,6 +35,7 @@
 
     <br>
 
+    <!-- MAIN DYNAMIC CARD CONTAINER -->
 
     <div class="container">
         <div class="row">
@@ -33,7 +44,7 @@
 
                 <!-- Card 1 -->
 
-                <div class="card" data-card="1" style="width: 25rem;">
+                <div class="card mx-auto hidden" data-card="1" style="width: 25rem;">
 
                     <!-- Image -->
 
@@ -54,59 +65,99 @@
                             voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
                             aliquid quia, vitae libero ullam!</p>
 
-                        <!-- Short Description  -->
+                        <!-- STAR RATING  -->
 
+                        <p class="card-text">Rating:
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        </p>
 
-                        <button class="btn back btn-danger">Back</button>
+                        <!-- BACK || SELECT || FORWARD BUTTONS  -->
 
-                        <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+                        <div class="d-flex justify-content-between">
 
-                        <button class="btn select btn-success" data-name="Young Joni" data-zipcode="55412" data-api-type="google" data-api-id="333333testing">Select</button>
+                            <button class="btn back btn-danger">
+                                <span class="fa fa-arrow-left"></span>
+                            </button>
 
-                        <button class="btn forward btn-primary">Forward</button>
+                            <div>
 
+                                <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+
+                                <button class="btn-lg select btn-success" data-name="Young Joni" data-zipcode="55412" data-api-type="google" data-api-id="333333testing">
+                                    <span class="fa fa-heart"></span>
+                                    <span class="fa fa-heart"></span>
+                                    <span class="fa fa-heart"></span>
+                                </button>
+
+                            </div>
+
+                            <button class="btn forward btn-primary">
+                                <span class="fa fa-arrow-right"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card " data-card="2" style="width: 18rem;">
-                    <img class="card-img-top" src="http://www.lakesnwoods.com/images/2007_0610a0201.JPG" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Pizza Hut</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
-                            voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
-                            aliquid quia, vitae libero ullam!</p>
 
-                        <p class="card-text">Review</p>
-                        <p class="card-text">Review</p>
+                <!-- Card 2 -->
 
-                        <button class="btn back btn-danger">Back</button>
+                <div class="card mx-auto hidden" data-card="2" style="width: 25rem;">
 
-                        <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+                    <!-- Image -->
 
-                        <button class="btn select btn-success" data-name="Pizza Hut" data-zipcode="55232" data-api-type="google" data-api-id="44444testing">Select</button>
-
-                        <button class="btn forward btn-primary">Forward</button>
-
-                    </div>
-                </div>
-
-                <div class="card" id="card1" style="width: 18rem;">
                     <img class="card-img-top" src="http://heavytable.com/wp-content/uploads/2016/12/young-joni-oven.jpg" alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">Young Joni Restaurant</h5>
+
+                        <!-- Name -->
+
+                        <h5 class="card-title">Pizza Hut</h5>
+
+                        <!-- Counter Data if applicable  -->
+
+                        <h6 class="card-subtitle mb-2 text-muted">2 Recent Dates(!)</h6>
+
+                        <!-- Short Description  -->
+
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
                             voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
                             aliquid quia, vitae libero ullam!</p>
-                        <button class="btn back btn-danger">Back</button>
 
-                        <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+                        <!-- STAR RATING  -->
 
-                        <button class="btn select btn-success" data-name="Young Joni" data-zipcode="55412" data-api-type="google" data-api-id="333333testing">Select</button>
+                        <p class="card-text">Rating:
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                        </p>
 
-                        <button class="btn forward btn-primary">Forward</button>
+                        <!-- BACK || SELECT || FORWARD BUTTONS  -->
 
+                        <div class="d-flex justify-content-between">
+
+                            <button class="btn back btn-danger">
+                                <span class="fa fa-arrow-left"></span>
+                            </button>
+
+                            <div>
+
+                                <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+
+                                <button class="btn-lg select btn-success" data-name="Pizza Hut" data-zipcode="33442" data-api-type="google" data-api-id="44444testing">
+                                    <span class="fa fa-heart"></span>
+                                    <span class="fa fa-heart"></span>
+                                    <span class="fa fa-heart"></span>
+                                </button>
+
+                            </div>
+
+                            <button class="btn forward btn-primary">
+                                <span class="fa fa-arrow-right"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
+
 
             </div>
         </div>
@@ -127,31 +178,18 @@
         // Make sure we wait to attach our handlers until the DOM is fully loaded.
         $(function () {
 
-            $("#search-form").on("submit", function (event) {
-                // Make sure to preventDefault on a submit event.
-                event.preventDefault();
-
-                var newDateSearch = {
-                    userLocation: $("#user-location-input").val().trim(),
-                    dateMethods: $("#date-options-input").val().trim(),
-                    maxRange: $("#max-range-input").val().trim()
-                };
-
-                console.log(newDateSearch);
+            //Show the first card
+            $('div[data-card="1"]').removeClass("hidden");
 
 
-                // Send the POST request.
-                $.ajax("/api/???", {
-                    type: "POST",
-                    data: newDateSearch
-                }).then(
-                    function () {
-                        console.log("created new search");
+            //Keeps track of card count
+            var cardTracker = 1;
 
-                        //Redirect to new page somehow
-                    }
-                );
-            });
+            if ($('div[data-card="5"]').length) {
+                console.log("EXISTS");
+            }
+
+
 
         });
 

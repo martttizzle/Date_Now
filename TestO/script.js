@@ -6,21 +6,22 @@ $(document).ready(function () {
     var googleapiKey = "AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA";
     var locationURL;
     var map;
+    
 
     $("button").click(function () {
         $("input:text").val();
-        var zip = $("#zip").val();
+        // var zip = $("#zip").val();
         locationURL = geocodeQueryBuild(zip);
         callgeocodeAPI(locationURL);
     });
 
-
+// "https://maps.googleapis.com/maps/api/geocode/json?address=" + input + "&key=" + googleapiKey;
 
     function geocodeQueryBuild(input) {
-        var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + input + "&key=" + googleapiKey;;
+        var queryURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+Sydney&key=AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA" 
         return queryURL;
     };
-
+// + googleapiKey;
     // This function calls the geocode API and gets lang & latt
     function callgeocodeAPI(queryURL) {
         $.ajax({
@@ -34,7 +35,8 @@ $(document).ready(function () {
                 lat: ilat,
                 lng: ilng
             }
-            init();
+            console.log(gecodeoResp);
+            init(); 
         });
 
     
@@ -58,13 +60,12 @@ $(document).ready(function () {
     }
 
     function callback(results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-                var place = results[i];
-                console.log(place);
+        
+            
+                console.log(results);
 
             }
-        }
-    }
+        
+     
 };
 })

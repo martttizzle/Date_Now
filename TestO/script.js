@@ -7,17 +7,19 @@ $(document).ready(function () {
     var locationURL;
     var map;
 
-    $("button").click(function () {
-        $("input:text").val();
+    $("#find-location").on("click", function () {
+        // $("input:text").val();
         var zip = $("#zip").val();
+        console.log(zip);
         locationURL = geocodeQueryBuild(zip);
+        console.log(locationURL);
         callgeocodeAPI(locationURL);
     });
 
 
 
     function geocodeQueryBuild(input) {
-        var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + input + "&key=" + googleapiKey;;
+        var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + input + "&key=" + googleapiKey;
         return queryURL;
     };
 
@@ -29,7 +31,7 @@ $(document).ready(function () {
         }).then(function (gecodeoResp) {
             ilat = parseFloat(gecodeoResp.results[0].geometry.location.lat);
             ilng = parseFloat(gecodeoResp.results[0].geometry.location.lng);
-
+            console.log(ilat, ilng);
             pyrmont = {
                 lat: ilat,
                 lng: ilng
@@ -37,34 +39,34 @@ $(document).ready(function () {
             init();
         });
 
-    
 
-    function init() {
 
-        map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 15,
-            center: pyrmont
-        });
+        function init() {
 
-        var request = {
-            location: pyrmont,
-            radius: 5,
-            query: [rest]
-        };
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: pyrmont
+            });
 
-        var service = new google.maps.places.PlacesService(map);
-        service.textSearch(request, callback());
+            var request = {
+                location: pyrmont,
+                radius: 5,
+                query: [rest]
+            };
 
-    }
+            var service = new google.maps.places.PlacesService(map);
+            service.textSearch(request, callback());
 
-    function callback(results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-                var place = results[i];
-                console.log(place);
+        }
 
+        function callback(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    var place = results[i];
+                    console.log(place);
+
+                }
             }
         }
-    }
-};
+    };
 })

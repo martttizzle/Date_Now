@@ -10,7 +10,7 @@ var bodyParser = require("body-parser");
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = process.env.PORT || 5000;
+var PORT = process.env.PORT || 3000;
 
 // Requiring our models for syncing
 var db = require("./models");
@@ -25,16 +25,24 @@ app.use(bodyParser.json());
 // Static directory
 app.use(express.static("public"));
 
-// Routes
-// =============================================================
-require("./routes/html-routes.js")(app);
-// require("./routes/author-api-routes.js")(app);
-require("./routes/api-routes.js")(app);
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("hbs", exphbs({ defaultLayout: "main.hbs" }));
+app.set("view engine", "hbs");
+
+
+// Import routes and give the server access to them.
+ var routes = require("./controllers/date_controller.js");
+
+ app.use(routes);
+
+
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync({ force: true }).then(function() {
   app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+    console.log("Server listening on: http://localhost:" + PORT);
   });
 });

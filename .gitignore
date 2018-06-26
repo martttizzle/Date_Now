@@ -1,4 +1,6 @@
 #node modules dependencies
 node_modules/*
+#Archives
+archives/*
 # dotenv environment variables file
 .env

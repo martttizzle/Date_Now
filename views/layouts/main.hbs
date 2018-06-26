@@ -10,6 +10,29 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
 
+          <!-- FONT AWESOME -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Custom CSS -->
+        <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
+
+         <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+   
+
+  <!-- Javascript files -->
+    <script src="/assets/javascript/index.js"></script>
+    <script src="/assets/javascript/itinerary.js"></script>
+    <script src="/assets/javascript/swipe.js"></script>
+
     <title>Jaunt</title>
 </head>
 
@@ -24,49 +47,7 @@
     
      {{{ body }}}
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
-
-    <!-- Custom JS -->
-    <script>
-        // Make sure we wait to attach our handlers until the DOM is fully loaded.
-        $(function () {
-
-            $("#search-form").on("submit", function (event) {
-                // Make sure to preventDefault on a submit event.
-                event.preventDefault();
-
-                var newDateSearch = {
-                    userLocation: $("#user-location-input").val().trim(),
-                    dateMethods: $("#date-options-input").val().trim(),
-                    maxRange: $("#max-range-input").val().trim()
-                };
-
-                console.log(newDateSearch);
-
-
-                // Send the POST request.
-                $.ajax("/api/???", {
-                    type: "POST",
-                    data: newDateSearch
-                }).then(
-                    function () {
-                        console.log("created new search");
-
-                        //Normally there would be a page refresh at this point, but I think we actually want to route to the new page (the page with the restaurant options)
-                    }
-                );
-            });
-
-        });
-
-    </script>
+   
 </body>
 
 </html>

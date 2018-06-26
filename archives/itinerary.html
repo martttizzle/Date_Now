@@ -1,0 +1,109 @@
+<!-- NOTE: THIS FILE IS ONLY INTENDED FOR TESTING / CONVERSION TO HANDLEBARS PURPOSES -->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+
+    <title>Jaunt</title>
+</head>
+
+<body>
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark bg-dark">
+        <span class=" mx-auto text-white mb-0 h1">Jaunt.</span>
+    </nav>
+
+    <br>
+
+
+    <!-- Main Form Container -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <!-- These Comments and a lot of these html attributes will need to be dynamic and dictated by the server. I think we'll actually need to put zip code, api type = google, google unique id somewhere in here as this 'form' will be submitted to the server again for logging user choices/counter in the db-->
+                <h2> Your Itinerary: </h2>
+                <br>
+                <form id="navigation-form">
+
+                    <div class="form-group">
+                        <label for="todo-item-1"> You will be Eating At:</label>
+                        <input class="form-control user-selections" id="todo-item-1" data-name="Applebees" data-zipcode="55404" data-api-type="google" data-api-id="11111testing" type="text" placeholder="Applebees" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="todo-item-2"> You will be Going To:</label>
+                        <input class="form-control user-selections" id="todo-item-2" data-name="Lake Calhoun" data-zipcode="55411" data-api-type="google" data-api-id="22222testing" type="text" placeholder="Lake Calhoun" readonly>
+                    </div>
+                 
+
+                    <button type="submit" id="begin-navigation-button" class="btn btn-primary">Let's Go!</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom JS -->
+    <script>
+        // Make sure we wait to attach our handlers until the DOM is fully loaded.
+        $(function () {
+
+
+            $("#navigation-form").on("submit", function (event) {
+                // Make sure to preventDefault on a submit event.
+                event.preventDefault();
+
+                //This function will need to accomodate 1 to MANY potential activities- not just 2- probably will need a constructor.
+                console.log($("#todo-item-1").attr('data-api-type'));
+
+      
+                var userSelections = {
+                    selection1:userSelection1,
+                    selection2:userSelection2
+                };
+
+                console.log(userSelections);
+
+
+                // Send the POST request for the server to add the unique info from the user choices to the counter database .
+                $.ajax("/api/???", {
+                    type: "POST",
+                    data: userSelections
+                }).then(
+                    function () {
+                        console.log("things have been selected!");
+
+
+                        //WE NEED TO DIRECT PAGE TO GOOGLE MAPS USING VAR userSelections as input AT THIS POINT
+                       
+                    }
+                );
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

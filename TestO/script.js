@@ -6,34 +6,24 @@ $(document).ready(function () {
     var googleapiKey = "AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA";
     var locationURL;
     var map;
-    
 
-<<<<<<< HEAD
+
     $("#find-location").on("click", function () {
         // $("input:text").val();
         var zip = $("#zip").val();
         console.log(zip);
-=======
-    $("button").click(function () {
-        $("input:text").val();
-        // var zip = $("#zip").val();
->>>>>>> 711f184241e702728acce8946f33c42e8f76808d
         locationURL = geocodeQueryBuild(zip);
         console.log(locationURL);
         callgeocodeAPI(locationURL);
     });
 
-// "https://maps.googleapis.com/maps/api/geocode/json?address=" + input + "&key=" + googleapiKey;
+    // "https://maps.googleapis.com/maps/api/geocode/json?address=" + input + "&key=" + googleapiKey;
 
     function geocodeQueryBuild(input) {
-<<<<<<< HEAD
         var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + input + "&key=" + googleapiKey;
-=======
-        var queryURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+Sydney&key=AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA" 
->>>>>>> 711f184241e702728acce8946f33c42e8f76808d
         return queryURL;
     };
-// + googleapiKey;
+    // + googleapiKey;
     // This function calls the geocode API and gets lang & latt
     function callgeocodeAPI(queryURL) {
         $.ajax({
@@ -48,7 +38,7 @@ $(document).ready(function () {
                 lng: ilng
             }
             console.log(gecodeoResp);
-            init(); 
+            init();
         });
 
 
@@ -69,20 +59,21 @@ $(document).ready(function () {
             var service = new google.maps.places.PlacesService(map);
             service.textSearch(request, callback());
 
-    function callback(results, status) {
-        
-            
+            function callback(results, status) {
+
+
                 console.log(results);
 
-        function callback(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-                for (var i = 0; i < results.length; i++) {
-                    var place = results[i];
-                    console.log(place);
+                function callback(results, status) {
+                    if (status == google.maps.places.PlacesServiceStatus.OK) {
+                        for (var i = 0; i < results.length; i++) {
+                            var place = results[i];
+                            console.log(place);
 
+                        }
+                    }
                 }
             }
-        
-     
-};
+        }
+    }
 })

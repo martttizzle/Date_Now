@@ -6,26 +6,28 @@
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
 
-        //This function will need to accomodate 1 to MANY potential activities- not just 2- probably will need a constructor.
-        console.log($("#todo-item-1").attr('data-api-type'));
+        //This function will FOR NOW just grab info from the one restaurant activiity we have populated here, and then send it to the server before going to google maps 
+        
+        var todoItem = 1; 
 
+        //Grabs all of the data from the page (this data isn't even really editable by the user. )
+        var userItinerary = {
+            name: $('#todo-item-'+todoItem).data("name"),
+            activityType: $('#todo-item-'+todoItem).data("activity-type"),
+            zipcode: $('#todo-item-'+todoItem).data("zipcode"),
+            apiType: $('#todo-item-'+todoItem).data("api-type"),
+            apiId: $('#todo-item-'+todoItem).data("api-id")
+        }
 
-        var userSelections = {
-            selection1:userSelection1,
-            selection2:userSelection2
-        };
+        console.log(userItinerary);
 
-        console.log(userSelections);
-
-
-        // Send the POST request for the server to add the unique info from the user choices to the counter database .
+        // Send the POST request for the server to add the unique info from the user choices to the counter database.
         $.ajax("/api/???", {
             type: "POST",
-            data: userSelections
+            data: userItinerary
         }).then(
             function () {
                 console.log("things have been selected!");
-
 
                 //WE NEED TO DIRECT PAGE TO GOOGLE MAPS USING VAR userSelections as input AT THIS POINT
                

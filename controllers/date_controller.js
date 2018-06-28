@@ -37,6 +37,7 @@ router.get("/results", function (req, res) {
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {
   // console.log(req.body);
+  // UPSERT (i.e insert or update if already exist) a new row
   Datenow.upsert({
     name: req.body.name,
     zipCode: req.body.zipcode,

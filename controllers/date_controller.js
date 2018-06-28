@@ -32,29 +32,5 @@ var router = express.Router();
     res.render("swipe");
   });
 
-
-
-  // cms route loads cms.html
-  router.get("/cms", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/cms.html"));
-  });
-
-  // blog route loads blog.html
-  router.get("/blog", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/blog.html"));
-  });
-
-  // authors route loads author-manager.html
-  router.get("/authors", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/author-manager.html"));
-  });
-
-//Manage all the non existant routes
-router.get('*', function (req, res) {
-  res.redirect('/');
-});
-
-
-
 module.exports = router;
 

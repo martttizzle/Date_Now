@@ -11,8 +11,8 @@ module.exports = function (zipCode, type, miles, cb) {
     var meters = miles * (1 / 0.00062137119223733);
     var googleMapsClient = require('@google/maps').createClient({
         // You need to create an env variable GOOGLE_KEY and put your google api key there
-        key: process.env.GOOGLE_KEY
-        //key:'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
+        // key: process.env.GOOGLE_KEY
+        key:'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
     });
 
     googleMapsClient.geocode({

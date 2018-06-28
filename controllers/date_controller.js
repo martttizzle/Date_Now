@@ -1,5 +1,5 @@
 // *********************************************************************************
-// html-routes.js - this file offers a set of routes for sending users to the various html pages
+// This file offers a set of routes for sending users to the various html pages
 // *********************************************************************************
 
 // Dependencies
@@ -9,6 +9,9 @@
 var express = require("express");
 
 var router = express.Router();
+var Sequelize = require('sequelize');
+// Requiring our models
+var Datenow = require("../models").Datenow;
 
 var locations = require("./googlemaps.js")
 
@@ -17,6 +20,7 @@ var getLocations;
 // Routes
 // =============================================================
 
+// Each of the below routes just handles the HTML page that the user gets sent to.
 
   // Each of the below routes just handles the HTML page that the user gets sent to.
 
@@ -38,17 +42,6 @@ var getLocations;
    
   });
 
-  // router.get("/api", function(req, res) {
-  //   // res.sendFile(path.join(__dirname, "../public/blog.html"));
-  //  // zipcode = req.body.zipcode;
-  //  getLocations(response) {
-
-    
-  //  }
-  
-  // });
-
-
 
   router.get("/itinerary", function(req, res) {
     // res.sendFile(path.join(__dirname, "../public/blog.html"));
@@ -61,29 +54,30 @@ var getLocations;
     res.render("swipe");
   });
 
+// POST route for incrementing the popularity
+router.post("/itinerary", function (req, res) {
+  // console.log(req.body);
+  // UPSERT (i.e insert or update if already exist) a new row
+  Datenow.upsert({
+    name: req.body.name,
+    zipCode: req.body.zipcode,
+    apiType: req.body.apiType,
+    apiId: req.body.apiId
+  }).then(function (dbDateNow) {
+    // Call back to update the newly upserted row
+    Datenow.update({
+      popularity: Sequelize.literal('popularity + 1')
+    },
+      {
+        where:
+        {
+          apiId: req.body.apiId
+        }
+      })
+    res.json(dbDateNow);
+  });
 
+ 
 
-  // // cms route loads cms.html
-  // router.get("/cms", function(req, res) {
-  //   res.sendFile(path.join(__dirname, "../public/cms.html"));
-  // });
-
-  // // blog route loads blog.html
-  // router.get("/blog", function(req, res) {
-  //   res.sendFile(path.join(__dirname, "../public/blog.html"));
-  // });
-
-  // // authors route loads author-manager.html
-  // router.get("/authors", function(req, res) {
-  //   res.sendFile(path.join(__dirname, "../public/author-manager.html"));
-  // });
-
-//Manage all the non existant routes
-router.get('*', function (req, res) {
-  res.redirect('/');
 });
-
-
-
 module.exports = router;
-

@@ -13,26 +13,46 @@ var Sequelize = require('sequelize');
 // Requiring our models
 var Datenow = require("../models").Datenow;
 
+var locations = require("./googlemaps.js")
+
+var getLocations;
+
 // Routes
 // =============================================================
 
 // Each of the below routes just handles the HTML page that the user gets sent to.
 
-// index route loads view.html
-router.get("/", function (req, res) {
-  // res.sendFile(path.join(__dirname, "../public/blog.html"));
-  res.render("index");
-});
+  // Each of the below routes just handles the HTML page that the user gets sent to.
 
-router.get("/itinerary", function (req, res) {
-  // res.sendFile(path.join(__dirname, "../public/blog.html"));
-  res.render("itinerary");
-});
+  // index route loads view.html
+  router.get("/", function(req, res) {
+    res.render("index");
 
-router.get("/results", function (req, res) {
-  // res.sendFile(path.join(__dirname, "../public/blog.html"));
-  res.render("swipe");
-});
+
+    userZipcode = req.body.userZipcode;
+    dateOptions = req.body.dateOptions;
+    maxRange = req.body.maxRange;
+    // res.sendFile(path.join(__dirname, "../public/blog.html"));
+   
+  
+    locations(userZipcode,dateOptions,maxRange,function(places) {
+      console.log(places);
+    
+      })
+   
+  });
+
+
+  router.get("/itinerary", function(req, res) {
+    // res.sendFile(path.join(__dirname, "../public/blog.html"));
+      
+    res.render("itinerary");
+  });
+
+  router.get("/results", function(req, res) {
+    // res.sendFile(path.join(__dirname, "../public/blog.html"));
+    res.render("swipe");
+  });
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {
@@ -56,6 +76,8 @@ router.post("/itinerary", function (req, res) {
       })
     res.json(dbDateNow);
   });
+
+ 
 
 });
 module.exports = router;

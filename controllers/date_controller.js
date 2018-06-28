@@ -33,7 +33,6 @@ var getLocations;
   
     locations(userZipcode,dateOptions,maxRange,function(places) {
       console.log(places);
-      res.render( 'swipe', { data: places } ) 
     
       })
    

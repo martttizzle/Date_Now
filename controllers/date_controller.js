@@ -10,7 +10,7 @@ var express = require("express");
 
 var router = express.Router();
 
-var locations = require("./calculus.js")
+var locations = require("./googlemaps.js")
 
 var getLocations;
 

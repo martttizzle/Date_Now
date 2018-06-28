@@ -10,6 +10,10 @@ var express = require("express");
 
 var router = express.Router();
 
+var locations = require("./calculus.js")
+
+var getLocations;
+
 // Routes
 // =============================================================
 
@@ -18,12 +22,38 @@ var router = express.Router();
 
   // index route loads view.html
   router.get("/", function(req, res) {
-    // res.sendFile(path.join(__dirname, "../public/blog.html"));
     res.render("index");
+
+
+    userZipcode = req.body.userZipcode;
+    dateOptions = req.body.dateOptions;
+    maxRange = req.body.maxRange;
+    // res.sendFile(path.join(__dirname, "../public/blog.html"));
+   
+  
+    locations(userZipcode,dateOptions,maxRange,function(places) {
+      console.log(places);
+      res.render( 'swipe', { data: places } ) 
+    
+      })
+   
   });
+
+  // router.get("/api", function(req, res) {
+  //   // res.sendFile(path.join(__dirname, "../public/blog.html"));
+  //  // zipcode = req.body.zipcode;
+  //  getLocations(response) {
+
+    
+  //  }
+  
+  // });
+
+
 
   router.get("/itinerary", function(req, res) {
     // res.sendFile(path.join(__dirname, "../public/blog.html"));
+      
     res.render("itinerary");
   });
 
@@ -34,20 +64,20 @@ var router = express.Router();
 
 
 
-  // cms route loads cms.html
-  router.get("/cms", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/cms.html"));
-  });
+  // // cms route loads cms.html
+  // router.get("/cms", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/cms.html"));
+  // });
 
-  // blog route loads blog.html
-  router.get("/blog", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/blog.html"));
-  });
+  // // blog route loads blog.html
+  // router.get("/blog", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/blog.html"));
+  // });
 
-  // authors route loads author-manager.html
-  router.get("/authors", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/author-manager.html"));
-  });
+  // // authors route loads author-manager.html
+  // router.get("/authors", function(req, res) {
+  //   res.sendFile(path.join(__dirname, "../public/author-manager.html"));
+  // });
 
 //Manage all the non existant routes
 router.get('*', function (req, res) {

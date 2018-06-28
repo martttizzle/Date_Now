@@ -34,32 +34,8 @@ router.get("/itinerary", function (req, res) {
 });
 
 router.get("/results", function (req, res) {
-  res.render("swipe");
+  res.render("results");
 });
-
-// // GET route to get popularity if it exist
-// router.get("/", function (req, res) {
-//   // console.log(req.body);
-//   // UPSERT (i.e insert or update if already exist) a new row
-//   Datenow.findOne({
-//     name: req.body.name,
-//     zipCode: req.body.zipcode,
-//     apiType: req.body.apiType,
-//     apiId: req.body.apiId
-//   }).then(function (dbDateNow) {
-//     // Call back to update the newly upserted row
-//     Datenow.update({
-//       popularity: Sequelize.literal('popularity + 1')
-//     },
-//       {
-//         where:
-//         {
-//           apiId: req.body.apiId
-//         }
-//       })
-//     res.json(dbDateNow);
-//   });
-// });
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {
@@ -84,4 +60,5 @@ router.post("/itinerary", function (req, res) {
     res.json(dbDateNow);
   });
 });
+
 module.exports = router;

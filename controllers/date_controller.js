@@ -11,7 +11,7 @@ var Sequelize = require('sequelize');
 // Requiring our models
 var Datenow = require("../models").Datenow;
 // Requiring googlemaps api
-var locations = require("./googlemaps.js")
+var locations = require("./googlemaps.js");
 
 // Routes
 // =============================================================
@@ -19,13 +19,6 @@ var locations = require("./googlemaps.js")
 // index route loads view.html
 router.get("/", function (req, res) {
   res.render("index");
-  userZipcode = req.body.userZipcode;
-  dateOptions = req.body.dateOptions;
-  maxRange = req.body.maxRange;
-
-  locations(userZipcode, dateOptions, maxRange, function (places) {
-    console.log(places);
-  })
 });
 
 
@@ -36,6 +29,14 @@ router.get("/itinerary", function (req, res) {
 router.get("/results", function (req, res) {
   res.render("results");
 });
+
+// GET route to get popularity if it exist in database
+router.post("/results", function (req, res) {
+  locations(req.body, function (result) {
+    console.log(result);
+  });
+
+})
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {

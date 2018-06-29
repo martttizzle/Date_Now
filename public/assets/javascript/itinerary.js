@@ -19,7 +19,12 @@
             apiId: $('#todo-item-'+todoItem).data("api-id")
         }
 
+        //Need place_id from googlemaps api. 
+        if(event) {
+        var plcId = "ChIJr8uaFhgts1IRc7Sj5UOUCeI";
+        window.open("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + plcId );
         console.log(userItinerary);
+        }
 
         // Send the POST request for the server to add the unique info from the user choices to the counter database.
         $.ajax("/api/???", {

@@ -15,7 +15,7 @@ var locations = require("./googlemaps.js");
 
 // Routes
 // =============================================================
-
+let search = {}
 // index route loads view.html
 router.get("/", function (req, res) {
   res.render("index");
@@ -26,14 +26,20 @@ router.get("/itinerary", function (req, res) {
   res.render("itinerary");
 });
 
-router.get("/results", function (req, res) {
-  res.render("results");
-});
+function callback() {
+  router.get("/results", function (req, res) {
+    // res.send(res);
+    res.render("results", search);
+  });
+}
 
 // GET route to get popularity if it exist in database
 router.post("/results", function (req, res) {
-  locations(req.body, function (result) {
-    console.log(result);
+  locations(req.body, function (results) {
+    search.results = JSON.stringify(results);
+    console.log(search.results);
+    res.render("results");
+    callback();
   });
 
 })

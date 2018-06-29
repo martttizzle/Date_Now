@@ -11,38 +11,18 @@ $(function () {
             dateType: $("#date-options-input").val().trim().toLowerCase(),
             distance: parseFloat($("#max-range-input").val().trim())
         };
-        if (!newDateSearch.zipcode) {
-            return;
-        }
-        searchPlaces(newDateSearch);
 
         // Send the POST request.
+        $.ajax("/results", {
+            type: "POST",
+            data: newDateSearch
+        }).then(
+            function (data) {
+                window.location.href = "/results";
+                console.log("created new search");
+
+                //Normally there would be a page refresh at this point, but I think we actually want to route to the new page (the page with the restaurant options)   
+            });
     });
 
-    function searchPlaces(searchData) {
-        console.log(searchData);
-        $.post("/results", searchData)
-            .then(getPlaces);
-    }
-
-    function getPlaces() {
-        $.get("/results", function (data) {
-            console.log(data);
-        });
-    }
-    // $.ajax("/", {
-    //     type: "POST",
-    //     data: newDateSearch
-    // }).then(
-    //     function (result) {
-    //         $.ajax("/result", {
-    //             type: "GET",
-    //             data: newDateSearch
-    //         })
-    //         console.log("created new search");
-    //         window.location.href("/results");
-
-
-    //         //Normally there would be a page refresh at this point, but I think we actually want to route to the new page (the page with the restaurant options)   
-    //     });
 });

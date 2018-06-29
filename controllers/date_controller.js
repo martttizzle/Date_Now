@@ -11,21 +11,14 @@ var Sequelize = require('sequelize');
 // Requiring our models
 var Datenow = require("../models").Datenow;
 // Requiring googlemaps api
-var locations = require("./googlemaps.js")
+var locations = require("./googlemaps.js");
 
 // Routes
 // =============================================================
-
+let place = {}
 // index route loads view.html
 router.get("/", function (req, res) {
   res.render("index");
-  userZipcode = req.body.userZipcode;
-  dateOptions = req.body.dateOptions;
-  maxRange = req.body.maxRange;
-
-  locations(userZipcode, dateOptions, maxRange, function (places) {
-    console.log(places);
-  })
 });
 
 
@@ -33,9 +26,40 @@ router.get("/itinerary", function (req, res) {
   res.render("itinerary");
 });
 
-router.get("/results", function (req, res) {
-  res.render("results");
-});
+// POST route to get popularity if it exist in database
+router.post("/results", function (req, res) {
+  locations(req.body, function (results) {
+    // search.results = (results);
+    // console.log(search.results);
+    // Get result and perform a callback
+    let compiledResults = getData(results);
+    res.render("results");
+    // Call back to do a GET request to "/result"
+    renderResultCallBack(compiledResults);
+  });
+})
+
+function renderResultCallBack(formattedResult) {
+  router.get("/results", function (req, res) {
+    res.render("results", formattedResult);
+  });
+}
+
+function getData(rawData) {
+  let formattedData = [];
+  for (let i = 1; i < rawData.length - 1; i++) {
+    let place = {};
+    place.apiId = rawData[i].place_id;
+    place.name = rawData[i].name;
+    place.open = rawData[i].opening_hours.open_now;
+    place.googleRating = rawData[i].rating;
+    place.pricing = rawData[i].price_level;
+    place.address = rawData[i].vicinity;
+    formattedData.push(place);
+  }
+  console.log(formattedData);
+  return formattedData;
+}
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {

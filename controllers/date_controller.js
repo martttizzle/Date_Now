@@ -15,7 +15,7 @@ var locations = require("./googlemaps.js");
 
 // Routes
 // =============================================================
-let search = {}
+let place = {}
 // index route loads view.html
 router.get("/", function (req, res) {
   res.render("index");
@@ -26,23 +26,40 @@ router.get("/itinerary", function (req, res) {
   res.render("itinerary");
 });
 
-function callback() {
+// POST route to get popularity if it exist in database
+router.post("/results", function (req, res) {
+  locations(req.body, function (results) {
+    // search.results = (results);
+    // console.log(search.results);
+    // Get result and perform a callback
+    let compiledResults = getData(results);
+    res.render("results");
+    // Call back to do a GET request to "/result"
+    renderResultCallBack(compiledResults);
+  });
+})
+
+function renderResultCallBack(formattedResult) {
   router.get("/results", function (req, res) {
-    // res.send(res);
-    res.render("results", search);
+    res.render("results", formattedResult);
   });
 }
 
-// GET route to get popularity if it exist in database
-router.post("/results", function (req, res) {
-  locations(req.body, function (results) {
-    search.results = JSON.stringify(results);
-    console.log(search.results);
-    res.render("results");
-    callback();
-  });
-
-})
+function getData(rawData) {
+  let formattedData = [];
+  for (let i = 1; i < rawData.length - 1; i++) {
+    let place = {};
+    place.apiId = rawData[i].place_id;
+    place.name = rawData[i].name;
+    place.open = rawData[i].opening_hours.open_now;
+    place.googleRating = rawData[i].rating;
+    place.pricing = rawData[i].price_level;
+    place.address = rawData[i].vicinity;
+    formattedData.push(place);
+  }
+  console.log(formattedData);
+  return formattedData;
+}
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {

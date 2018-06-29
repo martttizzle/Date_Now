@@ -1,6 +1,7 @@
 module.exports = function (searchInput, callback) {
     var googleMapsClient = require('@google/maps').createClient({
-        key: 'AIzaSyBf3B6oIwOLvm3DQgH-gsJu8bsON0AT8ao'
+        // key: process.env.GOOGLE_KEY
+        key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
     });
 
     // Geocode an address.

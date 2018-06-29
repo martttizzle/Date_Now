@@ -19,8 +19,6 @@ $(function () {
         }).then(
             function (data) {
                 window.location.href = "/results";
-                console.log("created new search");
-
                 //Normally there would be a page refresh at this point, but I think we actually want to route to the new page (the page with the restaurant options)   
             });
     });

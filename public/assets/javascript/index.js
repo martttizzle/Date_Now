@@ -7,8 +7,8 @@
             event.preventDefault();
 
             var newDateSearch = {
-                userLocation: $("#user-location-input").val().trim(),
-                dateMethods: $("#date-options-input").val().trim(),
+                userZipcode: $("#user-location-input").val().trim(),
+                dateOptions: $("#date-options-input").val().trim(),
                 maxRange: $("#max-range-input").val().trim()
             };
 
@@ -16,16 +16,19 @@
 
 
             // Send the POST request.
-            $.ajax("/api/???", {
-                type: "POST",
+            $.ajax("/", {
+                type: "GET",
                 data: newDateSearch
             }).then(
-                function () {
-                    console.log("created new search");
+                 function () {
+                  console.log("created new search");
+                  window.location.href = "/results";
+                  
 
                     //Normally there would be a page refresh at this point, but I think we actually want to route to the new page (the page with the restaurant options)
-                }
-            );
+                
+            
         });
+    });
 
     });

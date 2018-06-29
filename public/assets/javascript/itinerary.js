@@ -27,9 +27,9 @@
         }
 
         // Send the POST request for the server to add the unique info from the user choices to the counter database.
-        $.ajax("/api/???", {
+        $.ajax("/itinerary", {
             type: "POST",
-            data: userItinerary
+            data: userItinerary            
         }).then(
             function () {
                 console.log("things have been selected!");

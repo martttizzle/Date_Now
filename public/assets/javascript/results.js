@@ -32,18 +32,12 @@ $(function () {
             case "+":
                 return cardTracker + 1;
                 break;
-
             case "-":
-
                 return cardTracker - 1;
-
                 break;
-
             default:
                 break;
         }
-
-
     }
 
 
@@ -138,7 +132,6 @@ $(function () {
             function () {
                 window.location.href = "/itinerary";
             });
-
 
 
         //if there are more card sets, hide all cards from current set, and increase card set and show 1st in next set.  

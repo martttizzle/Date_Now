@@ -20,10 +20,6 @@ router.get("/", function (req, res) {
   res.render("index");
 });
 
-router.get("/itinerary", function (req, res) {
-  res.render("itinerary");
-});
-
 // POST route first get data from googleapi then a GET to check for popularity if it exist in database
 router.post("/results", function (req, res) {
   // let finalResults = [];
@@ -102,10 +98,10 @@ function getData(rawData) {
   return formattedData;
 }
 
-// POST route for incrementing the popularity
-router.post("/itinerary", function (req, res) {
-
+router.post("/go", function (req, res) {
   // UPSERT (i.e insert or update if already exist) a new row
+  console.log(req.body);
+
   Datenow.upsert({
     name: req.body.name,
     zipCode: req.body.zipcode,
@@ -124,7 +120,29 @@ router.post("/itinerary", function (req, res) {
       })
 
     res.json(dbDateNow);
+
   });
 });
+
+// POST route for incrementing the popularity
+router.post("/itinerary", function (req, res) {
+  var testName = req.body.name;
+  res.end("itinerary");
+  renderItineraryCallback(req.body);
+
+});
+
+
+function renderItineraryCallback(results) {
+  router.get("/itinerary", function (req, res) {
+
+    //If null value to results send back to index page for now...
+    var hbsItineraryObject = {
+      itinerary: results
+    };
+    res.render("itinerary", hbsItineraryObject);
+  });
+};
+
 
 module.exports = router;

@@ -1,28 +1,27 @@
-  <!-- Main Form Container -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
+<!-- Main Form Container -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
 
-                <!-- These Comments and a lot of these html attributes will need to be dynamic and dictated by the server. I think we'll actually need to put zip code, api type = google, google unique id somewhere in here as this 'form' will be submitted to the server again for logging user choices/counter in the db-->
-                <h2> Your Itinerary: </h2>
-                <br>
-                <form id="navigation-form">
 
-                    <div class="form-group">
-                        <label for="todo-item-1"> You will be Eating At:</label>
-                        <input class="form-control user-selections" id="todo-item-1" data-name="Applebees" data-zipcode="55404" 
-                        data-activity-type="restaurant" data-api-type="google" data-api-id="11111testing" type="text" placeholder="Applebees" readonly>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="todo-item-2"> You will be Going To:</label>
-                        <input class="form-control user-selections" id="todo-item-2" data-name="Lake Calhoun" data-zipcode="55411" data-api-type="google" data-api-id="22222testing" type="text" placeholder="Lake Calhoun" readonly>
-                    </div>
-                 
 
-                    <button type="submit" id="begin-navigation-button" class="btn btn-primary">Let's Go!</button>
-                </form>
+            <!-- These Comments and a lot of these html attributes will need to be dynamic and dictated by the server. I think we'll actually need to put zip code, api type = google, google unique id somewhere in here as this 'form' will be submitted to the server again for logging user choices/counter in the db-->
+            <h2> Your Itinerary: </h2>
+            <br>
+            <form id="navigation-form">
 
-            </div>
+                <div class="form-group">
+                    <label for="todo-item-1"> You will be Eating At:</label>
+                    <input class="form-control user-selections" id="todo-item-1" data-name="{{itinerary.name}}" data-zipcode="{{itinerary.zipcode}}" data-activity-type="{{itinerary.type}}"
+                        data-api-type="{{itinerary.apiType}}" data-api-id="{{itinerary.apiId}}" type="text" placeholder="{{itinerary.name}}" readonly>
+                </div>
+
+                <button type="submit" id="begin-navigation-button" class="btn btn-primary">Let's Go!</button>
+            </form>
+
+
+
         </div>
     </div>
+</div>

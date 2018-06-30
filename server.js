@@ -41,7 +41,7 @@ app.set("view engine", "hbs");
  app.use(routes);
 
 
-
+ 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync({ force: false }).then(function() {

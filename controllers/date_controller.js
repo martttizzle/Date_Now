@@ -31,7 +31,7 @@ router.post("/results", function (req, res) {
   // Result is in "results"
   locations(req.body, function (results) {
     // Function get the data needed from the JSON object returned from google
-    console.log("Location results", results[1]);
+ 
     let initialResults = getData(results);
 
     // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
@@ -84,6 +84,7 @@ function renderResultCallBack(results) {
 
 // Get useful data from the googleapi call
 function getData(rawData) {
+  console.log("Location results", rawData);
   let formattedData = [];
 
   for (let i = 1; i < rawData.length - 1; i++) {

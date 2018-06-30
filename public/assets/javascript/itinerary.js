@@ -20,19 +20,20 @@
         }
 
         //Need place_id from googlemaps api. 
-        if(event) {
-        var plcId = "ChIJr8uaFhgts1IRc7Sj5UOUCeI";
-        window.open("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + plcId );
-        console.log(userItinerary);
-        }
+        // if(event) {
+        // // var plcId = "ChIJr8uaFhgts1IRc7Sj5UOUCeI";s
+        // var plcId = userItinerary.apiId;
+        // window.open("https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + plcId );
+        // console.log(userItinerary);
+      //  }
 
         // Send the POST request for the server to add the unique info from the user choices to the counter database.
         $.ajax("/itinerary", {
             type: "POST",
             data: userItinerary            
         }).then(
-            function () {
-                console.log("things have been selected!");
+            function (response) {
+                console.log(response,  "things have been selected!");
 
                 //WE NEED TO DIRECT PAGE TO GOOGLE MAPS USING VAR userSelections as input AT THIS POINT
                

@@ -112,7 +112,7 @@ $(function () {
         userSelections.apiType = $(this).data("api-type");
         userSelections.apiId = $(this).data("api-id");
 
-
+        console.log(userSelections);
 
         // var nextSet = parseInt(cardSet + 1);
         // var $nextCardSet = $('div[data-card=' + 1 + '][data-set=' + nextSet + ']');
@@ -129,7 +129,7 @@ $(function () {
         // } else {
 
         console.log("SUBMIT FORM????");
-        console.log("SELECTED", userSelections[0]);
+       // console.log("SELECTED", userSelections[0]);
 
         $.ajax("/itinerary", {
             type: "POST",
@@ -143,11 +143,9 @@ $(function () {
 
         //if there are more card sets, hide all cards from current set, and increase card set and show 1st in next set.  
 
-        console.log(userSelections);
+     //   console.log(userSelections);
 
     });
-
-
 
 
 });

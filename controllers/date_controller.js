@@ -71,7 +71,7 @@ function renderResultCallBack(results) {
 
 
       console.log(hbsPlacesObject.places[1]);
-      res.render("results",hbsPlacesObject);
+      res.render("results", hbsPlacesObject);
 
 
     } else {
@@ -85,7 +85,7 @@ function renderResultCallBack(results) {
 // Get useful data from the googleapi call
 function getData(rawData) {
   let formattedData = [];
-  
+
   for (let i = 1; i < rawData.length - 1; i++) {
     let place = {};
 
@@ -103,7 +103,7 @@ function getData(rawData) {
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {
-  // console.log(req.body);
+
   // UPSERT (i.e insert or update if already exist) a new row
   Datenow.upsert({
     name: req.body.name,
@@ -121,6 +121,7 @@ router.post("/itinerary", function (req, res) {
             apiId: req.body.apiId
           }
       })
+
     res.json(dbDateNow);
   });
 });

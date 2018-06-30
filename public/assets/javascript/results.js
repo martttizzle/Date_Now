@@ -1,16 +1,16 @@
- // Make sure we wait to attach our handlers until the DOM is fully loaded.
- 
+// Make sure we wait to attach our handlers until the DOM is fully loaded.
 
- //JQUERY TO DO:
+
+//JQUERY TO DO:
 
 //1. Put google review into html data type and use jquery to turn this value into fontawesome stars in the cards. 
 //2. Similar to #1, only populate 'popularity' when value is above 0... and if zero, say 'Be the first to check it out!'
 
 
- $(function () {
+$(function () {
 
     //Array to store user selection objects
-    var userSelections = [];
+    var userSelections = {};
 
 
     //Show the first card on page load
@@ -47,7 +47,7 @@
     }
 
 
-     $(".switch").on('click', function () {
+    $(".switch").on('click', function () {
         var operator = $(this).data("name");
 
 
@@ -106,31 +106,40 @@
     $(".select").on('click', function () {
 
         //Store Attributes
-        var newSelection = {
-            name: $(this).data("name"),
-            type: $(this).data("activity-type"),
-            zipcode: $(this).data("zipcode"),
-            apiType: $(this).data("api-type"),
-            apiId: $(this).data("api-id")
-        }
+        userSelections.name = $(this).data("name");
+        userSelections.type = $(this).data("activity-type");
+        userSelections.zipcode = $(this).data("zipcode");
+        userSelections.apiType = $(this).data("api-type");
+        userSelections.apiId = $(this).data("api-id");
 
-        userSelections.push(newSelection);
-        
-        var nextSet = parseInt(cardSet+1);
-        var $nextCardSet = $('div[data-card=' + 1 + '][data-set=' + nextSet + ']');
 
-        console.log($nextCardSet);
-        //if there are no more card sets, Push data to server?
-        if ($nextCardSet.length) {
-            console.log("NEXT SET EXISTS");
-            //Hide current set
-            $('div[data-set='+cardSet+']').hide();
-            $nextCardSet.show();
-            cardSet++;
-            cardTracker=1
-        } else {
-            console.log("SUBMIT FORM????");
-        }
+
+        // var nextSet = parseInt(cardSet + 1);
+        // var $nextCardSet = $('div[data-card=' + 1 + '][data-set=' + nextSet + ']');
+
+        // console.log($nextCardSet);
+        // //if there are no more card sets, Push data to server?
+        // if ($nextCardSet.length) {
+        //     console.log("NEXT SET EXISTS");
+        //     //Hide current set
+        //     $('div[data-set=' + cardSet + ']').hide();
+        //     $nextCardSet.show();
+        //     cardSet++;
+        //     cardTracker = 1
+        // } else {
+
+        console.log("SUBMIT FORM????");
+        console.log("SELECTED", userSelections[0]);
+
+        $.ajax("/itinerary", {
+            type: "POST",
+            data: userSelections
+        }).then(
+            function () {
+                window.location.href = "/itinerary";
+            });
+
+
 
         //if there are more card sets, hide all cards from current set, and increase card set and show 1st in next set.  
 

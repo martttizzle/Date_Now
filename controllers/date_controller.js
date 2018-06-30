@@ -31,7 +31,6 @@ router.post("/results", function (req, res) {
   // Result is in "results"
   locations(req.body, function (results) {
     // Function get the data needed from the JSON object returned from google
-    console.log("Location results", results[1]);
     let initialResults = getData(results);
 
     // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
@@ -59,6 +58,7 @@ function getPopularity(data, checkPopularityCallBack) {
 
 // RESULT.HBS GET REQ Via Post Callback
 function renderResultCallBack(results) {
+  console.log("Location results", results);
   router.get("/results", function (req, res) {
     console.log(results.length);
 

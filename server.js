@@ -29,6 +29,9 @@ app.use(express.static("public"));
 var exphbs = require("express-handlebars");
 
 app.engine("hbs", exphbs({ defaultLayout: "main.hbs" }));
+
+
+
 app.set("view engine", "hbs");
 
 

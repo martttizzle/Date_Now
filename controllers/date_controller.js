@@ -15,11 +15,10 @@ var locations = require("./googlemaps.js");
 
 // Routes
 // =============================================================
-// index route loads view.html
+// index route loads index.hbs view
 router.get("/", function (req, res) {
   res.render("index");
 });
-
 
 router.get("/itinerary", function (req, res) {
   res.render("itinerary");
@@ -32,7 +31,9 @@ router.post("/results", function (req, res) {
   // Result is in "results"
   locations(req.body, function (results) {
     // Function get the data needed from the JSON object returned from google
+    console.log("Location results", results[1]);
     let initialResults = getData(results);
+
     // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
     getPopularity(initialResults, function (index, dbData) {
       (dbData === null) ? initialResults[index].popularity = 0 : initialResults[index].popularity = dbData.popularity;
@@ -56,20 +57,39 @@ function getPopularity(data, checkPopularityCallBack) {
   }
 }
 
-// Renders result in handlebars template
+// RESULT.HBS GET REQ Via Post Callback
 function renderResultCallBack(results) {
   router.get("/results", function (req, res) {
-    res.render("results", {
-      place: results
-    });
+    console.log(results.length);
+
+    //If null value to results send back to index page for now...
+    if (results.length > 0) {
+
+      var hbsPlacesObject = {
+        places: results
+      };
+
+
+      console.log(hbsPlacesObject.places[1]);
+      res.render("results", hbsPlacesObject);
+
+
+    } else {
+      console.log("No");
+      res.render("index");
+    }
+
   });
 }
 
 // Get useful data from the googleapi call
 function getData(rawData) {
   let formattedData = [];
+
   for (let i = 1; i < rawData.length - 1; i++) {
     let place = {};
+
+    //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
     place.apiId = rawData[i].place_id;
     place.name = rawData[i].name;
     place.open = rawData[i].opening_hours.open_now;
@@ -83,7 +103,7 @@ function getData(rawData) {
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {
-  // console.log(req.body);
+
   // UPSERT (i.e insert or update if already exist) a new row
   Datenow.upsert({
     name: req.body.name,
@@ -97,10 +117,11 @@ router.post("/itinerary", function (req, res) {
     },
       {
         where:
-        {
-          apiId: req.body.apiId
-        }
+          {
+            apiId: req.body.apiId
+          }
       })
+
     res.json(dbDateNow);
   });
 });

@@ -32,6 +32,7 @@ router.post("/results", function (req, res) {
 
     // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
     getPopularity(initialResults, function (index, dbData) {
+      console.log(dbData);
       (dbData === null) ? initialResults[index].popularity = 0 : initialResults[index].popularity = dbData.popularity;
     });
     // for POST 
@@ -46,8 +47,14 @@ function getPopularity(data, checkPopularityCallBack) {
   // Takes in the intial result as data 
   for (let i = 0; i < data.length; i++) {
     // Check for popularity 
-    Datenow.findById(data.apiId).then(function (dbDateNow) {
+    console.log("input id: ", data[i].apiId);
+    Datenow.findOne({
+      where: {
+        apiId:data[i].apiId
+      },
+    }).then(function (dbDateNow) {
       // Perform a callback
+      console.log("response", dbDateNow);
       checkPopularityCallBack(i, dbDateNow);
     });
   }
@@ -113,9 +120,9 @@ router.post("/go", function (req, res) {
     },
       {
         where:
-          {
-            apiId: req.body.apiId
-          }
+        {
+          apiId: req.body.apiId
+        }
       })
 
     res.json(dbDateNow);
@@ -125,7 +132,6 @@ router.post("/go", function (req, res) {
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {
-  var testName = req.body.name;
   res.end("itinerary");
   renderItineraryCallback(req.body);
 

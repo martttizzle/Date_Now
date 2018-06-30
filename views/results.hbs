@@ -4,22 +4,89 @@
     <div class="row">
         <div class="col-lg-12">
 
+            {{!-- HBars Object Reference --}}
+
+            {{!-- <ul>
+                {{#each place }}
+                <p>Index: {{@index}}:</p>
+                <p>Name: {{name}}</p>
+                <p>apiId: {{apiId}}</p>
+                <p>Address: {{address}}</p>
+                <p>Google Rating: {{googleRating}}</p>
+                <p>Open: {{open}}</p>
+                <p>Pricing: {{pricing}}</p>
+                <p>Popularity: {{popularity}}</p>
+                {{/each}}
+            </ul> --}}
+
 
             {{#each places}}
-            <li>
 
-                <p>ID: {{apiId}}</p>
-                <p>DataCard: {{@index}}:</p>
-                <p>Name: {{name}}</p>
-                <p>Open: {{open}}</p>
-                <p>IMAGE URL TBD</p>
-                <p>POPULARITY COUNTER TBD  </p>
-                <p>POPULARITY COUNTER TBD  </p>
-                
-            
-            </li>
+            <!-- Card {{@index}} -->
+
+            <div class="card mx-auto hidden" data-set="{{@index}}" data-card="{{@index}}" style="width: 25rem;">
+
+                <!-- Image -->
+
+                <img class="card-img-top" src="http://heavytable.com/wp-content/uploads/2016/12/young-joni-oven.jpg" alt="Card image cap">
+                <div class="card-body">
+
+                    <!-- Name -->
+
+                    <h5 class="card-title">{{name}}</h5>
+
+                    <!-- Counter Data if applicable  -->
+
+                    <h6 class="card-subtitle mb-2 text-muted">Popularity: {{popularity}}</h6>
+
+                    <!-- Short Description NEEDS TO BE ADDED -->
+
+                    <p class="card-text">{{address}}</p>
+
+                    <!-- STAR RATING  -->
+
+                    <p class="card-text">Rating: {{googleRating}}
+                        
+                        {{!-- Run a custom  HBARS function to populate these stars --}}
+
+                        {{!-- <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span> --}}
+                    </p>
+
+                    <!-- BACK || SELECT || FORWARD BUTTONS  -->
+
+                    <div class="d-flex justify-content-between">
+
+                        <button class="btn switch btn-danger" data-name="-">
+                            <span class="fa fa-arrow-left"></span>
+                        </button>
+
+                        <div>
+
+                            <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+
+                            <button class="btn-lg select btn-success" 
+                            
+                            data-activity-type="restuarant" data-name="{{name}}" data-zipcode="{{address}}"
+                                data-api-type="google" data-api-id="{{apiId}}">
+                                <span class="fa fa-heart"></span>
+                                <span class="fa fa-heart"></span>
+                                <span class="fa fa-heart"></span>
+                            </button>
+
+                        </div>
+
+                        <button class="btn switch btn-primary" data-name="+">
+                            <span class="fa fa-arrow-right"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             {{/each}}
-            <!-- Card 1 -->
+
+            {{!-- <!-- Card 1 -->
 
             <div class="card mx-auto hidden" data-set="1" data-card="1" style="width: 25rem;">
 
@@ -257,21 +324,10 @@
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
     </div>
 </div>
 {{!-- , results[0].name, results[0].open, results[0].googleRating, results[0].pricing, results[0].address, results[0].popularity
 --}}
-<ul>
-    {{#each place }}
-    <p>Name: {{name}}</p>
-    <p>apiId: {{apiId}}</p>
-    <p>Address: {{address}}</p>
-    <p>Google Rating: {{googleRating}}</p>
-    <p>Open: {{open}}</p>
-    <p>Pricing: {{pricing}}</p>
-    <p>Popularity: {{popularity}}</p>
-    {{/each}}
-</ul>

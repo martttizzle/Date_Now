@@ -31,7 +31,9 @@ router.post("/results", function (req, res) {
   // Result is in "results"
   locations(req.body, function (results) {
     // Function get the data needed from the JSON object returned from google
+    console.log("Location results", results[1]);
     let initialResults = getData(results);
+
     // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
     getPopularity(initialResults, function (index, dbData) {
       (dbData === null) ? initialResults[index].popularity = 0 : initialResults[index].popularity = dbData.popularity;
@@ -58,7 +60,6 @@ function getPopularity(data, checkPopularityCallBack) {
 // RESULT.HBS GET REQ Via Post Callback
 function renderResultCallBack(results) {
   router.get("/results", function (req, res) {
-    console.log(results);
     console.log(results.length);
 
     //If null value to results send back to index page for now...
@@ -84,8 +85,11 @@ function renderResultCallBack(results) {
 // Get useful data from the googleapi call
 function getData(rawData) {
   let formattedData = [];
+  
   for (let i = 1; i < rawData.length - 1; i++) {
     let place = {};
+
+    //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
     place.apiId = rawData[i].place_id;
     place.name = rawData[i].name;
     place.open = rawData[i].opening_hours.open_now;

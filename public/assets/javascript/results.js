@@ -1,5 +1,12 @@
  // Make sure we wait to attach our handlers until the DOM is fully loaded.
  
+
+ //JQUERY TO DO:
+
+//1. Put google review into html data type and use jquery to turn this value into fontawesome stars in the cards. 
+//2. Similar to #1, only populate 'popularity' when value is above 0... and if zero, say 'Be the first to check it out!'
+
+
  $(function () {
 
     //Array to store user selection objects
@@ -10,7 +17,7 @@
     $('div[data-card="1"][data-set="1"').removeClass("hidden");
 
     //Keep track of current card
-    var cardTracker = 1;
+    var cardTracker = 0;
 
     //Keep track of current set- this variable is used to keep track of a stack of cards- we only want to show one set at a time (i.e. restaurants) and when a restuarant is selected, we want to the restaurant cards, and show the next set of cards (activities, for example);
 
@@ -39,14 +46,16 @@
 
     }
 
-    $(".switch").on('click', function () {
+
+     $(".switch").on('click', function () {
         var operator = $(this).data("name");
+
 
         var potentialCard = adder(operator);
 
-        var $currentCard = $('div[data-card=' + cardTracker + '][data-set=' + cardSet + ']');
+        var $currentCard = $('div[data-card=' + cardTracker + ']');
 
-        var $nextCard = $('div[data-card=' + potentialCard + '][data-set=' + cardSet + ']');
+        var $nextCard = $('div[data-card=' + potentialCard + ']');
 
         if ($nextCard.length) {
             console.log("EXISTS");
@@ -63,6 +72,34 @@
         }
 
     });
+
+
+    //THIS IS THE OLD SWITCH THAT USES MULTIPLE SETS OF CARDS- DO NOT DELETE
+
+    // $(".switch").on('click', function () {
+    //     var operator = $(this).data("name");
+
+    //     var potentialCard = adder(operator);
+
+    //     var $currentCard = $('div[data-card=' + cardTracker + '][data-set=' + cardSet + ']');
+
+    //     var $nextCard = $('div[data-card=' + potentialCard + '][data-set=' + cardSet + ']');
+
+    //     if ($nextCard.length) {
+    //         console.log("EXISTS");
+
+    //         //Card EXISTS, So Hide Current Card, Show next or previous Card
+    //         $currentCard.hide();
+    //         $nextCard.show();
+
+    //         cardTracker = potentialCard;
+    //     } else {
+
+    //         //Card Does not exist so do nothing...  In the future, this could go back to the last card to create a loop
+    //         console.log("DOESN'T EXIST");
+    //     }
+
+    // });
 
 
     //Item is Selected Event Handler

@@ -11,21 +11,13 @@ var Sequelize = require('sequelize');
 // Requiring our models
 var Datenow = require("../models").Datenow;
 // Requiring googlemaps api
-var locations = require("./googlemaps.js")
+var locations = require("./googlemaps.js");
 
 // Routes
 // =============================================================
-
 // index route loads view.html
 router.get("/", function (req, res) {
   res.render("index");
-  userZipcode = req.body.userZipcode;
-  dateOptions = req.body.dateOptions;
-  maxRange = req.body.maxRange;
-
-  locations(userZipcode, dateOptions, maxRange, function (places) {
-    console.log(places);
-  })
 });
 
 
@@ -33,9 +25,61 @@ router.get("/itinerary", function (req, res) {
   res.render("itinerary");
 });
 
-router.get("/results", function (req, res) {
-  res.render("results");
+// POST route first get data from googleapi then a GET to check for popularity if it exist in database
+router.post("/results", function (req, res) {
+  // let finalResults = [];
+  // call to googlemaps API endpoint with a callback
+  // Result is in "results"
+  locations(req.body, function (results) {
+    // Function get the data needed from the JSON object returned from google
+    let initialResults = getData(results);
+    // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
+    getPopularity(initialResults, function (index, dbData) {
+      (dbData === null) ? initialResults[index].popularity = 0 : initialResults[index].popularity = dbData.popularity;
+    });
+    // for POST 
+    res.end("results");
+    // Function that calls GET request to "/result"
+    renderResultCallBack(initialResults);
+  });
 });
+
+// Gets Popularity
+function getPopularity(data, checkPopularityCallBack) {
+  // Takes in the intial result as data 
+  for (let i = 0; i < data.length; i++) {
+    // Check for popularity 
+    Datenow.findById(data.apiId).then(function (dbDateNow) {
+      // Perform a callback
+      checkPopularityCallBack(i, dbDateNow);
+    });
+  }
+}
+
+// Renders result in handlebars template
+function renderResultCallBack(results) {
+  router.get("/results", function (req, res) {
+    res.render("results", {
+      place: results
+    });
+  });
+}
+
+// Get useful data from the googleapi call
+function getData(rawData) {
+  let formattedData = [];
+  for (let i = 1; i < rawData.length - 1; i++) {
+    let place = {};
+    place.apiId = rawData[i].place_id;
+    place.name = rawData[i].name;
+    place.open = rawData[i].opening_hours.open_now;
+    place.googleRating = rawData[i].rating;
+    place.pricing = rawData[i].price_level;
+    place.address = rawData[i].vicinity;
+    formattedData.push(place);
+  }
+  return formattedData;
+}
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {

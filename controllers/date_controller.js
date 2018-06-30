@@ -15,11 +15,10 @@ var locations = require("./googlemaps.js");
 
 // Routes
 // =============================================================
-// index route loads view.html
+// index route loads index.hbs view
 router.get("/", function (req, res) {
   res.render("index");
 });
-
 
 router.get("/itinerary", function (req, res) {
   res.render("itinerary");
@@ -56,12 +55,29 @@ function getPopularity(data, checkPopularityCallBack) {
   }
 }
 
-// Renders result in handlebars template
+// RESULT.HBS GET REQ Via Post Callback
 function renderResultCallBack(results) {
   router.get("/results", function (req, res) {
-    res.render("results", {
-      place: results
-    });
+    console.log(results);
+    console.log(results.length);
+
+    //If null value to results send back to index page for now...
+    if (results.length > 0) {
+
+      var hbsPlacesObject = {
+        places: results
+      };
+
+
+      console.log(hbsPlacesObject.places[1]);
+      res.render("results",hbsPlacesObject);
+
+
+    } else {
+      console.log("No");
+      res.render("index");
+    }
+
   });
 }
 
@@ -97,9 +113,9 @@ router.post("/itinerary", function (req, res) {
     },
       {
         where:
-        {
-          apiId: req.body.apiId
-        }
+          {
+            apiId: req.body.apiId
+          }
       })
     res.json(dbDateNow);
   });

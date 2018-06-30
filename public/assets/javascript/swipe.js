@@ -2,7 +2,7 @@
  $(function () {
 
     //Array to store user selection objects
-    var userSelections = [];
+   // module.exports = var userSelections = [];
 
 
     //Show the first card on page load
@@ -40,7 +40,7 @@
 
     $(".switch").on('click', function () {
         var operator = $(this).data("name");
-
+       
         var potentialCard = adder(operator);
 
         var $currentCard = $('div[data-card=' + cardTracker + '][data-set=' + cardSet + ']');
@@ -75,7 +75,7 @@
             apiType: $(this).data("api-type"),
             apiId: $(this).data("api-id")
         }
-
+        console.log(newSelection.apiId,"place id");
         userSelections.push(newSelection);
         
         var nextSet = parseInt(cardSet+1);

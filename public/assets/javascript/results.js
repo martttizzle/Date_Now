@@ -32,18 +32,12 @@ $(function () {
             case "+":
                 return cardTracker + 1;
                 break;
-
             case "-":
-
                 return cardTracker - 1;
-
                 break;
-
             default:
                 break;
         }
-
-
     }
 
 
@@ -140,11 +134,7 @@ $(function () {
             });
 
 
-
         //if there are more card sets, hide all cards from current set, and increase card set and show 1st in next set.  
-
-        console.log(userSelections);
-
     });
 
 

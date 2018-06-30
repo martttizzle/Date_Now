@@ -97,34 +97,36 @@ function getData(rawData) {
   return formattedData;
 }
 
+router.post("/go", function (req, res) {
+  // UPSERT (i.e insert or update if already exist) a new row
+  console.log(req.body);
+
+  Datenow.upsert({
+    name: req.body.name,
+    zipCode: req.body.zipcode,
+    apiType: req.body.apiType,
+    apiId: req.body.apiId
+  }).then(function (dbDateNow) {
+    // Call back to update the newly upserted row
+    Datenow.update({
+      popularity: Sequelize.literal('popularity + 1')
+    },
+      {
+        where:
+          {
+            apiId: req.body.apiId
+          }
+      })
+
+    res.json(dbDateNow);
+
+  });
+});
+
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {
   var testName = req.body.name;
-  console.log("ITINERARY REQUESTED", req.body.name);
-  // UPSERT (i.e insert or update if already exist) a new row
-  // Datenow.upsert({
-  //   name: req.body.name,
-  //   zipCode: req.body.zipcode,
-  //   apiType: req.body.apiType,
-  //   apiId: req.body.apiId
-  // }).then(function (dbDateNow) {
-  //   // Call back to update the newly upserted row
-  //   Datenow.update({
-  //     popularity: Sequelize.literal('popularity + 1')
-  //   },
-  //     {
-  //       where:
-  //         {
-  //           apiId: req.body.apiId
-  //         }
-  //     })
-
-  //   //res.json(dbDateNow);
-   
-
-  // });
   res.end("itinerary");
-
   renderItineraryCallback(req.body);
 
 });
@@ -133,16 +135,11 @@ router.post("/itinerary", function (req, res) {
 function renderItineraryCallback(results) {
   router.get("/itinerary", function (req, res) {
 
-    console.log("NAME",results.name);
     //If null value to results send back to index page for now...
-
     var hbsItineraryObject = {
       itinerary: results
     };
-
-    console.log("ID",hbsItineraryObject.itinerary.apiId);
     res.render("itinerary", hbsItineraryObject);
-
   });
 };
 

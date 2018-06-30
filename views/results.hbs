@@ -248,4 +248,15 @@
             </div>
         </div>
     </div>
-<p>{{results}}</p>
+    {{!-- , results[0].name, results[0].open, results[0].googleRating, results[0].pricing, results[0].address, results[0].popularity --}}
+<ul>
+{{#each place }}
+  <p>Name: {{name}}</p>
+  <p>apiId: {{apiId}}</p>
+  <p>Address: {{address}}</p>
+  <p>Google Rating: {{googleRating}}</p>
+  <p>Open: {{open}}</p>
+  <p>Pricing: {{pricing}}</p>
+  <p>Popularity: {{popularity}}</p>
+{{/each}}
+</ul>

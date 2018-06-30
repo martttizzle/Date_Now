@@ -15,7 +15,6 @@ var locations = require("./googlemaps.js");
 
 // Routes
 // =============================================================
-let place = {}
 // index route loads view.html
 router.get("/", function (req, res) {
   res.render("index");
@@ -26,25 +25,47 @@ router.get("/itinerary", function (req, res) {
   res.render("itinerary");
 });
 
-// POST route to get popularity if it exist in database
+// POST route first get data from googleapi then a GET to check for popularity if it exist in database
 router.post("/results", function (req, res) {
+  // let finalResults = [];
+  // call to googlemaps API endpoint with a callback
+  // Result is in "results"
   locations(req.body, function (results) {
-    // search.results = (results);
-    // console.log(search.results);
-    // Get result and perform a callback
-    let compiledResults = getData(results);
-    res.render("results");
-    // Call back to do a GET request to "/result"
-    renderResultCallBack(compiledResults);
+    // Function get the data needed from the JSON object returned from google
+    let initialResults = getData(results);
+    // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
+    getPopularity(initialResults, function (index, dbData) {
+      (dbData === null) ? initialResults[index].popularity = 0 : initialResults[index].popularity = dbData.popularity;
+    });
+    // for POST 
+    res.end("results");
+    // Function that calls GET request to "/result"
+    renderResultCallBack(initialResults);
   });
-})
+});
 
-function renderResultCallBack(formattedResult) {
+// Gets Popularity
+function getPopularity(data, checkPopularityCallBack) {
+  // Takes in the intial result as data 
+  for (let i = 0; i < data.length; i++) {
+    // Check for popularity 
+    Datenow.findById(data.apiId).then(function (dbDateNow) {
+      // Perform a callback
+      checkPopularityCallBack(i, dbDateNow);
+    });
+  }
+}
+
+// Renders result in handlebars template
+function renderResultCallBack(results) {
   router.get("/results", function (req, res) {
-    res.render("results", formattedResult);
+    res.render("results", {
+      place: results
+    });
   });
 }
 
+// Get useful data from the googleapi call
 function getData(rawData) {
   let formattedData = [];
   for (let i = 1; i < rawData.length - 1; i++) {
@@ -57,7 +78,6 @@ function getData(rawData) {
     place.address = rawData[i].vicinity;
     formattedData.push(place);
   }
-  console.log(formattedData);
   return formattedData;
 }
 

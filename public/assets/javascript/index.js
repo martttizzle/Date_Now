@@ -17,7 +17,7 @@ $(function () {
             type: "POST",
             data: newDateSearch
         }).then(
-            function (data) {
+            function () {
                 window.location.href = "/results";
                 //Normally there would be a page refresh at this point, but I think we actually want to route to the new page (the page with the restaurant options)   
             });

@@ -20,10 +20,6 @@ router.get("/", function (req, res) {
   res.render("index");
 });
 
-router.get("/itinerary", function (req, res) {
-  res.render("itinerary");
-});
-
 // POST route first get data from googleapi then a GET to check for popularity if it exist in database
 router.post("/results", function (req, res) {
   // let finalResults = [];
@@ -129,25 +125,14 @@ router.post("/itinerary", function (req, res) {
   // });
   res.end("itinerary");
 
-  router.get("/itinerary", function (req, res) {
-    //If null value to results send back to index page for now...
-    console.log("TESTNAME",testName);
-    
-    var hbsItineraryObject = {
-      itinerary: results
-    };
-
-    res.render("itinerary", hbsItineraryObject);
-
-  });
   renderItineraryCallback(req.body);
 
 });
 
 
 function renderItineraryCallback(results) {
-
   router.get("/itinerary", function (req, res) {
+
     console.log("NAME",results.name);
     //If null value to results send back to index page for now...
 
@@ -155,6 +140,7 @@ function renderItineraryCallback(results) {
       itinerary: results
     };
 
+    console.log("ID",hbsItineraryObject.itinerary.apiId);
     res.render("itinerary", hbsItineraryObject);
 
   });

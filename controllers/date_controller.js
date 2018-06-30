@@ -31,16 +31,16 @@ router.post("/results", function (req, res) {
   locations(req.body, function (results) {
     // search.results = (results);
     // console.log(search.results);
-    // Get result and perform a callback
+   // Get result and perform a callback
     let compiledResults = getData(results);
     res.render("results");
     // Call back to do a GET request to "/result"
-    renderResultCallBack(compiledResults);
+    renderResultCallBack(results);
   });
 })
 
 function renderResultCallBack(formattedResult) {
-  router.get("/results", function (req, res) {
+  router.get("/results", formattedResult, function (req, res) {
     res.render("results", formattedResult);
   });
 }

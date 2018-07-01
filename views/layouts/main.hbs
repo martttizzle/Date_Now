@@ -10,31 +10,38 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
 
-          <!-- FONT AWESOME -->
+    <!-- FONT AWESOME -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- Custom CSS -->
-        <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
 
-         <!-- Optional JavaScript -->
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> {{!-- Pacifico Font via Google --}}
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 
-   
 
-  <!-- Javascript files -->
+    <!-- Javascript files -->
     <script src="/assets/javascript/index.js"></script>
     <script src="/assets/javascript/itinerary.js"></script>
     <script src="/assets/javascript/results.js"></script>
 
 
     <title>Jaunt</title>
+
+    {{!-- Custom Style: This will eventually be separated out --}}
+    <style>
+        .h1 {
+            font-family: 'Pacifico', cursive;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,11 +51,12 @@
         <span class=" mx-auto text-white mb-0 h1">Jaunt.</span>
     </nav>
 
-    <br>
-    
-     {{{ body }}}
+    <div class="row">
+        <p class="mx-auto mt-3 text-center"><i>(because you have the worst date ideas)</i></p>
+    </div>
+    <br> {{{ body }}}
 
-   
+
 </body>
 
 </html>

@@ -13,6 +13,10 @@ var Datenow = require("../models").Datenow;
 // Requiring googlemaps api
 var locations = require("./googlemaps.js");
 
+var googleMapsClient = require('@google/maps').createClient({
+  // key: process.env.GOOGLE_KEY
+  key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
+});
 
 // Routes
 // =============================================================
@@ -39,6 +43,7 @@ router.post("/results", function (req, res) {
 });
 
 // Gets Popularity
+
 function getPopularity(data) {
   let updatedData = data;
   let input = [];
@@ -109,9 +114,9 @@ router.post("/go", function (req, res) {
     },
       {
         where:
-        {
-          apiId: req.body.apiId
-        }
+          {
+            apiId: req.body.apiId
+          }
       })
 
     res.json(dbDateNow);
@@ -135,6 +140,24 @@ function renderItineraryCallback(results) {
     res.render("itinerary", hbsItineraryObject);
   });
 };
+
+router.post("/location", function (req, res) {
+
+  //Create address search string of user's latitude and longitude for Google Geocode
+  var latLngString = (req.body.lat).toString() + "," + (req.body.lng).toString();
+
+  // Reverse Geocode an address.
+  googleMapsClient.geocode({
+    address: latLngString
+  }, function (err, response) {
+    
+    //Get Vague, but accurate address from Google API response
+    var address = response.json.results[4].formatted_address;
+
+    //Send Address back to Index page
+    res.send(address);
+  });
+});
 
 
 module.exports = router;

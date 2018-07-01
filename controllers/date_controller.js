@@ -26,21 +26,25 @@ router.get("/itinerary", function (req, res) {
 
 // POST route first get data from googleapi then a GET to check for popularity if it exist in database
 router.post("/results", function (req, res) {
+  console.log(req.body);
+  console.log(typeof req.body.distance)
   // let finalResults = [];
   // call to googlemaps API endpoint with a callback
   // Result is in "results"
   locations(req.body, function (results) {
+   
     // Function get the data needed from the JSON object returned from google
-    let initialResults = getData(results);
-
-    // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
-    getPopularity(initialResults, function (index, dbData) {
-      (dbData === null) ? initialResults[index].popularity = 0 : initialResults[index].popularity = dbData.popularity;
+    //let initialResults = getData(results);
+    console.log(results);
+   // console.log("length :"+results.length);
+   // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
+    getPopularity(results, function (index, dbData) {
+      (dbData === null) ? results[index].popularity = 0 : results[index].popularity = dbData.popularity;
     });
     // for POST 
     res.end("results");
     // Function that calls GET request to "/result"
-    renderResultCallBack(initialResults);
+    renderResultCallBack(results);
   });
 });
 
@@ -58,9 +62,9 @@ function getPopularity(data, checkPopularityCallBack) {
 
 // RESULT.HBS GET REQ Via Post Callback
 function renderResultCallBack(results) {
-  console.log("Location results", results);
+  //console.log("Location results", results);
   router.get("/results", function (req, res) {
-    console.log(results.length);
+    //console.log(results.length);
 
     //If null value to results send back to index page for now...
     if (results.length > 0) {
@@ -70,7 +74,7 @@ function renderResultCallBack(results) {
       };
 
 
-      console.log(hbsPlacesObject.places[1]);
+      //console.log(hbsPlacesObject.places[1]);
       res.render("results", hbsPlacesObject);
 
 
@@ -83,23 +87,23 @@ function renderResultCallBack(results) {
 }
 
 // Get useful data from the googleapi call
-function getData(rawData) {
-  let formattedData = [];
+// function getData(rawData) {
+//   let formattedData = [];
 
-  for (let i = 1; i < rawData.length - 1; i++) {
-    let place = {};
+//   for (let i = 1; i < rawData.length - 1; i++) {
+//     let place = {};
 
-    //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
-    place.apiId = rawData[i].place_id;
-    place.name = rawData[i].name;
-    place.open = rawData[i].opening_hours.open_now;
-    place.googleRating = rawData[i].rating;
-    place.pricing = rawData[i].price_level;
-    place.address = rawData[i].vicinity;
-    formattedData.push(place);
-  }
-  return formattedData;
-}
+//     //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
+//     place.apiId = rawData[i].place_id;
+//     place.name = rawData[i].name;
+//     place.open = rawData[i].opening_hours.open_now;
+//     place.googleRating = rawData[i].rating;
+//     place.pricing = rawData[i].price_level;
+//     place.address = rawData[i].vicinity;
+//     formattedData.push(place);
+//   }
+//   return formattedData;
+// }
 
 // POST route for incrementing the popularity
 router.post("/itinerary", function (req, res) {

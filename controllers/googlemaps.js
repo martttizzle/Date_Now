@@ -1,4 +1,28 @@
-module.exports = function (searchInput, callback) {
+//module.exports
+
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAwxgGytwAklPuzg-otfYCjb5CQr7xd6B0",
+    authDomain: "dateproject-52f8a.firebaseapp.com",
+    databaseURL: "https://dateproject-52f8a.firebaseio.com",
+    projectId: "dateproject-52f8a",
+    storageBucket: "",
+    messagingSenderId: "253390969861"
+  };
+
+firebase.initializeApp(config);
+
+
+
+let loc = function (searchInput,callback) {
+
+   
+    let places = [];
+   
+
+   
+
+
     var googleMapsClient = require('@google/maps').createClient({
         // key: process.env.GOOGLE_KEY
         key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
@@ -15,12 +39,51 @@ module.exports = function (searchInput, callback) {
                 // address: '1600 Amphitheatre Parkway, Mountain View, CA'
                 location: location,
                 radius: searchInput.distance * (1 / 0.00062137119223733),
-                type: searchInput.type
+                type: searchInput.dateType
             }, function (err, response) {
                 if (!err) {
-                    // console.log(response.json.results);
-                    callback(response.json.results);
-                }
+
+                    
+                    
+                    for (var i = 0; i < response.json.results.length; i++) {
+              
+                       // if(response.json.results[i].name.includes("otel")){
+                           //console.log("Hotel")
+                           //console.log(response.json.results[i].name)
+                           //return;
+                        //    i=i+1;
+                       // } else {
+                           
+                        let place = {};
+                        place.placeID = response.json.results[i].place_id;
+                        place.placeNames = response.json.results[i].name;
+                        place.openNow = response.json.results[i].opening_hours.open_now;
+                        place.googleRating = response.json.results[i].rating;
+                        place.priceLvl = response.json.results[i].price_level;
+                        place.placeAdress = response.json.results[i].vicinity;
+                        place.coordinates = response.json.results[i].geometry.location.lat + ',' + response.json.results[i].geometry.location.lng;
+                        place.range=0;
+
+                        places.push(place);
+        
+                            // if (places.length === response.json.results.length) {
+
+                            //     console.log(places.length);
+                                
+                               
+                                
+                            // }
+                        
+                    // // console.log(response.json.results);
+                    // callback(response.json.results);
+             
+        } 
+
+        callback(places);
+        // console.log(places)
+        // console.log(places.length);
+        // } while(i<response.json.results.length);
+    }
                 else if (err === 'timeout') {
                     console.log("Timeout");
                 }
@@ -38,24 +101,89 @@ module.exports = function (searchInput, callback) {
     });
 }
 
-// // var zipcodes = require('zipcodes');
-// module.exports = function (searchInput) {
-//     console.log("runs really");
+
+let addRange = function(searchInput,activity) {
+
+    let range = [];
+
+var zipCodes = require('zipcodes');
+var coordinates = zipCodes.lookup(searchInput.zipcode);
+var distance = require('google-distance-matrix');
+   distance.googleMapsClient;
+
+var origin = coordinates.latitude + ',' + coordinates.longitude;
+
+for (var i=0; i<activity.length; i++) {
+
+let destination = activity[i].coordinates;
+//console.log(activity[i])
+
+distance.mode('driving');
+distance.units("imperial");
+
+var origins = [origin];
+var destinations = [destination];
+       
+distance.matrix(origins, destinations, function (err, distances) {
+
+//console.log("yay")
+range[i] = distances.rows[0].elements[0].distance.text;
+console.log(range[i])
+if(range.length===activity.length) {
+    console.log(range.join(" "));
+}
+
+
+});
+
+}
+
+
+
+}
+
+var newSearch = {
+    zipcode:"55444",
+    dateType:"restaurant",
+    distance:5
+}
+
+loc (newSearch,function(response){
+
+   addRange(newSearch,response);
+   //console.log(response)
+   
+
+})
+
+
+
+
+
+
+
+
+
+
+
+// let loc = function (zipCode, type, miles) {
+
+//     var zipcodes = require('zipcodes');
 //     var places = [];
-//     var loc = zipcodes.lookup(searchInput.zipCode);
+//     var loc = zipcodes.lookup(zipCode);
+
 //     var distance = require('google-distance-matrix');
 //     distance.googleMapsClient;
 
-//     var meters = searchInput.miles * (1 / 0.00062137119223733);
-//     var type = searchInput.type;
+//     var meters = miles * (1 / 0.00062137119223733);
 //     var googleMapsClient = require('@google/maps').createClient({
 //         // You need to create an env variable GOOGLE_KEY and put your google api key there
 //         // key: process.env.GOOGLE_KEY
-//         key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
+//         key:'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
 //     });
 
 //     googleMapsClient.geocode({
-//         address: searchInput.zipCode
+//         address: zipCode
 //     }, function (err, response) {
 //         if (err) { throw err }
 
@@ -67,7 +195,6 @@ module.exports = function (searchInput, callback) {
 //             type: type
 //         }, function (err, response) {
 //             if (err) { throw err }
-
 //             for (var i = 0; i < response.json.results.length; i++) {
 
 //                 var place = {};
@@ -80,7 +207,7 @@ module.exports = function (searchInput, callback) {
 
 //                 var origin = loc.latitude + ',' + loc.longitude;
 //                 var destination = response.json.results[i].geometry.location.lat + ',' + response.json.results[i].geometry.location.lng;
-
+                
 //                 distance.mode('driving');
 //                 distance.units("imperial");
 
@@ -95,13 +222,10 @@ module.exports = function (searchInput, callback) {
 //                     places.push(place);
 
 //                     if (places.length === response.json.results.length) {
-//                         cb(places);
+//                         console.log(places);
 //                     }
 //                 });
 //             }
 //         });
 //     });
 // }
-// // "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRaAAAAY0U67E3KYLT8jrELDUbWW9cR3Vt205uzzpBFp4BhMwDszYWx24U6GyB76WihOCArfRUxavQ78-ah3qw-7pR-xghFKdLTHPTF2hxlSftFFy0-eBE5cSK9u1PZsLIci18VEhCgx-Yk88z-I2UtY913sSUBGhR3JVkhLS23wGnK-PjuFEV6A2MMPg&key=AIzaSyAqwUr61c2v1IB62ie5sJKPsvMWlMAmE0g"
-
-// //"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+photot+"&key=AIzaSyAqwUr61c2v1IB62ie5sJKPsvMWlMAmE0g"

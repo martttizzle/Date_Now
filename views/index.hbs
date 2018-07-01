@@ -6,10 +6,14 @@
             <form id="search-form">
                 <!-- Notes:Add icons/ Add Google - Get-Location button in this input box.  Look into natural language forms -->
                 <div class="form-group">
-                    <label for="user-location-input">Enter Your Zipcode:</label>
+                    <button class="btn btn-primary" id="btn-location">My Location</button>
+
+                    <br>
+
+                    <label for="user-location-input">Enter Your Location:</label>
+
                     <input type="text" class="form-control" id="user-location-input" placeholder="55411" required>
                 </div>
-
                 <div class="form-group">
                     <label for="date-options-input">Select a Date Option:</label>
                     <select class="form-control" id="date-options-input">
@@ -23,7 +27,7 @@
                     <label for="max-range-input">Max Miles?:</label>
                     <select class="form-control" id="max-range-input">
                         <option selected>5</option>
-                           <option>10</option>
+                        <option>10</option>
                         <option>15</option>
                         <option>20</option>
                         <option>25</option>

@@ -13,6 +13,11 @@ var Datenow = require("../models").Datenow;
 // Requiring googlemaps api
 var locations = require("./googlemaps.js");
 
+var googleMapsClient = require('@google/maps').createClient({
+  // key: process.env.GOOGLE_KEY
+  key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
+});
+
 // Routes
 // =============================================================
 // index route loads index.hbs view
@@ -22,49 +27,46 @@ router.get("/", function (req, res) {
 
 // POST route first get data from googleapi then a GET to check for popularity if it exist in database
 router.post("/results", function (req, res) {
-  // let finalResults = [];
   // call to googlemaps API endpoint with a callback
   // Result is in "results"
   locations(req.body, function (results) {
     // Function get the data needed from the JSON object returned from google
+<<<<<<< HEAD
  
+=======
+>>>>>>> a7860f4836e40065a8bffebd70266dc8ffd21617
     let initialResults = getData(results);
+    let finalResults = getPopularity(initialResults);
 
-    // Function gets the popularity of a date place from database and performs a checkPopularityCallBack
-    getPopularity(initialResults, function (index, dbData) {
-      console.log(dbData);
-      (dbData === null) ? initialResults[index].popularity = 0 : initialResults[index].popularity = dbData.popularity;
-    });
     // for POST 
     res.end("results");
+
     // Function that calls GET request to "/result"
-    renderResultCallBack(initialResults);
+    renderResult(finalResults);
   });
 });
 
 // Gets Popularity
-function getPopularity(data, checkPopularityCallBack) {
-  // Takes in the intial result as data 
-  for (let i = 0; i < data.length; i++) {
-    // Check for popularity 
-    console.log("input id: ", data[i].apiId);
-    Datenow.findOne({
-      where: {
-        apiId:data[i].apiId
-      },
-    }).then(function (dbDateNow) {
-      // Perform a callback
-      console.log("response", dbDateNow);
-      checkPopularityCallBack(i, dbDateNow);
-    });
+
+function getPopularity(data) {
+  let updatedData = data;
+  let input = [];
+  for (i in data) {
+    input.push(data[i].apiId);
   }
+  Datenow.findAll({ where: { apiId: input } }).then(function (dbDateNow) {
+    for (i in data) {
+      let idFound = dbDateNow.find(search => search.apiId === data[i].apiId);
+      (idFound) ? data[i].popularity = idFound.popularity : data[i].popularity = 0;
+
+    }
+  });
+  return updatedData
 }
 
 // RESULT.HBS GET REQ Via Post Callback
-function renderResultCallBack(results) {
+function renderResult(results) {
   router.get("/results", function (req, res) {
-    console.log(results.length);
-
     //If null value to results send back to index page for now...
     if (results.length > 0) {
 
@@ -72,10 +74,7 @@ function renderResultCallBack(results) {
         places: results
       };
 
-
-      console.log(hbsPlacesObject.places[1]);
       res.render("results", hbsPlacesObject);
-
 
     } else {
       console.log("No");
@@ -92,7 +91,6 @@ function getData(rawData) {
 
   for (let i = 1; i < rawData.length - 1; i++) {
     let place = {};
-
     //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
     place.apiId = rawData[i].place_id;
     place.name = rawData[i].name;
@@ -121,9 +119,9 @@ router.post("/go", function (req, res) {
     },
       {
         where:
-        {
-          apiId: req.body.apiId
-        }
+          {
+            apiId: req.body.apiId
+          }
       })
 
     res.json(dbDateNow);
@@ -135,13 +133,11 @@ router.post("/go", function (req, res) {
 router.post("/itinerary", function (req, res) {
   res.end("itinerary");
   renderItineraryCallback(req.body);
-
 });
 
 
 function renderItineraryCallback(results) {
   router.get("/itinerary", function (req, res) {
-
     //If null value to results send back to index page for now...
     var hbsItineraryObject = {
       itinerary: results
@@ -149,6 +145,24 @@ function renderItineraryCallback(results) {
     res.render("itinerary", hbsItineraryObject);
   });
 };
+
+router.post("/location", function (req, res) {
+
+  //Create address search string of user's latitude and longitude for Google Geocode
+  var latLngString = (req.body.lat).toString() + "," + (req.body.lng).toString();
+
+  // Reverse Geocode an address.
+  googleMapsClient.geocode({
+    address: latLngString
+  }, function (err, response) {
+    
+    //Get Vague, but accurate address from Google API response
+    var address = response.json.results[4].formatted_address;
+
+    //Send Address back to Index page
+    res.send(address);
+  });
+});
 
 
 module.exports = router;

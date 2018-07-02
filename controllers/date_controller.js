@@ -13,10 +13,8 @@ var Datenow = require("../models").Datenow;
 // Requiring googlemaps api
 var locations = require("./googlemaps.js");
 
-var googleMapsClient = require('@google/maps').createClient({
-  // key: process.env.GOOGLE_KEY
-  key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
-});
+//Requiring the fuction that will use the user geocode coordinates 
+var geocode = require("./geocode.js");
 
 // Routes
 // =============================================================
@@ -124,21 +122,18 @@ function renderItineraryCallback(results) {
 
 router.post("/location", function (req, res) {
 
+  //User Coordinates 
+  var userCoordinates = req.body
   //Create address search string of user's latitude and longitude for Google Geocode
-  var latLngString = (req.body.lat).toString() + "," + (req.body.lng).toString();
+  geocode(userCoordinates,function(address){
 
-  // Reverse Geocode an address.
-  googleMapsClient.geocode({
-    address: latLngString
-  }, function (err, response) {
-    
-    //Get Vague, but accurate address from Google API response
-    var address = response.json.results[4].formatted_address;
-
-    //Send Address back to Index page
     res.send(address);
+
+  })
+    //Send Address back to Index page
+   
   });
-});
+
 
 
 module.exports = router;

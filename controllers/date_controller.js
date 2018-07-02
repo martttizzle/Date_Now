@@ -31,10 +31,7 @@ router.post("/results", function (req, res) {
   // Result is in "results"
   locations(req.body, function (results) {
     // Function get the data needed from the JSON object returned from google
-<<<<<<< HEAD
  
-=======
->>>>>>> a7860f4836e40065a8bffebd70266dc8ffd21617
     let initialResults = getData(results);
     let finalResults = getPopularity(initialResults);
   
@@ -59,7 +56,6 @@ function getPopularity(data) {
     for (i in data) {
       let idFound = dbDateNow.find(search => search.apiId === data[i].apiId);
       (idFound) ? data[i].popularity = idFound.popularity : data[i].popularity = 0;
-
     }
   });
   return updatedData
@@ -76,7 +72,6 @@ function renderResult(results) {
       };
 
       res.render("results", hbsPlacesObject);
-
     } else {
       console.log("No");
       res.render("index");
@@ -87,9 +82,8 @@ function renderResult(results) {
 
 // Get useful data from the googleapi call
 function getData(rawData) {
-  console.log("Location results", rawData);
   let formattedData = [];
-
+  console.log(rawData);
   for (let i = 1; i < rawData.length - 1; i++) {
     let place = {};
     //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
@@ -100,6 +94,7 @@ function getData(rawData) {
     place.pricing = rawData[i].price_level;
     place.address = rawData[i].vicinity;
     //place.photo= rawData[i].photos[0].photo_reference;
+    console.log("Formatted Data",formattedData);
     formattedData.push(place);
   }
   return formattedData;
@@ -107,7 +102,7 @@ function getData(rawData) {
 
 router.post("/go", function (req, res) {
   // UPSERT (i.e insert or update if already exist) a new row
-  console.log(req.body);
+  // conconsole.log(req.body);
 
   Datenow.upsert({
     name: req.body.name,

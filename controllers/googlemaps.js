@@ -1,4 +1,5 @@
-module.exports = function (searchInput, callback) {
+let location = function (searchInput, callback) {
+
     var googleMapsClient = require('@google/maps').createClient({
         // key: process.env.GOOGLE_KEY
         key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
@@ -15,11 +16,11 @@ module.exports = function (searchInput, callback) {
                 // address: '1600 Amphitheatre Parkway, Mountain View, CA'
                 location: location,
                 radius: searchInput.distance * (1 / 0.00062137119223733),
-                type: searchInput.type
+                type: searchInput.dateType
             }, function (err, response) {
                 if (!err) {
-                    // console.log(response.json.results);
-                    callback(response.json.results);
+
+                    callback(response.json.results)
                 }
                 else if (err === 'timeout') {
                     console.log("Timeout");
@@ -38,70 +39,110 @@ module.exports = function (searchInput, callback) {
     });
 }
 
-// // var zipcodes = require('zipcodes');
-// module.exports = function (searchInput) {
-//     console.log("runs really");
-//     var places = [];
-//     var loc = zipcodes.lookup(searchInput.zipCode);
-//     var distance = require('google-distance-matrix');
-//     distance.googleMapsClient;
 
-//     var meters = searchInput.miles * (1 / 0.00062137119223733);
-//     var type = searchInput.type;
-//     var googleMapsClient = require('@google/maps').createClient({
-//         // You need to create an env variable GOOGLE_KEY and put your google api key there
-//         // key: process.env.GOOGLE_KEY
-//         key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
-//     });
+let addRange = function (searchInput, activity, callback) {
 
-//     googleMapsClient.geocode({
-//         address: searchInput.zipCode
-//     }, function (err, response) {
-//         if (err) { throw err }
+    let range = [];
 
-//         let location = response.json.results[0].geometry.location;
-//         // Geocode an address.
-//         googleMapsClient.placesNearby({
-//             location: location,
-//             radius: meters,
-//             type: type
-//         }, function (err, response) {
-//             if (err) { throw err }
+    var zipCodes = require('zipcodes');
+    var coordinates = zipCodes.lookup(searchInput.zipcode);
+    var distance = require('google-distance-matrix');
+    distance.googleMapsClient;
 
-//             for (var i = 0; i < response.json.results.length; i++) {
+    var origin = coordinates.latitude + ',' + coordinates.longitude;
 
-//                 var place = {};
-//                 place.placeID = response.json.results[i].place_id;
-//                 place.placeNames = response.json.results[i].name;
-//                 place.openNow = response.json.results[i].opening_hours.open_now;
-//                 place.googleRating = response.json.results[i].rating;
-//                 place.priceLvl = response.json.results[i].price_level;
-//                 place.placeAdress = response.json.results[i].vicinity;
+    for (var i = 0; i < activity.length; i++) {
 
-//                 var origin = loc.latitude + ',' + loc.longitude;
-//                 var destination = response.json.results[i].geometry.location.lat + ',' + response.json.results[i].geometry.location.lng;
+        let destination = activity[i].coordinates;
 
-//                 distance.mode('driving');
-//                 distance.units("imperial");
+        distance.mode('driving');
+        distance.units("imperial");
 
-//                 var origins = [origin];
-//                 var destinations = [destination];
+        var origins = [origin];
+        var destinations = [destination];
 
-//                 distance.matrix(origins, destinations, function (err, distances) {
-//                     if (!err)
-//                         //console.log(distances);
-//                         place.placeDistance = distances.rows[0].elements[0].distance.text;
-//                     // console.log(placeDistance[i])
-//                     places.push(place);
+        distance.matrix(origins, destinations, function (err, distances) {
 
-//                     if (places.length === response.json.results.length) {
-//                         cb(places);
-//                     }
-//                 });
-//             }
-//         });
-//     });
-// }
-// // "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRaAAAAY0U67E3KYLT8jrELDUbWW9cR3Vt205uzzpBFp4BhMwDszYWx24U6GyB76WihOCArfRUxavQ78-ah3qw-7pR-xghFKdLTHPTF2hxlSftFFy0-eBE5cSK9u1PZsLIci18VEhCgx-Yk88z-I2UtY913sSUBGhR3JVkhLS23wGnK-PjuFEV6A2MMPg&key=AIzaSyAqwUr61c2v1IB62ie5sJKPsvMWlMAmE0g"
+            let dist = distances.rows[0].elements[0].distance.text;
+            range.push(dist);
 
-// //"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+photot+"&key=AIzaSyAqwUr61c2v1IB62ie5sJKPsvMWlMAmE0g"
+            if (range.length === activity.length) {
+
+                callback(range);
+            }
+
+        });
+
+    }
+
+}
+
+
+function pricing(arg) {
+
+    if (arg.price_level !== undefined) {
+        return arg.price_level;
+    } else {
+        return arg.price_level = "No data";
+    }
+}
+
+function openNow(arg) {
+
+    if (arg !== undefined) {
+        if (arg.open_now === true) {
+            return arg.open_now = "Open"
+        } else {
+            return arg.open_now = "Closed"
+        }
+
+    } else {
+
+        arg = { open_now: "No data" };
+        return arg.open_now;
+    }
+}
+
+//Get useful data from the googleapi call
+function getData(rawData) {
+    let formattedData = [];
+
+    for (let i = 0; i < rawData.length; i++) {
+        let place = {};
+
+        //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
+        place.apiId = rawData[i].place_id;
+        place.name = rawData[i].name;
+        place.open = openNow(rawData[i].opening_hours);
+        place.googleRating = rawData[i].rating;
+        place.pricing = pricing(rawData[i]);
+        place.address = rawData[i].vicinity;
+        place.coordinates = rawData[i].geometry.location.lat + ',' + rawData[i].geometry.location.lng;
+
+        formattedData.push(place);
+    }
+    return formattedData;
+}
+
+
+
+
+module.exports = function (searchInput, callback) {
+    location(searchInput, function (response) {
+
+        data = getData(response);
+
+
+        addRange(searchInput, data, function (ranges) {
+
+            for (var i = 0; i < data.length; i++) {
+                data[i].distance = ranges[i];
+            }
+            callback(data);
+
+        });
+
+
+
+    });
+}

@@ -128,16 +128,17 @@ function getData(rawData) {
 
 
 module.exports = function (searchInput, callback) {
+
     location(searchInput, function (response) {
 
         data = getData(response);
-
 
         addRange(searchInput, data, function (ranges) {
 
             for (var i = 0; i < data.length; i++) {
                 data[i].distance = ranges[i];
             }
+            
             callback(data);
 
         });

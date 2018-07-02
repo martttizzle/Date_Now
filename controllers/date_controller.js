@@ -28,6 +28,7 @@ router.post("/results", function (req, res) {
   // call to googlemaps API endpoint with a callback
   // Result is in "results"
   locations(req.body, function (results) {
+    console.log(results)
     // Function get the data needed from the JSON object returned from google
     let finalResults = getPopularity(results);
 

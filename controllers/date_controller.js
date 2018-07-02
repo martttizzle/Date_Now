@@ -31,13 +31,15 @@ router.post("/results", function (req, res) {
   // Result is in "results"
   locations(req.body, function (results) {
     // Function get the data needed from the JSON object returned from google
-    let finalResults = getPopularity(results);
-
+    let initialResults = getData(results);
+    let finalResults = getPopularity(initialResults);
+  
     // for POST 
     res.end("results");
 
     // Function that calls GET request to "/result"
     renderResult(finalResults);
+    
   });
 });
 
@@ -77,6 +79,25 @@ function renderResult(results) {
     }
 
   });
+}
+
+// Get useful data from the googleapi call
+function getData(rawData) {
+  let formattedData = [];
+
+  for (let i = 1; i < rawData.length - 1; i++) {
+    let place = {};
+    //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
+    place.apiId = rawData[i].place_id;
+    place.name = rawData[i].name;
+    place.open = rawData[i].opening_hours.open_now;
+    place.googleRating = rawData[i].rating;
+    place.pricing = rawData[i].price_level;
+    place.address = rawData[i].vicinity;
+    //place.photo= rawData[i].photos[0].photo_reference;
+    formattedData.push(place);
+  }
+  return formattedData;
 }
 
 router.post("/go", function (req, res) {

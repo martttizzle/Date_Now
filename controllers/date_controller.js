@@ -93,6 +93,8 @@ function getData(rawData) {
     place.googleRating = rawData[i].rating;
     place.pricing = rawData[i].price_level;
     place.address = rawData[i].vicinity;
+    //Added photo_reference for Martel
+    place.photo= rawData[i].photos[0].photo_reference
     formattedData.push(place);
   }
   return formattedData;

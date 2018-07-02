@@ -37,6 +37,7 @@ router.post("/results", function (req, res) {
 
     // Function that calls GET request to "/result"
     renderResult(finalResults);
+    
   });
 });
 

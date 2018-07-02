@@ -65,12 +65,16 @@
             font-weight: normal;
         }
 
+        h6 {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
         .nav {
             text-align: center;
         }
 
         footer {
-            height:60px;
+            height: 60px;
             position: fixed;
             left: 0;
             bottom: 0;
@@ -78,31 +82,70 @@
             text-align: center;
         }
 
+        a:hover {
+            color: #A9D82B;
+        }
+
+        .black {
+            color: black;
+        }
+
+        .btn-block {
+            border-radius: 50px;
+        }
+
+        nav {
+            -webkit-box-shadow: 0 8px 6px -6px #999;
+            -moz-box-shadow: 0 8px 6px -6px #999;
+            box-shadow: 0 8px 6px -6px #999;
+        }
     </style>
 </head>
 
 <body>
     <div class="content-container">
         <!-- Navigation -->
-        <nav class="navbar navbar-white bg-white border-bottom">
-            <span class=" mx-auto text-dark mb-1 mt-1 h1">Jaunt.</span>
+        <nav class="navbar navbar-white bg-white shadow p-3">
+            <div class="container-fluid ">
+                <div class="col-lg-12 text-center mx-auto border-bottom">
+                    <a class="navbar-brand mx-auto h1" href="/">
+                        Jaunt.
+                    </a>
+                </div>
+                <div class="container-fluid bg-white mx-auto pt-4">
+                    <h6 class="mx-auto text-center text-secondary">
+                        <i id="snarky-quote">(because your date ideas suck)</i>
+                    </h6>
+                </div>
+            </div>
         </nav>
-        <div class="row bg-white">
-            <h6 class="mx-auto text-center text-secondary mt-1">
-                <i id="snarky-quote">(because you have the worst date ideas)</i>
-            </h6>
-        </div>
+
 
         <br> {{{ body }}}
 
-
-        <footer class="footer bg-white">
-            <div class="container">
-                <span class="text-dark"></span>
-            </div>
-        </footer>
-
     </div>
+
+    <footer class="footer bg-white">
+
+
+        <div class="d-flex">
+            <div class="p-2">
+                <h1 class="text-left ml-4">
+                    <a class="black" href="https://github.com/martttizzle/Date_Now">
+                        <i class="fa fa-github"></i>
+                    </a>
+                </h1>
+            </div>
+            <div class="ml-auto p-2">
+                <h1 class="text-right mr-4">
+                    <a class="black" href="https://www.instagram.com/jaunt_app/">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+                </h1>
+            </div>
+        </div>
+    </footer>
+
 
 </body>
 

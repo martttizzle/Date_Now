@@ -33,12 +33,13 @@ router.post("/results", function (req, res) {
     // Function get the data needed from the JSON object returned from google
     let initialResults = getData(results);
     let finalResults = getPopularity(initialResults);
-
+  
     // for POST 
     res.end("results");
 
     // Function that calls GET request to "/result"
     renderResult(finalResults);
+    
   });
 });
 
@@ -93,7 +94,7 @@ function getData(rawData) {
     place.googleRating = rawData[i].rating;
     place.pricing = rawData[i].price_level;
     place.address = rawData[i].vicinity;
-    place.photo= rawData[i].photos[0].photo_reference;
+    //place.photo= rawData[i].photos[0].photo_reference;
     formattedData.push(place);
   }
   return formattedData;

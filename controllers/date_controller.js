@@ -37,12 +37,13 @@ router.post("/results", function (req, res) {
 >>>>>>> a7860f4836e40065a8bffebd70266dc8ffd21617
     let initialResults = getData(results);
     let finalResults = getPopularity(initialResults);
-
+  
     // for POST 
     res.end("results");
 
     // Function that calls GET request to "/result"
     renderResult(finalResults);
+    
   });
 });
 
@@ -98,6 +99,7 @@ function getData(rawData) {
     place.googleRating = rawData[i].rating;
     place.pricing = rawData[i].price_level;
     place.address = rawData[i].vicinity;
+    //place.photo= rawData[i].photos[0].photo_reference;
     formattedData.push(place);
   }
   return formattedData;

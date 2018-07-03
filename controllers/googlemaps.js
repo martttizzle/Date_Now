@@ -107,7 +107,7 @@ function openNow(arg) {
 function getData(rawData) {
     let formattedData = [];
 
-    for (let i = 0; i < rawData.length; i++) {
+    for (let i = 1; i < rawData.length-1; i++) {
         let place = {};
 
         //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType

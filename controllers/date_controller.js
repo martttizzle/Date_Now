@@ -13,10 +13,8 @@ var Datenow = require("../models").Datenow;
 // Requiring googlemaps api
 var locations = require("./googlemaps.js");
 
-var googleMapsClient = require('@google/maps').createClient({
-  // key: process.env.GOOGLE_KEY
-  key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
-});
+//Requiring the fuction that will use the user geocode coordinates 
+var geocode = require("./geocode.js");
 
 // Routes
 // =============================================================
@@ -31,36 +29,37 @@ router.post("/results", function (req, res) {
   // Result is in "results"
   locations(req.body, function (results) {
     // Function get the data needed from the JSON object returned from google
-    let initialResults = getData(results);
-    let finalResults = getPopularity(initialResults);
-  
-    // for POST 
-    res.end("results");
-
-    // Function that calls GET request to "/result"
-    renderResult(finalResults);
-    
+    getPopularity(results, function (formattedData) {
+      // for POST 
+      res.end("results");
+      renderResult(formattedData);
+    });
   });
 });
 
 // Gets Popularity
 
-function getPopularity(data) {
+function getPopularity(data, callback) {
   let updatedData = data;
   let input = [];
+  // console.log("getpop: ", data);
   for (i in data) {
     input.push(data[i].apiId);
   }
   Datenow.findAll({ where: { apiId: input } }).then(function (dbDateNow) {
+    console.log(data);
+    console.log("sequelize: ", dbDateNow);
+
     for (i in data) {
       let idFound = dbDateNow.find(search => search.apiId === data[i].apiId);
-      (idFound) ? data[i].popularity = idFound.popularity : data[i].popularity = 0;
-
+      (idFound) ? updatedData[i].popularity = idFound.popularity : updatedData[i].popularity = 0;
+      console.log(updatedData[i].popularity);
     }
-  });
-  return updatedData
-}
+    console.log(updatedData);
+    callback(updatedData);
 
+  });
+}
 // RESULT.HBS GET REQ Via Post Callback
 function renderResult(results) {
   router.get("/results", function (req, res) {
@@ -81,25 +80,6 @@ function renderResult(results) {
   });
 }
 
-// Get useful data from the googleapi call
-function getData(rawData) {
-  let formattedData = [];
-
-  for (let i = 1; i < rawData.length - 1; i++) {
-    let place = {};
-    //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
-    place.apiId = rawData[i].place_id;
-    place.name = rawData[i].name;
-    place.open = rawData[i].opening_hours.open_now;
-    place.googleRating = rawData[i].rating;
-    place.pricing = rawData[i].price_level;
-    place.address = rawData[i].vicinity;
-    //place.photo= rawData[i].photos[0].photo_reference;
-    formattedData.push(place);
-  }
-  return formattedData;
-}
-
 router.post("/go", function (req, res) {
   // UPSERT (i.e insert or update if already exist) a new row
   console.log(req.body);
@@ -116,9 +96,9 @@ router.post("/go", function (req, res) {
     },
       {
         where:
-          {
-            apiId: req.body.apiId
-          }
+        {
+          apiId: req.body.apiId
+        }
       })
 
     res.json(dbDateNow);
@@ -145,21 +125,16 @@ function renderItineraryCallback(results) {
 
 router.post("/location", function (req, res) {
 
+  //User Coordinates 
+  var userCoordinates = req.body
   //Create address search string of user's latitude and longitude for Google Geocode
-  var latLngString = (req.body.lat).toString() + "," + (req.body.lng).toString();
+  geocode(userCoordinates, function (address) {
 
-  // Reverse Geocode an address.
-  googleMapsClient.geocode({
-    address: latLngString
-  }, function (err, response) {
-    
-    //Get Vague, but accurate address from Google API response
-    var address = response.json.results[4].formatted_address;
-
-    //Send Address back to Index page
     res.send(address);
-  });
+
+  })
 });
+
 
 
 module.exports = router;

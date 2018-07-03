@@ -39,7 +39,7 @@ $(function () {
             dateType: $("#date-options-input").val().trim().toLowerCase(),
             distance: parseFloat($("#max-range-input").val().trim())
         };
-
+        console.log(newDateSearch);
         // Send the POST request.
         $.ajax("/results", {
             type: "POST",

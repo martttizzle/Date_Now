@@ -28,37 +28,38 @@ router.post("/results", function (req, res) {
   // call to googlemaps API endpoint with a callback
   // Result is in "results"
   locations(req.body, function (results) {
-    console.log(results)
     // Function get the data needed from the JSON object returned from google
-    let finalResults = getPopularity(results);
-
-    // for POST 
-    res.end("results");
-
-    // Function that calls GET request to "/result"
-    renderResult(finalResults);
-    
+    getPopularity(results, function (formattedData) {
+      // for POST 
+      res.end("results");
+      renderResult(formattedData);
+    });
   });
 });
 
 // Gets Popularity
 
-function getPopularity(data) {
+function getPopularity(data, callback) {
   let updatedData = data;
   let input = [];
+  // console.log("getpop: ", data);
   for (i in data) {
     input.push(data[i].apiId);
   }
   Datenow.findAll({ where: { apiId: input } }).then(function (dbDateNow) {
+    console.log(data);
+    console.log("sequelize: ", dbDateNow);
+
     for (i in data) {
       let idFound = dbDateNow.find(search => search.apiId === data[i].apiId);
-      (idFound) ? data[i].popularity = idFound.popularity : data[i].popularity = 0;
-
+      (idFound) ? updatedData[i].popularity = idFound.popularity : updatedData[i].popularity = 0;
+      console.log(updatedData[i].popularity);
     }
-  });
-  return updatedData
-}
+    console.log(updatedData);
+    callback(updatedData);
 
+  });
+}
 // RESULT.HBS GET REQ Via Post Callback
 function renderResult(results) {
   router.get("/results", function (req, res) {
@@ -95,9 +96,9 @@ router.post("/go", function (req, res) {
     },
       {
         where:
-          {
-            apiId: req.body.apiId
-          }
+        {
+          apiId: req.body.apiId
+        }
       })
 
     res.json(dbDateNow);
@@ -127,14 +128,12 @@ router.post("/location", function (req, res) {
   //User Coordinates 
   var userCoordinates = req.body
   //Create address search string of user's latitude and longitude for Google Geocode
-  geocode(userCoordinates,function(address){
+  geocode(userCoordinates, function (address) {
 
     res.send(address);
 
   })
-    //Send Address back to Index page
-   
-  });
+});
 
 
 

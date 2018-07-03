@@ -13,10 +13,8 @@ var Datenow = require("../models").Datenow;
 // Requiring googlemaps api
 var locations = require("./googlemaps.js");
 
-var googleMapsClient = require('@google/maps').createClient({
-  // key: process.env.GOOGLE_KEY
-  key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
-});
+//Requiring the fuction that will use the user geocode coordinates 
+var geocode = require("./geocode.js");
 
 // Routes
 // =============================================================
@@ -30,10 +28,10 @@ router.post("/results", function (req, res) {
   // call to googlemaps API endpoint with a callback
   // Result is in "results"
   locations(req.body, function (results) {
+    console.log(results)
     // Function get the data needed from the JSON object returned from google
-    let initialResults = getData(results);
-    let finalResults = getPopularity(initialResults);
-  
+    let finalResults = getPopularity(results);
+
     // for POST 
     res.end("results");
 
@@ -81,25 +79,6 @@ function renderResult(results) {
   });
 }
 
-// Get useful data from the googleapi call
-function getData(rawData) {
-  let formattedData = [];
-
-  for (let i = 1; i < rawData.length - 1; i++) {
-    let place = {};
-    //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
-    place.apiId = rawData[i].place_id;
-    place.name = rawData[i].name;
-    place.open = rawData[i].opening_hours.open_now;
-    place.googleRating = rawData[i].rating;
-    place.pricing = rawData[i].price_level;
-    place.address = rawData[i].vicinity;
-    //place.photo= rawData[i].photos[0].photo_reference;
-    formattedData.push(place);
-  }
-  return formattedData;
-}
-
 router.post("/go", function (req, res) {
   // UPSERT (i.e insert or update if already exist) a new row
   console.log(req.body);
@@ -145,21 +124,18 @@ function renderItineraryCallback(results) {
 
 router.post("/location", function (req, res) {
 
+  //User Coordinates 
+  var userCoordinates = req.body
   //Create address search string of user's latitude and longitude for Google Geocode
-  var latLngString = (req.body.lat).toString() + "," + (req.body.lng).toString();
+  geocode(userCoordinates,function(address){
 
-  // Reverse Geocode an address.
-  googleMapsClient.geocode({
-    address: latLngString
-  }, function (err, response) {
-    
-    //Get Vague, but accurate address from Google API response
-    var address = response.json.results[4].formatted_address;
-
-    //Send Address back to Index page
     res.send(address);
+
+  })
+    //Send Address back to Index page
+   
   });
-});
+
 
 
 module.exports = router;

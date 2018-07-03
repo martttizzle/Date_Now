@@ -98,8 +98,6 @@ function getData(rawData) {
     place.googleRating = rawData[i].rating;
     place.pricing = rawData[i].price_level;
     place.address = rawData[i].vicinity;
-
-
     formattedData.push(place);
   }
   return formattedData;

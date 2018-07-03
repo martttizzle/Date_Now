@@ -83,24 +83,30 @@ function renderResult(results) {
 // Get useful data from the googleapi call
 function getData(rawData) {
   let formattedData = [];
-  console.log(rawData);
+  console.log("RAW****************",rawData[0].geometry.location.lat);
+  console.log("RAW****************",rawData[0].geometry.location.lng);
   for (let i = 1; i < rawData.length - 1; i++) {
     let place = {};
     //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
     place.apiId = rawData[i].place_id;
     place.name = rawData[i].name;
-    place.open = rawData[i].opening_hours.open_now;
+    place.lat =  rawData[i].geometry.location.lat;
+    place.lng =  rawData[i].geometry.location.lng;
+    // place.open = rawData[i].opening_hours.open_now;
     place.googleRating = rawData[i].rating;
     place.pricing = rawData[i].price_level;
     place.address = rawData[i].vicinity;
     //place.photo= rawData[i].photos[0].photo_reference;
-    console.log("Formatted Data",formattedData);
+    //console.log("Formatted Data",formattedData);
     formattedData.push(place);
   }
   return formattedData;
 }
 
 router.post("/go", function (req, res) {
+
+
+
   // UPSERT (i.e insert or update if already exist) a new row
   // conconsole.log(req.body);
 

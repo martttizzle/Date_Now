@@ -37,7 +37,7 @@ $(function () {
         var newDateSearch = {
             zipcode: $("#user-location-input").val().trim(),
             dateType: $("#date-options-input").val().trim().toLowerCase(),
-            distance: parseFloat($("#max-range-input").val().trim())
+            distance: parseInt($("#max-range-input").val().trim())
         };
 
         // Send the POST request.

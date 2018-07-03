@@ -4,38 +4,27 @@ module.exports = function (searchInput, callback) {
         key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
     });
 
+    // Places search by zipcode OR name of city or state
+
+    //convert meters string to number
+    const raidusMeters = parseInt(searchInput.distance);
+
     // Geocode an address.
-    googleMapsClient.geocode({
-        address: searchInput.zipcode
+    googleMapsClient.places({
+        query: searchInput.zipcode,
+        radius: raidusMeters,
+        type: searchInput.dateType
     }, function (err, response) {
         if (!err) {
-            let location = response.json.results[0].geometry.location;
-            // Geocode an address.
-            googleMapsClient.placesNearby({
-                // address: '1600 Amphitheatre Parkway, Mountain View, CA'
-                location: location,
-                radius: searchInput.distance * (1 / 0.00062137119223733),
-                type: searchInput.type
-            }, function (err, response) {
-                if (!err) {
-                    // console.log(response.json.results);
-                    callback(response.json.results);
-                }
-                else if (err === 'timeout') {
-                    console.log("Timeout");
-                }
-                else {
-                    console.log(err.json);
-                }
-            });
-        }
-        else if (err === 'timeout') {
+            // console.log(response.json.results);
+            callback(response.json.results);
+        } else if (err === 'timeout') {
             console.log("Timeout");
-        }
-        else {
+        } else {
             console.log(err.json);
         }
     });
+
 }
 
 // // var zipcodes = require('zipcodes');

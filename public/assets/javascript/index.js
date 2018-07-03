@@ -17,7 +17,7 @@ $(function () {
 
                 //Send latitude and longitude to browser
                 $.ajax("/location", {
-                    type: "POST",
+                    type: "GET",
                     data: latlng
 
                     //Input returned value to index page form
@@ -40,14 +40,21 @@ $(function () {
             distance: parseFloat($("#max-range-input").val().trim())
         };
         console.log(newDateSearch);
-        // Send the POST request.
+        // Send the GET request.
         $.ajax("/results", {
-            type: "POST",
+            url: newDateSearch.zipcode,
+            type: "GET",
             data: newDateSearch
         }).then(
             function () {
                 window.location.href = "/results";
             });
+
+            // $.get("/results", newDateSearch, function (data) {
+            //     console.log(data);
+            //     // window.open(url);
+            //     window.location.href = "/results";
+            // });
     });
 
 });

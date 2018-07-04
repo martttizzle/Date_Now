@@ -92,6 +92,32 @@ router.post("/go", function (req, res) {
 });
 
 
+//Random Route
+
+
+// POST route first get data from googleapi then a GET to check for popularity if it exist in database
+router.get("/random/:zip/:type/:distance", function (req, res) {
+  // call to googlemaps API endpoint with a callback
+  var searchInput = {
+    zipcode: req.params.zip,
+    dateType: req.params.type,
+    distance: req.params.distance
+  };
+
+  googleClient(searchInput, function (placesResults) {
+    // Function gets google data and check for popularity in Database
+    getPopularity(placesResults, function (formattedData) {
+      hbsPlacesObject = {
+        places: formattedData
+      };
+      // Renders in Handlebars
+      
+      res.render("results", hbsPlacesObject);
+    });
+  });
+});
+
+
 // Gets Popularity
 
 function getPopularity(data, callback) {
@@ -108,5 +134,7 @@ function getPopularity(data, callback) {
     callback(updatedData);
   });
 }
+
+
 
 module.exports = router;

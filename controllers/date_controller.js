@@ -27,9 +27,9 @@ router.get("/", function (req, res) {
 router.get("/results/:zip/:type/:distance", function (req, res) {
   // call to googlemaps API endpoint with a callback
   var searchInput = {
-    zipcode :req.params.zip,
-    dateType:req.params.type,
-    distance:req.params.distance   
+    zipcode: req.params.zip,
+    dateType: req.params.type,
+    distance: req.params.distance
   };
 
   googleClient(searchInput, function (placesResults) {
@@ -48,7 +48,7 @@ router.get("/results/:zip/:type/:distance", function (req, res) {
 // POST route for incrementing the popularity
 router.put("/itinerary", function (req, res) {
   //console.log("req.body", req.query);
-  console.log("ITINERARY" ,req.body);
+  console.log("ITINERARY", req.body);
   //If null value to results send back to index page for now...
   let hbsItineraryObject = {
     itinerary: req.body
@@ -85,9 +85,9 @@ router.post("/go", function (req, res) {
     },
       {
         where:
-        {
-          apiId: req.body.apiId
-        }
+          {
+            apiId: req.body.apiId
+          }
       })
 
     res.json(dbDateNow);

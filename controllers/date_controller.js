@@ -29,13 +29,12 @@ router.get("/results/:type/:distance/:zipcode/:coordinates", function (req, res)
   // console.log("res.params: ", req.params)
   googleClient(req.params, function (placesResults) {
     // Function gets google data and check for popularity in Database
-    // console.log(placesResults)
+    // This is the googlemaps callback (check googlemaps.js module mainCallback)
     getPopularity(placesResults, function (formattedData) {
       hbsPlacesObject = {
         places: formattedData
       };
       // Renders in Handlebars
-
       res.render("results", hbsPlacesObject);
     });
   });

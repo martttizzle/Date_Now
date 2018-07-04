@@ -21,7 +21,6 @@ $(function () {
                     //Input returned value to index page form
                 }).then(
                     function (response) {
-                        //console.log(util.inspect(response.json.results, false, null))
                         let address = 0;
 
                         for (let i = 0; i < response.length; i++) {
@@ -52,7 +51,7 @@ $(function () {
             dateType: $("#date-options-input").val().trim().toLowerCase(),
             distance: parseFloat($("#max-range-input").val().trim())
         };
-        
+
         //Two things happening 
         // 1. Check if user manually typed zipcode  thus no coordinates avaliable then SET COORDINATES to null for ajax request use 
         // 2. Check if user clicked get location and then SET ZIPCODE

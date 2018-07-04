@@ -123,15 +123,18 @@ $(function () {
         // } else {
 
         console.log("SUBMIT FORM????");
-        console.log("SELECTED", userSelections[0]);
+        console.log("SELECTED", userSelections);
+        let url = "/itinerary/"+userSelections.type+"/"+userSelections.apiType+"/"+userSelections.zipcode+"/"+userSelections.apiId+"/"+userSelections.name;
 
-        $.ajax("/itinerary", {
-            type: "POST",
+        $.ajax(url, {
+            //url: newDateSearch.zipcode,
+            type: "GET",
             data: userSelections
         }).then(
             function () {
-                window.location.href = "/itinerary";
+                window.location.href = url;
             });
+
 
 
         //if there are more card sets, hide all cards from current set, and increase card set and show 1st in next set.  

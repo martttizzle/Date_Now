@@ -27,9 +27,9 @@ router.get("/", function (req, res) {
 router.get("/results/:zip/:type/:distance", function (req, res) {
   // call to googlemaps API endpoint with a callback
   var searchInput = {
-    zipcode :req.params.zip,
-    dateType:req.params.type,
-    distance:req.params.distance   
+    zipcode: req.params.zip,
+    dateType: req.params.type,
+    distance: req.params.distance
   };
 
   googleClient(searchInput, function (placesResults) {
@@ -38,7 +38,6 @@ router.get("/results/:zip/:type/:distance", function (req, res) {
       hbsPlacesObject = {
         places: formattedData
       };
-      // console.log("hbsPlacesObject", hbsPlacesObject);
       // Renders in Handlebars
       res.render("results", hbsPlacesObject);
     });
@@ -46,13 +45,10 @@ router.get("/results/:zip/:type/:distance", function (req, res) {
 });
 
 // POST route for incrementing the popularity
-router.get("/itinerary", function (req, res) {
-  //console.log("req.body", req.query);
-  //If null value to results send back to index page for now...
+router.get("/itinerary/:type/:api/:zipcode/:apiId/:name", async function (req, res) {
   let hbsItineraryObject = {
-    itinerary: results
+    itinerary: req.params
   };
-  //console.log("my hbs: ", hbsItineraryObject);
   res.render("itinerary", hbsItineraryObject);
 });
 

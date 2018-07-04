@@ -1,60 +1,77 @@
+//Requiring the fuction that will use the user geocode coordinates 
+var geocode = require("./geocode.js");
+
 let location = function (searchInput, callback) {
 
     var googleMapsClient = require('@google/maps').createClient({
         // key: process.env.GOOGLE_KEY
         key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
     });
-
-    // Geocode an address.
-    googleMapsClient.geocode({
-        address: searchInput.zipcode
-    }, function (err, response) {
-        if (!err) {
-            let location = response.json.results[0].geometry.location;
-            // Geocode an address.
-            googleMapsClient.placesNearby({
-                // address: '1600 Amphitheatre Parkway, Mountain View, CA'
-                location: location,
-                radius: searchInput.distance * (1 / 0.00062137119223733),
-                type: searchInput.dateType
-            }, function (err, response) {
-                if (!err) {
-
-                    
-                        getData(response.json.results,function(places){
-
+    if (searchInput.coordinates === "null") {
+        console.log("yes")
+        // Geocode an address.
+        googleMapsClient.geocode({
+            address: searchInput.zipcode
+        }, function (err, response) {
+            if (!err) {
+                searchInput.coordinates = response.json.results[0].geometry.location;
+                console.log(searchInput.zipcode)
+                googleMapsClient.placesNearby({
+                    location: searchInput.coordinates,
+                    radius: searchInput.distance * (1 / 0.00062137119223733),
+                    type: searchInput.dateType
+                }, function (err, response) {
+                    if (!err) {
+                        getData(response.json.results, searchInput.zipcode, function (places) {
+                            // Getdata call back not needed
                             callback(places);
-
                         })
-                }
-                else if (err === 'timeout') {
-                    console.log("Timeout");
-                }
-                else {
-                    console.log(err.json);
-                }
-            });
-        }
-        else if (err === 'timeout') {
-            console.log("Timeout");
-        }
-        else {
-            console.log(err.json);
-        }
-    });
-}
+                    }
+                    else if (err === 'timeout') {
+                        console.log("Timeout");
+                    }
+                    else {
+                        console.log(err.json);
+                    }
+                });
 
+            }
+        });
+    }
+    else {
+        googleMapsClient.placesNearby({
+            location: searchInput.coordinates,
+            radius: searchInput.distance * (1 / 0.00062137119223733),
+            type: searchInput.dateType
+        }, function (err, response) {
+            if (!err) {
+                // console.log("places response:", response.json.results)
+                getData(response.json.results, searchInput.zipcode, function (places) {
+                    // Getdata call back not needed
+                    callback(places);
+
+                })
+            }
+            else if (err === 'timeout') {
+                console.log("Timeout");
+            }
+            else {
+                console.log(err.json);
+            }
+        });
+    }
+}
+// Geocode an address.
+// let findPlaces  = function(searchInput, callback) {
+
+// }
 
 let addRange = function (searchInput, activity, callback) {
-
     let range = [];
-
-    var zipCodes = require('zipcodes');
-    var coordinates = zipCodes.lookup(searchInput.zipcode);
     var distance = require('google-distance-matrix');
     distance.googleMapsClient;
 
-    var origin = coordinates.latitude + ',' + coordinates.longitude;
+    var origin = searchInput.zipcode;
 
     for (var i = 0; i < activity.length; i++) {
 
@@ -109,7 +126,7 @@ function openNow(arg) {
 }
 
 //Get useful data from the googleapi call
-function getData(rawData,callback) {
+function getData(rawData, zipcode, callback) {
     let formattedData = [];
 
     for (let i = 1; i < rawData.length - 1; i++) {
@@ -123,9 +140,11 @@ function getData(rawData,callback) {
         place.pricing = pricing(rawData[i]);
         place.address = rawData[i].vicinity;
         place.coordinates = rawData[i].geometry.location.lat + ',' + rawData[i].geometry.location.lng;
+        place.zipcode = zipcode;
 
         formattedData.push(place);
     }
+    // console.log(formattedData)
     callback(formattedData);
 }
 
@@ -133,10 +152,8 @@ function getData(rawData,callback) {
 
 
 module.exports = function (searchInput, callback) {
-
+    // console.log("initnal", searchInput)
     location(searchInput, function (data) {
-
-       
 
         addRange(searchInput, data, function (ranges) {
 
@@ -147,8 +164,5 @@ module.exports = function (searchInput, callback) {
             callback(data);
 
         });
-
-
-
     });
 }

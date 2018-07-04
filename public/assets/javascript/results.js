@@ -124,7 +124,7 @@ $(function () {
 
         console.log("SUBMIT FORM????");
         console.log("SELECTED", userSelections);
-        let url = "/itinerary/"+userSelections.type+"/"+userSelections.apiType+"/"+userSelections.zipcode+"/"+userSelections.apiId+"/"+userSelections.name;
+        let url = "/itinerary/" + userSelections.type + "/" + userSelections.apiType + "/" + userSelections.zipcode + "/" + userSelections.apiId + "/" + userSelections.name;
 
         $.ajax(url, {
             //url: newDateSearch.zipcode,

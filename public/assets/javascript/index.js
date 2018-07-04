@@ -16,7 +16,7 @@ $(function () {
 
                 //Send latitude and longitude to browser
                 $.ajax("/location", {
-                    type: "GET",
+                    type: "PUT",
                     data: latlng
 
                     //Input returned value to index page form
@@ -33,6 +33,8 @@ $(function () {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
 
+
+        
         let newDateSearch = {
             zipcode: $("#user-location-input").val().trim(),
             dateType: $("#date-options-input").val().trim().toLowerCase(),

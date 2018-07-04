@@ -53,7 +53,7 @@ router.get("/itinerary/:type/:api/:zipcode/:apiId/:name", async function (req, r
 });
 
 
-router.post("/location", function (req, res) {
+router.put("/location", function (req, res) {
   //User Coordinates 
   var userCoordinates = req.body
   //Create address search string of user's latitude and longitude for Google Geocode
@@ -80,9 +80,9 @@ router.post("/go", function (req, res) {
     },
       {
         where:
-        {
-          apiId: req.body.apiId
-        }
+          {
+            apiId: req.body.apiId
+          }
       })
 
     res.json(dbDateNow);

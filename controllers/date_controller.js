@@ -39,6 +39,7 @@ router.get("/results/:zip/:type/:distance", function (req, res) {
         places: formattedData
       };
       // Renders in Handlebars
+      
       res.render("results", hbsPlacesObject);
     });
   });

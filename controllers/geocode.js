@@ -1,4 +1,6 @@
 
+const util = require('util')
+
 module.exports = function(userCoordinates,callback) {
 
 var googleMapsClient = require('@google/maps').createClient({
@@ -13,6 +15,8 @@ googleMapsClient.geocode({
   address: latLngString
 }, function (err, response) {
   
+  console.log(util.inspect(response.json.results, false, null))
+
   //Get Vague, but accurate address from Google API response
   var address = response.json.results[4].formatted_address;
 

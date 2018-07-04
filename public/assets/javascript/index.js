@@ -33,6 +33,8 @@ $(function () {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
 
+
+        
         let newDateSearch = {
             zipcode: $("#user-location-input").val().trim(),
             dateType: $("#date-options-input").val().trim().toLowerCase(),

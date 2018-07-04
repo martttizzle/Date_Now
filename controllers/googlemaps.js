@@ -83,7 +83,7 @@ let getData = function (searchInput, getDataCallback) {
 // Get distance range of places from location of client
 let addRange = function (searchInput, activity, addRangeCallback) {
     let range = [];
-    var origin = searchInput.coordinates;
+    var origin = searchInput.zipcode;
 
     for (var i = 0; i < activity.length; i++) {
 

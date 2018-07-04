@@ -6,7 +6,7 @@
             <form id="search-form" action="/results" method="get">
                 <!-- Notes:Add icons/ Add Google - Get-Location button in this input box.  Look into natural language forms -->
 
-                <label for="user-location-input">
+                <label for="user-location-input" >
                     <h4 class="text-white">Date Location:</h4>
                 </label>
 
@@ -32,7 +32,7 @@
                                 <span class="fa fa-map-marker"></span>
                             </span>
                         </div>
-                        <input type="text" class="form-control rounded-0" id="user-location-input" placeholder="55411" aria-label="user-location-input"
+                        <input type="text" name="zipcode" form="search-form" class="form-control rounded-0" id="user-location-input" placeholder="55411" aria-label="user-location-input"
                             aria-describedby="btn-location" required>
                     </div>
 
@@ -42,7 +42,7 @@
                     <label for="date-options-input text-white">
                         <h4 class="text-white">Select a Date Category:</h4>
                     </label>
-                    <select class="form-control rounded-0" id="date-options-input">
+                    <select class="form-control rounded-0" id="date-options-input" name="activity" form="search-form">
                         <option selected>Restaurant</option>
                         <option>Activity</option>
                     </select>
@@ -53,7 +53,7 @@
                     <label for="max-range-input text-white">
                         <h4 class="text-white">Max Miles?:</h4>
                     </label>
-                    <select class="form-control rounded-0" id="max-range-input">
+                    <select class="form-control rounded-0" id="max-range-input" name="range" form="search-form">
                         <option selected>5</option>
                         <option>10</option>
                         <option>15</option>
@@ -62,7 +62,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="mt-4 btn btn-success btn-block">
+                <button type="submit" class="mt-4 btn btn-success btn-block" >
                     <h4 class="text-white">Submit</h4>
                 </button>
 

@@ -24,12 +24,34 @@ router.get("/", function (req, res) {
 });
 
 // POST route first get data from googleapi then a GET to check for popularity if it exist in database
-router.get("/results/:zip/:type/:distance", function (req, res) {
+// router.get("/results/:zip/:type/:distance", function (req, res) {
+//   // call to googlemaps API endpoint with a callback
+//   var searchInput = {
+//     zipcode :req.params.zip,
+//     dateType:req.params.type,
+//     distance:req.params.distance   
+//   };
+
+//   googleClient(searchInput, function (placesResults) {
+//     // Function gets google data and check for popularity in Database
+//     getPopularity(placesResults, function (formattedData) {
+//       hbsPlacesObject = {
+//         places: formattedData
+//       };
+//       // console.log("hbsPlacesObject", hbsPlacesObject);
+//       // Renders in Handlebars
+//       res.render("results", hbsPlacesObject);
+//     });
+//   });
+// });
+
+router.get("/results", function (req, res) {
   // call to googlemaps API endpoint with a callback
+  console.log(req.query)
   var searchInput = {
-    zipcode :req.params.zip,
-    dateType:req.params.type,
-    distance:req.params.distance   
+    zipcode :req.query.zipcode,
+    dateType:req.query.activity,
+    distance:req.query.range  
   };
 
   googleClient(searchInput, function (placesResults) {
@@ -44,6 +66,7 @@ router.get("/results/:zip/:type/:distance", function (req, res) {
     });
   });
 });
+
 
 // POST route for incrementing the popularity
 router.get("/itinerary", function (req, res) {

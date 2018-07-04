@@ -1,28 +1,35 @@
 
 const util = require('util')
 
-module.exports = function(userCoordinates,callback) {
+module.exports = function (userCoordinates, callback) {
 
-var googleMapsClient = require('@google/maps').createClient({
+  var googleMapsClient = require('@google/maps').createClient({
     // key: process.env.GOOGLE_KEY
     key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
   });
 
-var latLngString = (userCoordinates.lat).toString() + "," + (userCoordinates.lng).toString();
+  var latLngString = (userCoordinates.lat).toString() + "," + (userCoordinates.lng).toString();
 
-// Reverse Geocode an address.
-googleMapsClient.geocode({
-  address: latLngString
-}, function (err, response) {
-  
-  console.log(util.inspect(response.json.results, false, null))
+  // Reverse Geocode an address.
+  googleMapsClient.geocode({
+    address: latLngString
+  }, function (err, response) {
 
-  //Get Vague, but accurate address from Google API response
-  var address = response.json.results[4].formatted_address;
+    //console.log(util.inspect(response.json.results, false, null))
+    var address = 0;
 
-  //Send Address back to Index page
-  callback(address);
-  
-});
+    for (var i = 0; i < response.json.results.length; i++) {
+      if (response.json.results[i].types[0] == 'postal_code') {
+
+        innerObject = response.json.results[i].address_components;
+        address = innerObject[0].long_name;
+        break;
+      }
+    }
+
+    //Send Address back to Index page
+    callback(address);
+
+  });
 
 }

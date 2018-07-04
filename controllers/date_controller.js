@@ -118,12 +118,13 @@ router.get("/random/:zip/:type/:distance", function (req, res) {
   googleClient(searchInput, function (placesResults) {
     // Function gets google data and check for popularity in Database
     getPopularity(placesResults, function (formattedData) {
+
       hbsPlacesObject = {
         places: formattedData
       };
       // Renders in Handlebars
       
-      res.render("results", hbsPlacesObject);
+      res.render("random", hbsPlacesObject);
     });
   });
 });

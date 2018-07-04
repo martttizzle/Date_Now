@@ -4,7 +4,6 @@ $(function () {
 
     //When Get my Location Button is clicked, get user location, send to server and get simplified location response via google reverse geocode.
     $("#btn-location").on("click", function () {
-        var latlng;
 
         //Get User Location via Browser
         if (navigator.geolocation) {
@@ -40,14 +39,15 @@ $(function () {
             distance: parseFloat($("#max-range-input").val().trim())
         };
         console.log(newDateSearch);
+        let url = "/results/"+newDateSearch.zipcode+"/"+newDateSearch.dateType+"/"+newDateSearch.distance;
         // Send the GET request.
-        $.ajax("/results", {
-            url: newDateSearch.zipcode,
+        $.ajax(url, {
+            //url: newDateSearch.zipcode,
             type: "GET",
             data: newDateSearch
         }).then(
             function () {
-                window.location.href = "/results";
+                window.location.href = url;
             });
 
             // $.get("/results", newDateSearch, function (data) {
@@ -57,4 +57,4 @@ $(function () {
             // });
     });
 
-});
+ });

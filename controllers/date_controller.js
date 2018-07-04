@@ -18,18 +18,34 @@ var geocode = require("./geocode.js");
 
 // Routes
 // =============================================================
+// router.get("/results", function(req, res) {
+//   console.log(req.query);
+//   res.send(JSON.stringify(req.query));
+// })
+
+// router.get("/form", function(req, res) {
+//   res.send("<html><body><form method='get' action='/results'><input type='text' name='range' value='' /><input type='submit' value='submit' /></form></body></html>");
+// })
+// =============================================================
+
 // index route loads index.hbs view
 router.get("/", function (req, res) {
   res.render("index");
 });
 
 // POST route first get data from googleapi then a GET to check for popularity if it exist in database
-router.get("/results", function (req, res) {
+router.get("/results/:zip/:type/:distance", function (req, res) {
   // call to googlemaps API endpoint with a callback
-  console.log("query",req.query);
-  console.log("params",req.params);
-  console.log("body",req.body);
-  googleClient(req.query, function (placesResults) {
+  console.log("zip",req.params.zip);
+  console.log("type",req.params.type);
+  console.log("range",req.params.range);
+  var searchInput = {
+    zipcode :req.params.zip,
+    dateType:req.params.type,
+    distance:req.params.distance   
+  };
+
+  googleClient(searchInput, function (placesResults) {
     // Function gets google data and check for popularity in Database
     getPopularity(placesResults, function (formattedData) {
       hbsPlacesObject = {

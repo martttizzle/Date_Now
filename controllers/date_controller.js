@@ -46,11 +46,12 @@ router.get("/results/:zip/:type/:distance", function (req, res) {
 });
 
 // POST route for incrementing the popularity
-router.get("/itinerary", function (req, res) {
+router.put("/itinerary", function (req, res) {
   //console.log("req.body", req.query);
+  console.log("ITINERARY" ,req.body);
   //If null value to results send back to index page for now...
   let hbsItineraryObject = {
-    itinerary: results
+    itinerary: req.body
   };
   //console.log("my hbs: ", hbsItineraryObject);
   res.render("itinerary", hbsItineraryObject);

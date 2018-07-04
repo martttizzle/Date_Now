@@ -126,11 +126,11 @@ $(function () {
         console.log("SELECTED", userSelections[0]);
 
         $.ajax("/itinerary", {
-            type: "POST",
+            type: "PUT",
             data: userSelections
         }).then(
-            function () {
-                window.location.href = "/itinerary";
+            function (response) {
+                $("body").html(response);
             });
 
 

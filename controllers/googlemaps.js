@@ -20,7 +20,12 @@ let location = function (searchInput, callback) {
             }, function (err, response) {
                 if (!err) {
 
-                    callback(response.json.results)
+                    
+                        getData(response.json.results,function(places){
+
+                            callback(places);
+
+                        })
                 }
                 else if (err === 'timeout') {
                     console.log("Timeout");
@@ -104,7 +109,7 @@ function openNow(arg) {
 }
 
 //Get useful data from the googleapi call
-function getData(rawData) {
+function getData(rawData,callback) {
     let formattedData = [];
 
     for (let i = 1; i < rawData.length - 1; i++) {
@@ -121,7 +126,7 @@ function getData(rawData) {
 
         formattedData.push(place);
     }
-    return formattedData;
+    callback(formattedData);
 }
 
 
@@ -129,9 +134,9 @@ function getData(rawData) {
 
 module.exports = function (searchInput, callback) {
 
-    location(searchInput, function (response) {
+    location(searchInput, function (data) {
 
-        data = getData(response);
+       
 
         addRange(searchInput, data, function (ranges) {
 

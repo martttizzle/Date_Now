@@ -16,7 +16,7 @@ $(function () {
 
                 //Send latitude and longitude to browser
                 $.ajax("/location", {
-                    type: "GET",
+                    type: "PUT",
                     data: latlng
 
                     //Input returned value to index page form

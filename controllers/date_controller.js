@@ -57,7 +57,7 @@ router.get("/itinerary", function (req, res) {
 });
 
 
-router.post("/location", function (req, res) {
+router.put("/location", function (req, res) {
   //User Coordinates 
   var userCoordinates = req.body
   //Create address search string of user's latitude and longitude for Google Geocode

@@ -33,7 +33,7 @@ $(function () {
 
         let newDateSearch = {
             zipcode: $("#user-location-input").val().trim(),
-            dateType: $("#date-options-input").val().trim().toLowerCase(),
+            dateType: "random",
             distance: parseFloat($("#max-range-input").val().trim())
         };
 

@@ -104,6 +104,17 @@ router.get("/random/:zip/:type/:distance", function (req, res) {
     distance: req.params.distance
   };
 
+  //Create a random type function here
+  let randomOptions = ["art_gallery","bakery","bar","campground","zoo","library","liquor_store","lodging","meal_takeaway","meal_delivery","movie_theater","museum","night_club","park","pet_store","restaurant","stadium","shoe_store","store","train_station","home_goods_store","hindu_temple","gym","department_store","clothing_store","church","cemetery","casino","car_wash","bowling_alley","cafe","bicycle_store","beauty_salon","jewelry_store","liquor_store","aquarium","amusement_park","book_store"];
+
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+
+  searchInput.dateType = randomOptions[getRandomInt(0, randomOptions.length)];
+
+
   googleClient(searchInput, function (placesResults) {
     // Function gets google data and check for popularity in Database
     getPopularity(placesResults, function (formattedData) {

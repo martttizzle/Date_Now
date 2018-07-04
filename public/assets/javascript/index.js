@@ -9,7 +9,7 @@ $(function () {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 console.log(position.coords);
-                var latlng = {
+                let latlng = {
                     lat: parseFloat(position.coords.latitude),
                     lng: parseFloat(position.coords.longitude)
                 };
@@ -33,7 +33,7 @@ $(function () {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
 
-        var newDateSearch = {
+        let newDateSearch = {
             zipcode: $("#user-location-input").val().trim(),
             dateType: $("#date-options-input").val().trim().toLowerCase(),
             distance: parseFloat($("#max-range-input").val().trim())
@@ -50,11 +50,7 @@ $(function () {
                 window.location.href = url;
             });
 
-            // $.get("/results", newDateSearch, function (data) {
-            //     console.log(data);
-            //     // window.open(url);
-            //     window.location.href = "/results";
-            // });
+        
     });
 
  });

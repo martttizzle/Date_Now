@@ -20,9 +20,10 @@ module.exports = function (userCoordinates, callback) {
 
     for (var i = 0; i < response.json.results.length; i++) {
       if (response.json.results[i].types[0] == 'postal_code') {
-        console.log(response.json.results[i].short_name);
+
         innerObject = response.json.results[i].address_components;
         address = innerObject[0].long_name;
+        break;
       }
     }
 

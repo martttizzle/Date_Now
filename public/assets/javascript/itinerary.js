@@ -26,7 +26,7 @@ $(function () {
 
         // Send the POST request for the server to add the unique info from the user choices to the counter database.
         $.ajax("/go", {
-            type: "GET",
+            type: "POST",
             data: userItinerary
         }).then(
             function () {

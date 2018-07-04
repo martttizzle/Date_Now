@@ -24,22 +24,18 @@ router.get("/", function (req, res) {
 });
 
 // POST route first get data from googleapi then a GET to check for popularity if it exist in database
-router.get("/results/:zip/:type/:distance", function (req, res) {
+router.get("/results/:type/:distance/:zipcode/:coordinates", function (req, res) {
   // call to googlemaps API endpoint with a callback
-  var searchInput = {
-    zipcode: req.params.zip,
-    dateType: req.params.type,
-    distance: req.params.distance
-  };
-
-  googleClient(searchInput, function (placesResults) {
+  // console.log("res.params: ", req.params)
+  googleClient(req.params, function (placesResults) {
     // Function gets google data and check for popularity in Database
+    // console.log(placesResults)
     getPopularity(placesResults, function (formattedData) {
       hbsPlacesObject = {
         places: formattedData
       };
       // Renders in Handlebars
-      
+
       res.render("results", hbsPlacesObject);
     });
   });
@@ -47,6 +43,7 @@ router.get("/results/:zip/:type/:distance", function (req, res) {
 
 // POST route for incrementing the popularity
 router.get("/itinerary/:type/:api/:zipcode/:apiId/:name", async function (req, res) {
+  // console.log(req.params)
   let hbsItineraryObject = {
     itinerary: req.params
   };
@@ -59,7 +56,7 @@ router.put("/location", function (req, res) {
   var userCoordinates = req.body
   //Create address search string of user's latitude and longitude for Google Geocode
   geocode(userCoordinates, function (address) {
-
+    // console.log("get location: ",address);
     res.send(address);
 
   })
@@ -67,7 +64,7 @@ router.put("/location", function (req, res) {
 
 router.post("/go", function (req, res) {
   // UPSERT (i.e insert or update if already exist) a new row
-  console.log(req.body);
+  // console.log(req.body);
 
   Datenow.upsert({
     name: req.body.name,
@@ -81,9 +78,9 @@ router.post("/go", function (req, res) {
     },
       {
         where:
-          {
-            apiId: req.body.apiId
-          }
+        {
+          apiId: req.body.apiId
+        }
       })
 
     res.json(dbDateNow);
@@ -91,10 +88,9 @@ router.post("/go", function (req, res) {
   });
 });
 
-
 // Gets Popularity
-
 function getPopularity(data, callback) {
+
   let updatedData = data;
   let input = [];
   for (i in data) {

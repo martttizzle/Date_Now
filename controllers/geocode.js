@@ -15,20 +15,8 @@ module.exports = function (userCoordinates, callback) {
     address: latLngString
   }, function (err, response) {
 
-    //console.log(util.inspect(response.json.results, false, null))
-    var address = 0;
-
-    for (var i = 0; i < response.json.results.length; i++) {
-      if (response.json.results[i].types[0] == 'postal_code') {
-
-        innerObject = response.json.results[i].address_components;
-        address = innerObject[0].long_name;
-        break;
-      }
-    }
-
     //Send Address back to Index page
-    callback(address);
+    callback(response.json.results);
 
   });
 

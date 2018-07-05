@@ -2,6 +2,24 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
 
+    //Controlling nav/footer behavior on pageloads and depending on which page is loaded
+
+    //Detect Index Page
+    var url = window.location.href;
+
+    if (url.indexOf("result") >= 0) {
+        $("#snark-container").addClass("hidden");
+        $("#footer").addClass("hidden");
+
+    }
+
+    if (url.indexOf("itinerary") >= 0) {
+      
+    }
+
+
+
+
     //When Get my Location Button is clicked, get user location, send to server and get simplified location response via google reverse geocode.
     $("#btn-location").on("click", function () {
 
@@ -45,6 +63,8 @@ $(function () {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
 
+
+
         let newDateSearch = {
             coordinates: $("#user-location-input").data("location"),
             zipcode: $("#user-location-input").val().trim(),
@@ -65,6 +85,9 @@ $(function () {
             data: newDateSearch
         }).then(
             function () {
+                $("#snark-container").slideUp();;
+                $("#footer").slideToggle();
+
                 window.location.href = url;
             });
 

@@ -9,6 +9,7 @@
 
 $(function () {
 
+
     //Array to store user selection objects
     var userSelections = {};
 
@@ -25,20 +26,25 @@ $(function () {
 
     //Main Forward/Reverse Card Function
 
+    var direction = "";
 
     function adder(operator) {
 
         switch (operator) {
             case "+":
+                direction = "left";
                 return cardTracker + 1;
+
                 break;
             case "-":
+                direction = "right";
                 return cardTracker - 1;
                 break;
             default:
                 break;
         }
     }
+
 
 
     $(".switch").on('click', function () {
@@ -55,8 +61,12 @@ $(function () {
             console.log("EXISTS");
 
             //Card EXISTS, So Hide Current Card, Show next or previous Card
-            $currentCard.hide();
-            $nextCard.show();
+
+            $currentCard.hide("slide", { direction: direction }, 300, function () {
+                $nextCard.show("slide", { direction: direction }, 300, function () {
+
+                });
+            });
 
             cardTracker = potentialCard;
         } else {

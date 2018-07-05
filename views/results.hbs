@@ -19,11 +19,12 @@
             </ul> --}} {{#each places}}
             <!-- Card {{@index}} -->
 
-            <div class="card mx-auto hidden" data-set="{{@index}}" data-card="{{@index}}" style="width: 25rem;">
+            <div class="card mx-auto hidden" data-set="{{@index}}" data-card="{{@index}}">
 
                 <!-- Image -->
 
-                <img class="card-img-top" src="https://maps.googleapis.com/maps/api/streetview?size=250x200&location={{coordinates}}&fov=90&pitch=0&key=AIzaSyAyh5MynIPujqCRbusMEDkp7a_oqGEw5mU" alt="{{name}}">
+                <img class="card-img-top img-responsive" src="https://maps.googleapis.com/maps/api/streetview?size=340x340&location={{coordinates}}&fov=90&pitch=0&key=AIzaSyAyh5MynIPujqCRbusMEDkp7a_oqGEw5mU"
+                    alt="{{name}}">
                 <div class="card-body">
 
                     <!-- Name -->
@@ -61,9 +62,7 @@
 
                                 <button class="btn-lg select btn-success" data-activity-type="restuarant" data-name="{{name}}" data-zipcode="{{zipcode}}"
                                     data-api-type="google" data-api-id="{{apiId}}">
-                                    <span class="fa fa-heart"></span>
-                                    <span class="fa fa-heart"></span>
-                                    <span class="fa fa-heart"></span>
+                                    <span class="fa fa-heart fa-spin"></span>
                                 </button>
 
                             </div>
@@ -75,249 +74,8 @@
                 </div>
             </div>
 
-            {{/each}} {{!--
-            <!-- Card 1 -->
-
-            <div class="card mx-auto hidden" data-set="1" data-card="1" style="width: 25rem;">
-
-                <!-- Image -->
-
-                <img class="card-img-top" src="http://heavytable.com/wp-content/uploads/2016/12/young-joni-oven.jpg" alt="Card image cap">
-                <div class="card-body">
-
-                    <!-- Name -->
-
-                    <h5 class="card-title">Young Joni Restaurant</h5>
-
-                    <!-- Counter Data if applicable  -->
-
-                    <h6 class="card-subtitle mb-2 text-muted">75 Recent Dates(!)</h6>
-
-                    <!-- Short Description  -->
-
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
-                        voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
-                        aliquid quia, vitae libero ullam!</p>
-
-                    <!-- STAR RATING  -->
-
-                    <p class="card-text">Rating:
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                    </p>
-
-                    <!-- BACK || SELECT || FORWARD BUTTONS  -->
-
-                    <div class="d-flex justify-content-between">
-
-                        <button class="btn switch btn-danger" data-name="-">
-                            <span class="fa fa-arrow-left"></span>
-                        </button>
-
-                        <div>
-
-                            <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
-
-                            <button class="btn-lg select btn-success" data-activity-type="restuarant" data-name="Young Joni" data-zipcode="55412" data-api-type="google"
-                                data-api-id="333333testing">
-                                <span class="fa fa-heart"></span>
-                                <span class="fa fa-heart"></span>
-                                <span class="fa fa-heart"></span>
-                            </button>
-
-                        </div>
-
-                        <button class="btn switch btn-primary" data-name="+">
-                            <span class="fa fa-arrow-right"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-
-            <div class="card mx-auto hidden" data-set="1" data-card="2" style="width: 25rem;">
-
-                <!-- Image -->
-
-                <img class="card-img-top" src="http://www.lakesnwoods.com/images/2007_0610a0201.JPG" alt="Card image cap">
-                <div class="card-body">
-
-                    <!-- Name -->
-
-                    <h5 class="card-title">Pizza Hut</h5>
-
-                    <!-- Counter Data if applicable  -->
-
-                    <h6 class="card-subtitle mb-2 text-muted">3 Recent Dates(!)</h6>
-
-                    <!-- Short Description  -->
-
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
-                        voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
-                        aliquid quia, vitae libero ullam!</p>
-
-                    <!-- STAR RATING  -->
-
-                    <p class="card-text">Rating:
-                        <span class="fa fa-star checked"></span>
-                    </p>
-
-                    <!-- BACK || SELECT || FORWARD BUTTONS  -->
-
-                    <div class="d-flex justify-content-between">
-
-                        <button class="btn switch btn-danger" data-name="-">
-                            <span class="fa fa-arrow-left"></span>
-                        </button>
-
-                        <div>
-
-                            <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
-
-                            <button class="btn-lg select btn-success" data-activity-type="restaurant" data-name="Pizza Hut" data-zipcode="33222" data-api-type="google"
-                                data-api-id="444444testing">
-                                <span class="fa fa-heart"></span>
-                                <span class="fa fa-heart"></span>
-                                <span class="fa fa-heart"></span>
-                            </button>
-
-                        </div>
-
-                        <button class="btn switch btn-primary" data-name="+">
-                            <span class="fa fa-arrow-right"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Card 1 SET 2 -->
-
-            <div class="card mx-auto hidden" data-card="1" data-set="2" style="width: 25rem;">
-
-                <!-- Image -->
-
-                <img class="card-img-top" src="http://alphanewsmn.com/wp-content/uploads/2016/07/Lake-Calhoun_ThomasBeach.jpg" alt="Card image cap">
-                <div class="card-body">
-
-                    <!-- Name -->
-
-                    <h5 class="card-title">Lake Calhoun</h5>
-
-                    <!-- Counter Data if applicable  -->
-
-                    <h6 class="card-subtitle mb-2 text-muted">253 Recent Dates(!)</h6>
-
-                    <!-- Short Description  -->
-
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
-                        voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
-                        aliquid quia, vitae libero ullam!</p>
-
-                    <!-- STAR RATING  -->
-
-                    <p class="card-text">Rating:
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                    </p>
-
-                    <!-- BACK || SELECT || FORWARD BUTTONS  -->
-
-                    <div class="d-flex justify-content-between">
-
-                        <button class="btn switch btn-danger" data-name="-">
-                            <span class="fa fa-arrow-left"></span>
-                        </button>
-
-                        <div>
-
-                            <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
-
-                            <button class="btn-lg select btn-success" data-activity-type="park" data-name="Lake Calhoun" data-zipcode="54833" data-api-type="google"
-                                data-api-id="555555testing">
-                                <span class="fa fa-heart"></span>
-                                <span class="fa fa-heart"></span>
-                                <span class="fa fa-heart"></span>
-                            </button>
-
-                        </div>
-
-                        <button class="btn switch btn-primary" data-name="+">
-                            <span class="fa fa-arrow-right"></span>
-                        </button>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 2 SET 2 -->
-
-            <div class="card mx-auto hidden" data-card="2" data-set="2" style="width: 25rem;">
-
-                <!-- Image -->
-
-                <img class="card-img-top" src="http://www.loppet.org/loppet-adventure-clubs/files/2012/10/Random-006-Medium.jpg" alt="Card image cap">
-                <div class="card-body">
-
-                    <!-- Name -->
-
-                    <h5 class="card-title">Theodore Wirth Park</h5>
-
-                    <!-- Counter Data if applicable  -->
-
-                    <h6 class="card-subtitle mb-2 text-muted">28 Recent Dates(!)</h6>
-
-                    <!-- Short Description  -->
-
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus quod voluptates inventore reiciendis
-                        voluptatum explicabo provident nulla illum, quam nihil veritatis perspiciatis alias velit consectetur
-                        aliquid quia, vitae libero ullam!</p>
-
-                    <!-- STAR RATING  -->
-
-                    <p class="card-text">Rating:
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                    </p>
-
-                    <!-- BACK || SELECT || FORWARD BUTTONS  -->
-
-                    <div class="d-flex justify-content-between">
-
-                        <button class="btn switch btn-danger" data-name="-">
-                            <span class="fa fa-arrow-left"></span>
-                        </button>
-
-                        <div>
-
-                            <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
-
-                            <button class="btn-lg select btn-success" data-activity-type="park" data-name="Theodore Wirth Park" data-zipcode="55411"
-                                data-api-type="google" data-api-id="888888testing">
-                                <span class="fa fa-heart"></span>
-                                <span class="fa fa-heart"></span>
-                                <span class="fa fa-heart"></span>
-                            </button>
-
-                        </div>
-
-                        <button class="btn switch btn-primary" data-name="+">
-                            <span class="fa fa-arrow-right"></span>
-                        </button>
-
-                    </div>
-                </div>
-            </div> --}}
+            {{/each}}
 
         </div>
     </div>
 </div>
-{{!-- , results[0].name, results[0].open, results[0].googleRating, results[0].pricing, results[0].address, results[0].popularity
---}}

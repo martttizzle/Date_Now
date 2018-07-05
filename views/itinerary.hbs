@@ -3,18 +3,22 @@
     <div class="row">
         <div class="col-lg-12">
             <!-- These Comments and a lot of these html attributes will need to be dynamic and dictated by the server. I think we'll actually need to put zip code, api type = google, google unique id somewhere in here as this 'form' will be submitted to the server again for logging user choices/counter in the db-->
-            <h2> Your Itinerary: </h2>
+            <h2 class="text-white">Itinerary:</h2>
             <br>
             <form id="navigation-form">
 
                 <div class="form-group">
-                    <label for="todo-item-1"> You will be Eating At:</label>
+                    <label for="todo-item-1">
+                        <h4 class="text-white">You're Heading To:</h4>
+                    </label>
                     <input class="form-control user-selections" id="todo-item-1" data-name="{{itinerary.name}}" data-zipcode="{{itinerary.zipcode}}"
                         data-activity-type="{{itinerary.type}}" data-api-type="{{itinerary.api}}" data-api-id="{{itinerary.apiId}}"
                         type="text" placeholder="{{itinerary.name}}" readonly>
                 </div>
 
-                <button type="submit" id="begin-navigation-button" class="btn btn-primary">Let's Go!</button>
+                <button type="submit" id="begin-navigation-button" class="mt-4 btn btn-success btn-block">
+                    <h4 class="text-white">Let's Go!</h4>
+                </button>
             </form>
 
 

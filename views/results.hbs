@@ -1,7 +1,7 @@
 <!-- MAIN DYNAMIC CARD CONTAINER -->
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
+    <div class="row justify-content-md-center">
+        <div class="col-md-7 ">
 
             {{!-- HBars Object Reference --}} {{!--
             <ul>
@@ -23,26 +23,26 @@
 
                 <!-- Image -->
 
-                <img class="card-img-top img-responsive" src="https://maps.googleapis.com/maps/api/streetview?size=340x340&location={{coordinates}}&fov=90&pitch=0&key=AIzaSyAyh5MynIPujqCRbusMEDkp7a_oqGEw5mU"
+                <img class="card-img-top img-responsive" src="https://maps.googleapis.com/maps/api/streetview?size=640x640&location={{coordinates}}&fov=90&pitch=0&key=AIzaSyAyh5MynIPujqCRbusMEDkp7a_oqGEw5mU"
                     alt="{{name}}">
                 <div class="card-body">
 
                     <!-- Name -->
 
-                    <h5 class="card-title">{{name}}</h5>
+                    <h5 class="card-title text-center">{{name}}</h5>
 
                     <!-- Counter Data if applicable  -->
 
-                    <h6 class="card-subtitle mb-2 text-muted">Popularity: {{popularity}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted text-center">Popularity: {{popularity}}</h6>
 
                     <!-- Short Description NEEDS TO BE ADDED -->
 
-                    <p class="card-text">{{address}}</p>
+                    <p class="card-text text-center">{{address}}</p>
 
                     <!-- STAR RATING  -->
-                    <p class="card-text">Distance: {{distance}}
+                    <p class="card-text text-center ">Distance: {{distance}}
 
-                        <p class="card-text">Rating: {{googleRating}} {{!-- Run a custom HBARS function to populate these stars --}} {{!--
+                        <p class="card-text text-center">Rating: {{googleRating}} {{!-- Run a custom HBARS function to populate these stars --}} {{!--
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span>
                             <span class="fa fa-star checked"></span> --}}
@@ -52,24 +52,21 @@
 
                         <div class="d-flex justify-content-between">
 
-                            <button class="btn switch btn-danger" data-name="-">
-                                <span class="fa fa-arrow-left"></span>
-                            </button>
+                            <span class="switch btn fa-nav fa fa-arrow-left fa-2x pt-5" data-name="+"></span>
+
 
                             <div>
 
                                 <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
 
-                                <button class="btn-lg select btn-success" data-activity-type="restuarant" data-name="{{name}}" data-zipcode="{{zipcode}}"
-                                    data-api-type="google" data-api-id="{{apiId}}">
-                                    <span class="fa fa-heart fa-spin"></span>
-                                </button>
+
+                                <span class="btn select fa-nav fa fa-heart fa-spin fa-4x" data-api-type="google" data-api-id="{{apiId}}" data-activity-type="restuarant"
+                                    data-name="{{name}}" data-zipcode="{{zipcode}}"></span>
 
                             </div>
 
-                            <button class="btn switch btn-primary" data-name="+">
-                                <span class="fa fa-arrow-right"></span>
-                            </button>
+
+                            <span class="btn switch fa-nav fa fa-arrow-right fa-2x pt-5" data-name="+"></span>
                         </div>
                 </div>
             </div>

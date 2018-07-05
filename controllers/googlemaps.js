@@ -20,9 +20,8 @@ module.exports = function (searchInput, mainCallback) {
 }
 
 let findPlaces = function (searchInput, findPlacesCallback) {
-    // Get coordinates if not available
+    // Get coordinates if not available using zipcode provided
     if (searchInput.coordinates === "null") {
-        console.log("yes")
         // Geocode coordinates.
         googleMapsClient.geocode({
             address: searchInput.zipcode
@@ -31,7 +30,7 @@ let findPlaces = function (searchInput, findPlacesCallback) {
                 searchInput.coordinates = response.json.results[0].geometry.location;
                 // Get perform actual googleapi call
                 getData(searchInput, function (data) {
-                    // wait and then callback function runs
+                    // wait and then callback function runs (Check getData)
                     findPlacesCallback(data, searchInput);
                 });
             }

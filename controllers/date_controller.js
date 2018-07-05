@@ -26,7 +26,6 @@ router.get("/", function (req, res) {
 // POST route first get data from googleapi then a GET to check for popularity if it exist in database
 router.get("/results/:type/:distance/:zipcode/:coordinates", function (req, res) {
   // call to googlemaps API endpoint with a callback
-  // console.log("res.params: ", req.params)
   googleClient(req.params, function (placesResults) {
     // Function gets google data and check for popularity in Database
     // This is the googlemaps callback (check googlemaps.js module mainCallback)
@@ -85,6 +84,19 @@ router.post("/go", function (req, res) {
     res.json(dbDateNow);
 
   });
+});
+
+router.get("/popular/:zipcode", function (req, res) {
+  Datenow.findAll({
+    where: {
+      zipcode: req.body.zipcode,
+      popularity: {
+        [gte]: 5
+      }
+    }
+  }).then(function (dbDateNow) {
+    console.log(dbDateNow)
+  })
 });
 
 // Gets Popularity

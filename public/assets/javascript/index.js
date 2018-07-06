@@ -10,7 +10,6 @@ $(function () {
     if (url.indexOf("result") >= 0) {
         $("#snark-container").addClass("hidden");
         $("#footer").addClass("hidden");
-
     }
 
     if (url.indexOf("itinerary") >= 0) {
@@ -59,7 +58,7 @@ $(function () {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
         let newDateSearch = getFormInformation();
-        console.log(newDateSearch)
+        console.log(newDateSearch);
         let url = "/results/" + newDateSearch.dateType + "/" + newDateSearch.distance + "/" + newDateSearch.zipcode + "/" + newDateSearch.coordinates;
 
         // Send the GET request.
@@ -76,20 +75,26 @@ $(function () {
     });
 
     // Get popular area button
-    $("#popular-places").on("submit", function (event) {
+    $("#popular-places").on("click", function (event) {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
         let popularDateSearch = getFormInformation();
-        let url = "/popularplaces/" + popularDateSearch.dateType + "/" + newDateSearch.zipcode;
+        // console.log(popularDateSearch);
+        // debugger;
+        let url = "/popular/" + popularDateSearch.zipcode + "/" + popularDateSearch.dateType;
         // Send the GET request.
         console.log(url);
         $.ajax(url, {
             type: "GET",
-            data: newDateSearch
+            data: popularDateSearch
         }).then(
             function () {
                 window.location.href = url;
             });
+        // Clear DOM element 
+        $("#user-location-input").data("real-zipcode", "");
+        $("#user-location-input").data("location", "");
+        $("#user-location-input").val("");
     });
 
 });
@@ -105,6 +110,6 @@ function getFormInformation() {
     //Two things happening 
     // 1. Check if user manually typed zipcode  thus no coordinates avaliable then SET COORDINATES to null for ajax request use 
     // 2. Check if user clicked get location and then SET ZIPCODE
-    (data.coordinates === "") ? data.coordinates = null : data.zipcode = $("#user-location-input").data("real-zipcode");
+    (data.coordinates !== "") ? data.zipcode = $("#user-location-input").data("real-zipcode") : data.coordinates = null;
     return data
 }

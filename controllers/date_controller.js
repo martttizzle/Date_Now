@@ -15,6 +15,7 @@ var googleClient = require("./googlemaps.js");
 
 //Requiring the fuction that will use the user geocode coordinates 
 var geocode = require("./geocode.js");
+var googlePlaces = require("./googleplace.js");
 
 // Routes
 // =============================================================
@@ -29,6 +30,7 @@ router.get("/results/:type/:distance/:zipcode/:coordinates", function (req, res)
   googleClient(req.params, function (placesResults) {
     // Function gets google data and check for popularity in Database
     // This is the googlemaps callback (check googlemaps.js module mainCallback)
+    // console.log(placesResults)
     getPopularity(placesResults, function (formattedData) {
       hbsPlacesObject = {
         places: formattedData
@@ -86,16 +88,25 @@ router.post("/go", function (req, res) {
   });
 });
 
-router.get("/popular/:zipcode", function (req, res) {
+router.get("/popular/:zipcode/:type", function (req, res) {
   Datenow.findAll({
     where: {
-      zipcode: req.body.zipcode,
+      zipcode: req.params.zipcode,
       popularity: {
-        [gte]: 5
+        gte: 5
       }
     }
   }).then(function (dbDateNow) {
-    console.log(dbDateNow)
+    // console.log(dbDateNow);
+
+    googlePlaces(dbDateNow, function (formattedData) {
+      // console.log("something: ", data);
+      hbsPopularObject = {
+        places: formattedData
+      };
+      // Renders in Handlebars
+      res.render("popular", hbsPopularObject);
+    })
   })
 });
 

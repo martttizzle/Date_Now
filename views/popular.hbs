@@ -1,0 +1,78 @@
+<!-- MAIN DYNAMIC CARD CONTAINER -->
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-7 ">
+
+            {{!-- HBars Object Reference --}} {{!--
+            <ul>
+                {{#each place }}
+                <p>Index: {{@index}}:</p>
+                <p>Name: {{name}}</p>
+                <p>apiId: {{apiId}}</p>
+                <p>Address: {{address}}</p>
+                <p>Google Rating: {{googleRating}}</p>
+                <p>Open: {{open}}</p>
+                <p>Pricing: {{pricing}}</p>
+                <p>Popularity: {{popularity}}</p>
+                <p>Image: {{image}}</p>
+                {{/each}}
+            </ul> --}} {{#each places}}
+            <!-- Card {{@index}} -->
+
+            <div class="card mx-auto hidden" data-set="{{@index}}" data-card="{{@index}}">
+
+                <!-- Image -->
+
+                <img class="card-img-top img-responsive" src="https://maps.googleapis.com/maps/api/streetview?size=640x640&location={{coordinates}}&fov=90&pitch=0&key=AIzaSyAyh5MynIPujqCRbusMEDkp7a_oqGEw5mU"
+                    alt="{{name}}">
+                <div class="card-body">
+
+                    <!-- Name -->
+
+                    <h5 class="card-title text-center">{{name}}</h5>
+
+                    <!-- Counter Data if applicable  -->
+
+                    <h6 class="card-subtitle mb-2 text-muted text-center">Popularity: {{popularity}}</h6>
+
+                    <!-- Short Description NEEDS TO BE ADDED -->
+
+                    <p class="card-text text-center">{{address}}</p>
+
+                    <!-- STAR RATING  -->
+                    <p class="card-text text-center ">Distance: {{distance}}
+
+                        <p class="card-text text-center">Rating: {{googleRating}} {{!-- Run a custom HBARS function to populate these stars --}} {{!--
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span> --}}
+                        </p>
+
+                        <!-- BACK || SELECT || FORWARD BUTTONS  -->
+
+                        <div class="d-flex justify-content-between">
+
+                            <span class="switch btn fa-nav fa fa-arrow-left fa-2x pt-5" data-name="+"></span>
+
+
+                            <div>
+
+                                <!-- ENSURE ALL META-DATA IS ADDED TO 'SELECT' BUTTON -->
+
+
+                                <span class="btn select fa-nav fa fa-heart fa-spin fa-4x" data-api-type="google" data-api-id="{{apiId}}" data-activity-type="restuarant"
+                                    data-name="{{name}}" data-zipcode="{{zipcode}}"></span>
+
+                            </div>
+
+
+                            <span class="btn switch fa-nav fa fa-arrow-right fa-2x pt-5" data-name="+"></span>
+                        </div>
+                </div>
+            </div>
+
+            {{/each}}
+
+        </div>
+    </div>
+</div>

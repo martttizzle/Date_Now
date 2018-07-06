@@ -93,7 +93,7 @@ router.get("/popular/:zipcode/:type", function (req, res) {
     where: {
       zipcode: req.params.zipcode,
       popularity: {
-        gte: 5
+        gte: 0
       }
     }
   }).then(function (dbDateNow) {

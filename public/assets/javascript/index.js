@@ -83,7 +83,7 @@ $(function () {
         // debugger;
         let url = "/popular/" + popularDateSearch.zipcode + "/" + popularDateSearch.dateType;
         // Send the GET request.
-        console.log(url);
+        // console.log(url);
         $.ajax(url, {
             type: "GET",
             data: popularDateSearch

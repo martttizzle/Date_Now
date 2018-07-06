@@ -26,7 +26,7 @@ module.exports = function (searchInput, mainCallback) {
                 results.push(place);
                 // check if all poplarity info has been received 
                 if (results.length === searchInput.length) {
-
+                    // Get Distance range
                     addRange(results, function (ranges) {
                         for (i in results) {
                             results[i].distance = ranges[i];

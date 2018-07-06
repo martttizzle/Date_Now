@@ -14,7 +14,6 @@ module.exports = function (searchInput, mainCallback) {
             placeid: searchInput[i].apiId
         }, function (err, response) {
             if (!err) {
-
                 //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
                 place.apiId = response.json.result.place_id;
                 place.name = response.json.result.name;
@@ -25,6 +24,7 @@ module.exports = function (searchInput, mainCallback) {
                 place.coordinates = response.json.result.geometry.location.lat + ',' + response.json.result.geometry.location.lng;
                 place.zipcode = searchInput[i].zipCode;
                 results.push(place);
+                // check if all poplarity info has been received 
                 if (results.length === searchInput.length) {
 
                     addRange(results, function (ranges) {

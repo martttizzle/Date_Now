@@ -96,7 +96,6 @@ let addRange = function (searchInput, activity, addRangeCallback) {
 
         var origins = [origin];
         var destinations = [destination];
-        console.log(origins)
         distance.matrix(origins, destinations, function (err, distances) {
 
             let dist = distances.rows[0].elements[0].distance.text;

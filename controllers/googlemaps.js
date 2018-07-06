@@ -132,22 +132,3 @@ function openNow(arg) {
         return arg.open_now;
     }
 }
-
-
-// for(var i = 0; i < length; i++){
-//     var variable = variables[i];
-//     (function(var){ //start wrapper code
-//       otherVariable.doSomething(var, function(err){ //callback for when doSomething ends
-//         do something else with var; //please note that i'm dealing with var here, not variable
-//       }
-//     })(variable);//passing in variable to var here
-//   }
-
-
-//   function callbackFor(v) {
-//     return function(err) { /* something with v */ };
-//   }
-//   for(var i = 0; i < length; i++) {
-//     var variable = variables[i];
-//     otherVariable.doSomething(callbackFor(variable));
-//   }

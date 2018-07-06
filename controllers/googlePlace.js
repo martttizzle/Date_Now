@@ -10,7 +10,6 @@ module.exports = function (searchInput, mainCallback) {
         let place = {
             popularity: searchInput[i].popularity,
         };
-        console.log(searchInput[i].popularity);
         googleMapsClient.place({
             placeid: searchInput[i].apiId
         }, function (err, response) {

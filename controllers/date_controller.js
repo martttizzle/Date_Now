@@ -105,7 +105,9 @@ router.get("/popular/:zipcode/:type", function (req, res) {
         places: formattedData
       };
       // Renders in Handlebars
-      res.render("popular", hbsPopularObject);
+      // res.render("popular", hbsPopularObject);
+      // Render as json object
+      res.json(hbsPopularObject);
     })
   })
 });

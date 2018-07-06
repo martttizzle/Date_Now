@@ -15,6 +15,7 @@ var googleClient = require("./googlemaps.js");
 
 //Requiring the fuction that will use the user geocode coordinates 
 var geocode = require("./geocode.js");
+var googlePlaces = require("./googleplace.js");
 
 // Routes
 // =============================================================
@@ -26,10 +27,10 @@ router.get("/", function (req, res) {
 // POST route first get data from googleapi then a GET to check for popularity if it exist in database
 router.get("/results/:type/:distance/:zipcode/:coordinates", function (req, res) {
   // call to googlemaps API endpoint with a callback
-  // console.log("res.params: ", req.params)
   googleClient(req.params, function (placesResults) {
     // Function gets google data and check for popularity in Database
     // This is the googlemaps callback (check googlemaps.js module mainCallback)
+    // console.log(placesResults)
     getPopularity(placesResults, function (formattedData) {
       hbsPlacesObject = {
         places: formattedData
@@ -85,6 +86,30 @@ router.post("/go", function (req, res) {
     res.json(dbDateNow);
 
   });
+});
+
+router.get("/popular/:zipcode/:type", function (req, res) {
+  Datenow.findAll({
+    where: {
+      zipcode: req.params.zipcode,
+      popularity: {
+        gte: 5
+      }
+    }
+  }).then(function (dbDateNow) {
+    // console.log(dbDateNow);
+
+    googlePlaces(dbDateNow, function (formattedData) {
+      // console.log("something: ", data);
+      hbsPopularObject = {
+        places: formattedData
+      };
+      // Renders in Handlebars
+      // res.render("popular", hbsPopularObject);
+      // Render as json object
+      res.json(hbsPopularObject);
+    })
+  })
 });
 
 // Gets Popularity

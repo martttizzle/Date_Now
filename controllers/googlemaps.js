@@ -20,9 +20,8 @@ module.exports = function (searchInput, mainCallback) {
 }
 
 let findPlaces = function (searchInput, findPlacesCallback) {
-    // Get coordinates if not available
+    // Get coordinates if not available using zipcode provided
     if (searchInput.coordinates === "null") {
-        console.log("yes")
         // Geocode coordinates.
         googleMapsClient.geocode({
             address: searchInput.zipcode
@@ -31,7 +30,7 @@ let findPlaces = function (searchInput, findPlacesCallback) {
                 searchInput.coordinates = response.json.results[0].geometry.location;
                 // Get perform actual googleapi call
                 getData(searchInput, function (data) {
-                    // wait and then callback function runs
+                    // wait and then callback function runs (Check getData)
                     findPlacesCallback(data, searchInput);
                 });
             }
@@ -55,6 +54,7 @@ let getData = function (searchInput, getDataCallback) {
         radius: raidusMeters,
         type: searchInput.type
     }, function (err, response) {
+        // console.log(response.json.results)
         if (!err) {
             let rawData = response.json.results;
             let formattedData = [];
@@ -96,7 +96,6 @@ let addRange = function (searchInput, activity, addRangeCallback) {
 
         var origins = [origin];
         var destinations = [destination];
-
         distance.matrix(origins, destinations, function (err, distances) {
 
             let dist = distances.rows[0].elements[0].distance.text;
@@ -133,3 +132,22 @@ function openNow(arg) {
         return arg.open_now;
     }
 }
+
+
+// for(var i = 0; i < length; i++){
+//     var variable = variables[i];
+//     (function(var){ //start wrapper code
+//       otherVariable.doSomething(var, function(err){ //callback for when doSomething ends
+//         do something else with var; //please note that i'm dealing with var here, not variable
+//       }
+//     })(variable);//passing in variable to var here
+//   }
+
+
+//   function callbackFor(v) {
+//     return function(err) { /* something with v */ };
+//   }
+//   for(var i = 0; i < length; i++) {
+//     var variable = variables[i];
+//     otherVariable.doSomething(callbackFor(variable));
+//   }

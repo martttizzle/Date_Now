@@ -41,7 +41,6 @@
         html {
             height: 100%;
             min-width: 320px;
-
         }
 
         body {
@@ -57,6 +56,7 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+
 
 
         .h1 {
@@ -104,13 +104,13 @@
 
         @media screen and (max-height: 1030px) {
             img {
-                max-height: 500px;
+                max-height: 40vh;
             }
         }
 
         @media screen and (max-height: 750px) {
             img {
-                height: 250px;
+                max-height: 250px;
             }
         }
 
@@ -123,7 +123,23 @@
         @media screen and (max-height: 640px) {
 
             img {
-                max-height: 215px;
+                max-height: 30vh;
+            }
+
+
+            .card {
+                max-height: 50vh;
+            }
+
+        }
+
+        @media screen and (max-height: 569px) {
+
+            img {
+                max-height: 25vh;
+            }
+            .card {
+                max-height: 80vh;
             }
 
         }
@@ -142,7 +158,7 @@
                 </div>
                 <div class="container-fluid bg-white mx-auto pt-4" id="snark-container">
                     <h6 class="mx-auto text-center text-secondary">
-                        <i id="snarky-quote">(because your date ideas suck)</i>
+                        <i id="snarky-quote">(...because your date ideas suck)</i>
                     </h6>
                 </div>
             </div>
@@ -153,7 +169,7 @@
 
     </div>
 
-    <div class="fixed-bottom bg-white" id="footer">
+    <div class="fixed-bottom bg-white mt-4" id="footer">
 
 
         <div class="d-flex">

@@ -12,6 +12,11 @@ $(function () {
         $("#footer").addClass("hidden");
     }
 
+    if (url.indexOf("popular") >= 0) {
+        $("#snark-container").addClass("hidden");
+        $("#footer").addClass("hidden");
+    }
+
     if (url.indexOf("itinerary") >= 0) {
 
     }
@@ -89,6 +94,8 @@ $(function () {
             data: popularDateSearch
         }).then(
             function () {
+                $("#snark-container").slideUp();;
+                $("#footer").slideToggle();
                 window.location.href = url;
             });
         // Clear DOM element 

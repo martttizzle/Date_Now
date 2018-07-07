@@ -1,12 +1,9 @@
-
-const util = require('util')
+var googleMethodes = require("./google_modules.js");
+var googleMapsClient = googleMethodes.googleMapsClient;
 
 module.exports = function (userCoordinates, callback) {
 
-  var googleMapsClient = require('@google/maps').createClient({
-    // key: process.env.GOOGLE_KEY
-    key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
-  });
+ 
 
   var latLngString = (userCoordinates.lat).toString() + "," + (userCoordinates.lng).toString();
 

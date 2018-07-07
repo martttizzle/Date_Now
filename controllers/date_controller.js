@@ -11,6 +11,7 @@ var Sequelize = require('sequelize');
 // Requiring our models
 var Datenow = require("../models").Datenow;
 // Requiring googlemaps api
+//var googleMapsClient = require("./googleAPIKey.js");
 var googleClient = require("./googlemaps.js");
 
 //Requiring the fuction that will use the user geocode coordinates 

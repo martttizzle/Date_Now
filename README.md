@@ -12,7 +12,7 @@ Breaking down the client side in steps, using screenshots to walk-through the pr
  This screenshot the home page of Jaunt
  ![jaunt home](https://user-images.githubusercontent.com/21042727/42406394-4fc4f50a-816c-11e8-9682-05c2e4723029.png)
  
-The home page is the bread and butter of Jaunt. Here is all the user can select his options and submit to pull up a query of category of choice. 
+The home page is the bread and butter of Jaunt. Here the user can select from many options and submit to pull up a query of category of choice. 
 
 ## Current Location
  

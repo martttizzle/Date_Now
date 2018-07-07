@@ -66,11 +66,9 @@ $(function () {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
         let newDateSearch = getFormInformation();
-        console.log(newDateSearch);
         let url = "/results/" + newDateSearch.dateType + "/" + newDateSearch.distance + "/" + newDateSearch.zipcode + "/" + newDateSearch.coordinates;
 
         // Send the GET request.
-        console.log(url);
         $.ajax(url, {
             type: "GET",
             data: newDateSearch
@@ -87,11 +85,19 @@ $(function () {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
         let popularDateSearch = getFormInformation();
-        // console.log(popularDateSearch);
-        // debugger;
         let url = "/popular/" + popularDateSearch.zipcode + "/" + popularDateSearch.dateType;
+
+
+        //Check validity of zip code input form and give warning if it is not filled out
+        var validity = $('#user-location-input')[0].checkValidity(); // returns true/false
+
+        if (!validity) {
+            $("#user-location-input")[0].reportValidity()
+        };
+
         // Send the GET request.
-        // console.log(url);
+
+
         $.ajax(url, {
             type: "GET",
             data: popularDateSearch
@@ -124,11 +130,9 @@ function getFormInformation() {
         let randomOptions = ["art_gallery", "bakery", "bar", "campground", "zoo", "library", "liquor_store", "lodging", "meal_takeaway", "meal_delivery", "movie_theater", "museum", "night_club", "park", "pet_store", "restaurant", "stadium", "shoe_store", "store", "train_station", "home_goods_store", "hindu_temple", "gym", "department_store", "clothing_store", "church", "cemetery", "casino", "car_wash", "bowling_alley", "cafe", "bicycle_store", "beauty_salon", "jewelry_store", "liquor_store", "aquarium", "amusement_park", "book_store"];
         let randomDate = "";
         randomDate = randomOptions[getRandomInt(0, randomOptions.length)];
-        console.log("RD", randomDate);
         data.dateType = randomDate;
     };
 
-    console.log(data.dateType);
     //Two things happening 
     // 1. Check if user manually typed zipcode  thus no coordinates avaliable then SET COORDINATES to null for ajax request use 
     // 2. Check if user clicked get location and then SET ZIPCODE

@@ -3,7 +3,7 @@
   Everybody loves it when weekends arrive. There are plenty of hopes for having a great weekend. All of us want to have a vibrant, joyful and fun weekend with a significant other or a night out by yourself . But as it happens normally with the plans for most of us, the weekends that arrive with great promises leave us void and with the feeling as if the weekends never arrived in the first place. That is why we have Jaunt. Jaunt is a full stack web application that is designed for a date night out, going solo to a place to dine, or night out with friends. Jaunt offers a search of restaurtants, bars, museums, and an random option of categories to select from. Once you select your location and category, Jaunt will pull up locations of interest within a range of miles for you to choose from. It also has a random option if you just can't decide on what to choose. If you want to know what previous users selected or what is trending we have a trending option, which you can choose what is popular in your area from previous Jaunt users. Jaunt makes choosing an undecisive night decisive. 
 
 ## Motivation
-The motivation was to design a simple to use app that makes choosing somethign simple. 
+The motivation was to design a simple to use app that makes choosing something simple hassel free. 
 
 ## Code walk-through for Client
 Breaking down the client side in steps, using screenshots to walk-through the process of Jaunt.

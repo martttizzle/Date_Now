@@ -59,6 +59,9 @@ $(function () {
     });
 
 
+
+
+
     $("#search-form").on("submit", function (event) {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
@@ -114,9 +117,25 @@ function getFormInformation() {
         dateType: $("#date-options-input").val().trim().toLowerCase(),
         distance: parseFloat($("#max-range-input").val().trim())
     };
+
+
+    if (data.dateType == "random") {
+        //Create a random type function here
+        let randomOptions = ["art_gallery", "bakery", "bar", "campground", "zoo", "library", "liquor_store", "lodging", "meal_takeaway", "meal_delivery", "movie_theater", "museum", "night_club", "park", "pet_store", "restaurant", "stadium", "shoe_store", "store", "train_station", "home_goods_store", "hindu_temple", "gym", "department_store", "clothing_store", "church", "cemetery", "casino", "car_wash", "bowling_alley", "cafe", "bicycle_store", "beauty_salon", "jewelry_store", "liquor_store", "aquarium", "amusement_park", "book_store"];
+        let randomDate = "";
+        randomDate = randomOptions[getRandomInt(0, randomOptions.length)];
+        console.log("RD", randomDate);
+        data.dateType = randomDate;
+    };
+
+    console.log(data.dateType);
     //Two things happening 
     // 1. Check if user manually typed zipcode  thus no coordinates avaliable then SET COORDINATES to null for ajax request use 
     // 2. Check if user clicked get location and then SET ZIPCODE
     (data.coordinates !== "") ? data.zipcode = $("#user-location-input").data("real-zipcode") : data.coordinates = null;
     return data
 }
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};

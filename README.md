@@ -9,14 +9,14 @@ The motivation was to design a simple to use app that makes choosing somethign s
 Breaking down the client side in steps, using screenshots to walk-through the process of Jaunt.
 
 ### Home Page
- This screenshost the home page of Jaunt
+ This screenshot the home page of Jaunt
+ ![jaunt home](https://user-images.githubusercontent.com/21042727/42406394-4fc4f50a-816c-11e8-9682-05c2e4723029.png)
  
-![beginning page](https://user-images.githubusercontent.com/21042727/41106323-7299236a-6a35-11e8-9536-8c9f304a1131.PNG)
 
  Then the customer will be prompted to make a selection by ID number. Note the quantity of basketballs are at 75.
  
-![promptitempurchase](https://user-images.githubusercontent.com/21042727/41106325-73c6a168-6a35-11e8-881c-050c22034d62.PNG)
+ 
 
  The customer will choose to purchase a basketball in this example. I have added in a protection if the user exceeds the quantity available it  will prompt a message and then restart back to purchase screen. This also protects the mysql from any receiving any incorrect data.  
  
- ![exceededquant](https://user-images.githubusercontent.com/21042727/41107784-a75528da-6a38-11e8-887b-c21cda2c6261.PNG)
+  

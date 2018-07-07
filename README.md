@@ -5,18 +5,14 @@
 ## Motivation
 The motivation was to design a simple to use app that makes choosing somethign simple. 
 
-## Code walk-through for Customer
+## Code walk-through for Client
 Breaking down the client side in steps, using screenshots to walk-through the process of Jaunt.
 
 ### Home Page
  This screenshot the home page of Jaunt
  ![jaunt home](https://user-images.githubusercontent.com/21042727/42406394-4fc4f50a-816c-11e8-9682-05c2e4723029.png)
  
-
- Then the customer will be prompted to make a selection by ID number. Note the quantity of basketballs are at 75.
- 
+The home page is the bread and butter of Jaunt. Here is all the user can select his options and submit to pull up a query of category of choice. 
  
 
- The customer will choose to purchase a basketball in this example. I have added in a protection if the user exceeds the quantity available it  will prompt a message and then restart back to purchase screen. This also protects the mysql from any receiving any incorrect data.  
  
-  

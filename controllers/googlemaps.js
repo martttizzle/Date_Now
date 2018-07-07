@@ -47,11 +47,11 @@ let findPlaces = function (searchInput, findPlacesCallback) {
 // Geocode an address.
 let getData = function (searchInput, getDataCallback) {
     //Converts the jquey selection from string to number (meters)
-    const raidusMeters = parseInt(searchInput.distance);
+    const radius = searchInput.distance * (1 / 0.00062137119223733);
     // Find Google Places
     googleMapsClient.places({
         query: searchInput.zipcode,
-        radius: raidusMeters,
+        radius: radius,
         type: searchInput.type
     }, function (err, response) {
         // console.log(response.json.results)

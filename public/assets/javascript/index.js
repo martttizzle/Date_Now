@@ -1,7 +1,6 @@
 
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
-
     //Controlling nav/footer behavior on pageloads and depending on which page is loaded
 
     //Detect Index Page
@@ -58,16 +57,12 @@ $(function () {
         }
     });
 
-
-
-
-
     $("#search-form").on("submit", function (event) {
         // Make sure to preventDefault on a submit event.
         event.preventDefault();
         let newDateSearch = getFormInformation();
         let url = "/results/" + newDateSearch.dateType + "/" + newDateSearch.distance + "/" + newDateSearch.zipcode + "/" + newDateSearch.coordinates;
-
+        console.log(url)
         // Send the GET request.
         $.ajax(url, {
             type: "GET",
@@ -96,8 +91,6 @@ $(function () {
         };
 
         // Send the GET request.
-
-
         $.ajax(url, {
             type: "GET",
             data: popularDateSearch
@@ -123,7 +116,7 @@ function getFormInformation() {
         dateType: $("#date-options-input").val().trim().toLowerCase(),
         distance: parseFloat($("#max-range-input").val().trim())
     };
-
+    console.log(data);
 
     if (data.dateType == "random") {
         //Create a random type function here

@@ -30,7 +30,6 @@ router.get("/results/:type/:distance/:zipcode/:coordinates", function (req, res)
   googleClient(req.params, function (placesResults) {
     // Function gets google data and check for popularity in Database
     // This is the googlemaps callback (check googlemaps.js module mainCallback)
-    // console.log(placesResults)
     getPopularity(placesResults, function (formattedData) {
       hbsPlacesObject = {
         places: formattedData

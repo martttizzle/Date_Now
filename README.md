@@ -13,6 +13,14 @@ Breaking down the client side in steps, using screenshots to walk-through the pr
  ![jaunt home](https://user-images.githubusercontent.com/21042727/42406394-4fc4f50a-816c-11e8-9682-05c2e4723029.png)
  
 The home page is the bread and butter of Jaunt. Here is all the user can select his options and submit to pull up a query of category of choice. 
+
+## Current Location
  
+![searchbylocation](https://user-images.githubusercontent.com/21042727/42406537-2f4c61ac-816f-11e8-90fb-fb54f4eb203e.png)
+This opition which is a button shown as a marker symbol allow Jaunt to select your location (with your permission) to conduct the search. This is helpful if you don't know the exact location or area you are currently at.  Once selected you can choose the next options. 
+
+## Categories
+
+
 
  

@@ -1,6 +1,6 @@
 var googleMapsClient = require('@google/maps').createClient({
-    // key: process.env.GOOGLE_KEY
-    key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
+    key: process.env.GOOGLE_KEY
+    // key: 'AIzaSyBAhNxc8BbsIMC5tFTNUSADF8vhSiNxXmA'
 });
 var distance = require('google-distance-matrix');
 

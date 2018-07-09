@@ -99,7 +99,7 @@ router.get("/popular/:zipcode/:type", function (req, res) {
     // console.log(dbDateNow);
 
     googlePlaces(dbDateNow, function (formattedData) {
-      // console.log("something: ", data);
+      // console.log("something: ", formattedData);
       hbsPopularObject = {
         places: formattedData
       };

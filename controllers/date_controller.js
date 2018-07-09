@@ -14,7 +14,7 @@ var Datenow = require("../models").Datenow;
 var googleClient = require("./googlemaps.js");
 
 //Requiring the fuction that will use the user geocode coordinates 
-var geocode = require("./geocode.js");
+var helperFunction = require("./helperFunctions.js");
 var googlePlaces = require("./googleplace.js");
 
 // Routes
@@ -54,7 +54,7 @@ router.put("/location", function (req, res) {
   //User Coordinates 
   var userCoordinates = req.body
   //Create address search string of user's latitude and longitude for Google Geocode
-  geocode(userCoordinates, function (address) {
+  helperFunction.geocode(userCoordinates, function (address) {
     // console.log("get location: ",address);
     res.send(address);
 

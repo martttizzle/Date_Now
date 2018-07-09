@@ -1,3 +1,4 @@
+const googleMapsClient = require("./googleClientKey.js");
 var distance = require('google-distance-matrix');
 module.exports = {
     // Helper functions for formatting data
@@ -25,7 +26,7 @@ module.exports = {
     },
 
     // Get distance range of places from location of client
-addRange : function (activity, addRangeCallback) {
+    addRange: function (activity, addRangeCallback) {
         let range = [];
 
         for (var i = 0; i < activity.length; i++) {
@@ -48,6 +49,20 @@ addRange : function (activity, addRangeCallback) {
                 }
             });
         }
-    }
+    },
+    // Get Geocode of a coordinate
+    geocode: function (userCoordinates, callback) {
+        var latLngString = (userCoordinates.lat).toString() + "," + (userCoordinates.lng).toString();
 
+        // Reverse Geocode an address.
+        googleMapsClient.geocode({
+            address: latLngString
+        }, function (err, response) {
+
+            //Send Address back to Index page
+            callback(response.json.results);
+
+        });
+
+    }
 }

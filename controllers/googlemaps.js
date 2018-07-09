@@ -47,7 +47,7 @@ let getData = function (searchInput, getDataCallback) {
     // Find Google Places
     googleMapsClient.placesNearby({
         location: searchInput.coordinates,
-        radius: searchInput.distance * (1 / 0.00062137119223733),
+        radius: parseInt(searchInput.distance * (1 / 0.00062137119223733)),
         type: searchInput.type
     }, function (err, response) {
         // console.log(response.json.results)

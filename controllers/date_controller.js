@@ -99,14 +99,12 @@ router.get("/popular/:zipcode/:type", function (req, res) {
     // console.log(dbDateNow);
 
     googlePlaces(dbDateNow, function (formattedData) {
-      // console.log("something: ", data);
       hbsPopularObject = {
         places: formattedData
       };
       // Renders in Handlebars
       res.render("results", hbsPopularObject);
-      // Render as json object
-      // res.json(hbsPopularObject);
+
     })
   })
 });

@@ -1,14 +1,12 @@
-var googleMapsClient = require('@google/maps').createClient({
-    // key: process.env.GOOGLE_KEY
-    key: 'AIzaSyBLEObzTBgTqqTThVr5Zio67T_Hy4ACZls'
-});
-var distance = require('google-distance-matrix');
+const googleMapsClient = require("./googleClientKey.js");
+const helperFunction = require('./helperFunctions.js');
 
 module.exports = function (searchInput, mainCallback) {
     // Goto findPlaces function (Not a callback)
     findPlaces(searchInput, function (data) {
         // First level callback 
-        addRange(searchInput, data, function (ranges) {
+        // console.log(data);
+        helperFunction.addRange(data, function (ranges) {
 
             for (var i = 0; i < data.length; i++) {
                 data[i].distance = ranges[i];
@@ -46,12 +44,10 @@ let findPlaces = function (searchInput, findPlacesCallback) {
 }
 // Geocode an address.
 let getData = function (searchInput, getDataCallback) {
-    //Converts the jquey selection from string to number (meters)
-    const radius = searchInput.distance * (1 / 0.00062137119223733);
     // Find Google Places
-    googleMapsClient.places({
-        query: searchInput.zipcode,
-        radius: radius,
+    googleMapsClient.placesNearby({
+        location: searchInput.coordinates,
+        radius: searchInput.distance * (1 / 0.00062137119223733),
         type: searchInput.type
     }, function (err, response) {
         // console.log(response.json.results)
@@ -63,9 +59,9 @@ let getData = function (searchInput, getDataCallback) {
                 //Need zipcode, popularity, description,imageurl,type (restaurant, etc), apiType
                 place.apiId = rawData[i].place_id;
                 place.name = rawData[i].name;
-                place.open = openNow(rawData[i].opening_hours);
+                place.open = helperFunction.openNow(rawData[i].opening_hours);
                 place.googleRating = rawData[i].rating;
-                place.pricing = pricing(rawData[i]);
+                place.pricing = helperFunction.pricing(rawData[i]);
                 place.address = rawData[i].vicinity;
                 place.coordinates = rawData[i].geometry.location.lat + ',' + rawData[i].geometry.location.lng;
                 place.zipcode = searchInput.zipcode;
@@ -81,54 +77,4 @@ let getData = function (searchInput, getDataCallback) {
             console.log(err.json);
         }
     });
-}
-// Get distance range of places from location of client
-let addRange = function (searchInput, activity, addRangeCallback) {
-    let range = [];
-    var origin = searchInput.zipcode;
-
-    for (var i = 0; i < activity.length; i++) {
-
-        let destination = activity[i].coordinates;
-
-        distance.mode('driving');
-        distance.units("imperial");
-
-        var origins = [origin];
-        var destinations = [destination];
-        distance.matrix(origins, destinations, function (err, distances) {
-
-            let dist = distances.rows[0].elements[0].distance.text;
-            range.push(dist);
-
-            if (range.length === activity.length) {
-                // This is the second level call back(mainCallback) for main module (Returns to main module with formatted data)
-                addRangeCallback(range);
-            }
-        });
-    }
-}
-
-// Helper functions for formatting data
-function pricing(arg) {
-    if (arg.price_level !== undefined) {
-        return arg.price_level;
-    } else {
-        return arg.price_level = "No data";
-    }
-}
-
-function openNow(arg) {
-    if (arg !== undefined) {
-        if (arg.open_now === true) {
-            return arg.open_now = "Open"
-        } else {
-            return arg.open_now = "Closed"
-        }
-
-    } else {
-
-        arg = { open_now: "No data" };
-        return arg.open_now;
-    }
 }

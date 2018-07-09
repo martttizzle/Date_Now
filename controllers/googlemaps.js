@@ -1,5 +1,4 @@
 const googleMapsClient = require("./googleClientKey.js");
-var distance = require('google-distance-matrix');
 const helperFunction = require('./helperFunctions.js');
 
 module.exports = function (searchInput, mainCallback) {
@@ -45,12 +44,11 @@ let findPlaces = function (searchInput, findPlacesCallback) {
 }
 // Geocode an address.
 let getData = function (searchInput, getDataCallback) {
-    //Converts the jquey selection from string to number (meters)
-    const radius = searchInput.distance * (1 / 0.00062137119223733);
     // Find Google Places
-    googleMapsClient.places({
-        query: searchInput.zipcode,
-        radius: radius,
+    console.log(searchInput)
+    googleMapsClient.placesNearby({
+        location: searchInput.coordinates,
+        radius: searchInput.distance * (1 / 0.00062137119223733),
         type: searchInput.type
     }, function (err, response) {
         // console.log(response.json.results)

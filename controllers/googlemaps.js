@@ -45,7 +45,6 @@ let findPlaces = function (searchInput, findPlacesCallback) {
 // Geocode an address.
 let getData = function (searchInput, getDataCallback) {
     // Find Google Places
-    console.log(searchInput)
     googleMapsClient.placesNearby({
         location: searchInput.coordinates,
         radius: searchInput.distance * (1 / 0.00062137119223733),
